@@ -1,0 +1,36 @@
+{
+    "name": "pyrech/composer-changelogs",
+    "description": "Display changelogs after each composer update",
+    "keywords": ["composer", "plugin", "update", "changelog"],
+    "license": "MIT",
+    "type": "composer-plugin",
+    "authors": [
+        {
+            "name": "Loïck Piera",
+            "email": "pyrech@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Pyrech\\ComposerChangelogs\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pyrech\\ComposerChangelogs\\tests\\": "tests/"
+        }
+    },
+    "require": {
+        "composer-plugin-api": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8",
+        "fabpot/php-cs-fixer": "~1.5"
+    },
+    "extra": {
+        "class": "Pyrech\\ComposerChangelogs\\ChangelogsPlugin",
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
