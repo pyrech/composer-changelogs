@@ -2,21 +2,25 @@
 
 [![Latest Stable Version](https://poser.pugx.org/pyrech/composer-changelogs/v/stable)](https://packagist.org/packages/pyrech/composer-changelogs) [![Total Downloads](https://poser.pugx.org/pyrech/composer-changelogs/downloads)](https://packagist.org/packages/pyrech/composer-changelogs) [![Latest Unstable Version](https://poser.pugx.org/pyrech/composer-changelogs/v/unstable)](https://packagist.org/packages/pyrech/composer-changelogs)
 
-composer-changelogs is a plugin for Composer. It displays texts after
-each Composer update to easily access changelogs for updated vendors.
+composer-changelogs is a plugin for Composer. It displays some texts after each
+Composer update to nicely summary the updated packages with links to release
+and compare urls. Just copy it in your commit body and you get a nice
+description.
+
+![Demo](doc/demo.gif)
 
 ## Installation
 
-You can install it either locally:
-
-```shell
-composer require "pyrech/composer-changelogs"
-```
-
-or globally:
+You can install it either globally:
 
 ```shell
 composer global require "pyrech/composer-changelogs"
+```
+
+or locally:
+
+```shell
+composer require "pyrech/composer-changelogs"
 ```
 
 ## Usage
@@ -24,7 +28,7 @@ composer global require "pyrech/composer-changelogs"
 That's it! Composer will enable automatically the plugin as soon it's
 installed. Just run your Composer updates as usual :)
 
-If you no longer want to display changelogs, you can either:
+If you no longer want to display summary, you can either:
 - run your Composer command with the option `--no-plugins`
 - uninstall the package
 
@@ -45,6 +49,8 @@ And finally some meta documentation:
 
 * [Loïck Piera](https://github.com/pyrech)
 * [All contributors](https://github.com/pyrech/composer-changelogs/graphs/contributors)
+
+Kudos to [Damien Alexandre](https://github.com/damienalexandre) for the idea.
 
 ## License
 
