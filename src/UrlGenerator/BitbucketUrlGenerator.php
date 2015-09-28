@@ -10,12 +10,11 @@
  */
 
 namespace Pyrech\ComposerChangelogs\UrlGenerator;
-
 use Pyrech\ComposerChangelogs\Update;
 
-class GithubUrlGenerator extends AbstractUrlGenerator
+class BitbucketUrlGenerator extends AbstractUrlGenerator
 {
-    const DOMAIN = 'github.com';
+    const DOMAIN = 'bitbucket.org';
 
     /**
      * {@inheritdoc}
@@ -31,10 +30,10 @@ class GithubUrlGenerator extends AbstractUrlGenerator
     public function generateCompareUrl(Update $update)
     {
         return sprintf(
-            '%s/compare/%s...%s',
+            '%s/branches/compare/%s%%0D%s',
             $this->generateBaseUrl($update),
-            $update->getVersionFrom(),
-            $update->getVersionTo()
+            $update->getVersionTo(),
+            $update->getVersionFrom()
         );
     }
 
@@ -43,10 +42,7 @@ class GithubUrlGenerator extends AbstractUrlGenerator
      */
     public function generateReleaseUrl(Update $update)
     {
-        return sprintf(
-            '%s/releases/tag/%s',
-            $this->generateBaseUrl($update),
-            $update->getVersionTo()
-        );
+        // Releases are not supported on Bitbucket :'(
+        return false;
     }
 }

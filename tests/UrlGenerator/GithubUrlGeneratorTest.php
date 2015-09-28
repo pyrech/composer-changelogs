@@ -32,7 +32,8 @@ class GithubUrlGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function test_it_does_not_support_non_github_urls()
     {
-        $this->assertFalse($this->SUT->supports('https://bitbucket.org/rogoOOS/rog/wiki/Home'));
+        $this->assertFalse($this->SUT->supports('https://bitbucket.org/mailchimp/mandrill-api-php.git'));
+        $this->assertFalse($this->SUT->supports('https://bitbucket.org/rogoOOS/rog'));
     }
 
     public function test_it_generate_compare_urls()
