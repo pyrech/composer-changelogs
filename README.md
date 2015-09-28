@@ -3,7 +3,7 @@
 [![Latest Stable Version](https://poser.pugx.org/pyrech/composer-changelogs/v/stable)](https://packagist.org/packages/pyrech/composer-changelogs) [![Total Downloads](https://poser.pugx.org/pyrech/composer-changelogs/downloads)](https://packagist.org/packages/pyrech/composer-changelogs) [![Latest Unstable Version](https://poser.pugx.org/pyrech/composer-changelogs/v/unstable)](https://packagist.org/packages/pyrech/composer-changelogs)
 
 composer-changelogs is a plugin for Composer. It displays some texts after each
-Composer update to nicely summary the updated packages with links to release
+Composer update to nicely summarize the modified packages with links to release
 and compare urls. Just copy it in your commit body and you get a nice
 description.
 
