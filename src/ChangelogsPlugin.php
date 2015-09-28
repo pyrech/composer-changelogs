@@ -20,6 +20,7 @@ use Composer\Plugin\PluginInterface;
 use Composer\Script\Event;
 use Composer\Script\PackageEvent;
 use Composer\Script\ScriptEvents;
+use Pyrech\ComposerChangelogs\UrlGenerator\BitbucketUrlGenerator;
 use Pyrech\ComposerChangelogs\UrlGenerator\GithubUrlGenerator;
 
 class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
@@ -38,6 +39,7 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
         $this->io = $io;
         $this->changelogs = new Changelogs([
             new GithubUrlGenerator(),
+            new BitbucketUrlGenerator(),
         ]);
     }
 
