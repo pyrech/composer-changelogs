@@ -56,6 +56,7 @@ class Changelogs
         foreach ($this->updates as $update) {
             $this->createUpdateOutput($output, $update);
         }
+        $output[] = '';
 
         return implode("\n", $output);
     }

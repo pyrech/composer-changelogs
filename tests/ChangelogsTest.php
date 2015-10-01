@@ -79,6 +79,7 @@ class ChangelogsTest extends \PHPUnit_Framework_TestCase
  - <fg=green>acme/project2</fg=green> updated from <fg=yellow>v1.0.1</fg=yellow> to <fg=yellow>v1.0.2</fg=yellow>
    See changes: /compare-url2
    Release notes: /release-url2
+
 TEXT;
         $this->assertSame($expected, $this->SUT->getOutput());
     }
@@ -97,6 +98,7 @@ TEXT;
 
  - <fg=green>acme/project</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow>
    Release notes: /release-url
+
 TEXT;
         $this->assertSame($expected, $this->SUT->getOutput());
     }
@@ -115,6 +117,7 @@ TEXT;
 
  - <fg=green>acme/project</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow>
    See changes: /compare-url
+
 TEXT;
         $this->assertSame($expected, $this->SUT->getOutput());
     }
