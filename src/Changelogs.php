@@ -58,7 +58,7 @@ class Changelogs
         }
         $output[] = '';
 
-        return implode("\n", $output);
+        return implode("\n", $output)."\n";
     }
 
     private function createUpdateOutput(array &$output, Update $update)
