@@ -11,7 +11,6 @@
 
 namespace Pyrech\ComposerChangelogs\tests\UrlGenerator;
 
-use Pyrech\ComposerChangelogs\Update;
 use Pyrech\ComposerChangelogs\UrlGenerator\GithubUrlGenerator;
 
 class GithubUrlGeneratorTest extends \PHPUnit_Framework_TestCase
@@ -38,31 +37,41 @@ class GithubUrlGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function test_it_generate_compare_urls()
     {
-        $update = new Update('acme/project', 'v1.0.0', 'v1.0.1', 'https://github.com/acme/repo');
         $this->assertSame(
             'https://github.com/acme/repo/compare/v1.0.0...v1.0.1',
-            $this->SUT->generateCompareUrl($update)
+            $this->SUT->generateCompareUrl(
+                'https://github.com/acme/repo',
+                'v1.0.0',
+                'v1.0.1'
+            )
         );
 
-        $update = new Update('acme/project', 'v1.0.1', 'v1.0.2', 'https://github.com/acme/repo.git');
         $this->assertSame(
             'https://github.com/acme/repo/compare/v1.0.1...v1.0.2',
-            $this->SUT->generateCompareUrl($update)
+            $this->SUT->generateCompareUrl(
+                'https://github.com/acme/repo.git',
+                'v1.0.1',
+                'v1.0.2'
+            )
         );
     }
 
     public function test_it_generate_release_urls()
     {
-        $update = new Update('acme/project', 'v1.0.0', 'v1.0.1', 'https://github.com/acme/repo');
         $this->assertSame(
             'https://github.com/acme/repo/releases/tag/v1.0.1',
-            $this->SUT->generateReleaseUrl($update)
+            $this->SUT->generateReleaseUrl(
+                'https://github.com/acme/repo',
+                'v1.0.1'
+            )
         );
 
-        $update = new Update('acme/project', 'v1.0.1', 'v1.0.2', 'https://github.com/acme/repo.git');
         $this->assertSame(
             'https://github.com/acme/repo/releases/tag/v1.0.2',
-            $this->SUT->generateReleaseUrl($update)
+            $this->SUT->generateReleaseUrl(
+                'https://github.com/acme/repo.git',
+                'v1.0.2'
+            )
         );
     }
 }

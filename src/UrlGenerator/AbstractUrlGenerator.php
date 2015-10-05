@@ -11,20 +11,18 @@
 
 namespace Pyrech\ComposerChangelogs\UrlGenerator;
 
-use Pyrech\ComposerChangelogs\Update;
-
 abstract class AbstractUrlGenerator implements UrlGenerator
 {
     /**
      * Generates the base url for a repository by removing the .git part.
      *
-     * @param Update $update
+     * @param string $sourceUrl
      *
      * @return string
      */
-    protected function generateBaseUrl(Update $update)
+    protected function generateBaseUrl($sourceUrl)
     {
-        $sourceUrl = parse_url($update->getSourceUrl());
+        $sourceUrl = parse_url($sourceUrl);
         $pos = strrpos($sourceUrl['path'], '.git');
 
         return sprintf(
