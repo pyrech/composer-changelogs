@@ -9,9 +9,8 @@
  * file that was distributed with this source code.
  */
 
-namespace Pyrech\ComposerChangelogs\tests\UrlGenerator;
+namespace Pyrech\ComposerChangelogs\tests\resources;
 
-use Pyrech\ComposerChangelogs\Update;
 use Pyrech\ComposerChangelogs\UrlGenerator\UrlGenerator;
 
 class FakeUrlGenerator implements UrlGenerator
@@ -26,9 +25,9 @@ class FakeUrlGenerator implements UrlGenerator
     private $releaseUrl;
 
     /**
-     * @param bool   $supports
-     * @param string $compareUrl
-     * @param string $releaseUrl
+     * @param bool         $supports
+     * @param string|false $compareUrl
+     * @param string[false $releaseUrl
      */
     public function __construct($supports, $compareUrl, $releaseUrl)
     {
@@ -48,7 +47,7 @@ class FakeUrlGenerator implements UrlGenerator
     /**
      * {@inheritdoc}
      */
-    public function generateCompareUrl(Update $update)
+    public function generateCompareUrl($sourceUrl, $versionFrom, $versionTo)
     {
         return $this->compareUrl;
     }
@@ -56,7 +55,7 @@ class FakeUrlGenerator implements UrlGenerator
     /**
      * {@inheritdoc}
      */
-    public function generateReleaseUrl(Update $update)
+    public function generateReleaseUrl($sourceUrl, $version)
     {
         return $this->releaseUrl;
     }
