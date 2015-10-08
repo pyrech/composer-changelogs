@@ -11,6 +11,8 @@
 
 namespace Pyrech\ComposerChangelogs\UrlGenerator;
 
+use Pyrech\ComposerChangelogs\Version;
+
 class GithubUrlGenerator extends AbstractUrlGenerator
 {
     const DOMAIN = 'github.com';
@@ -26,25 +28,29 @@ class GithubUrlGenerator extends AbstractUrlGenerator
     /**
      * {@inheritdoc}
      */
-    public function generateCompareUrl($sourceUrl, $versionFrom, $versionTo)
+    public function generateCompareUrl($sourceUrl, Version $versionFrom, Version $versionTo)
     {
         return sprintf(
             '%s/compare/%s...%s',
             $this->generateBaseUrl($sourceUrl),
-            $versionFrom,
-            $versionTo
+            $this->getCompareVersion($versionFrom),
+            $this->getCompareVersion($versionTo)
         );
     }
 
     /**
      * {@inheritdoc}
      */
-    public function generateReleaseUrl($sourceUrl, $version)
+    public function generateReleaseUrl($sourceUrl, Version $version)
     {
+        if ($this->isDevVersion($version)) {
+            return false;
+        }
+
         return sprintf(
             '%s/releases/tag/%s',
             $this->generateBaseUrl($sourceUrl),
-            $version
+            $version->getPretty()
         );
     }
 }

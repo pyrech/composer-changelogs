@@ -14,6 +14,7 @@ namespace Pyrech\ComposerChangelogs\OperationHandler;
 use Composer\DependencyResolver\Operation\InstallOperation;
 use Composer\DependencyResolver\Operation\OperationInterface;
 use Pyrech\ComposerChangelogs\UrlGenerator\UrlGenerator;
+use Pyrech\ComposerChangelogs\Version;
 
 class InstallHandler implements OperationHandler
 {
@@ -49,12 +50,16 @@ class InstallHandler implements OperationHandler
         $output = [];
 
         $package = $operation->getPackage();
-        $version = $package->getPrettyVersion();
+        $version = new Version(
+            $package->getVersion(),
+            $package->getPrettyVersion(),
+            $package->getFullPrettyVersion()
+        );
 
         $output[] = sprintf(
             ' - <fg=green>%s</fg=green> installed in version <fg=yellow>%s</fg=yellow>',
             $package->getName(),
-            $version
+            $version->getPretty()
         );
 
         if ($urlGenerator) {

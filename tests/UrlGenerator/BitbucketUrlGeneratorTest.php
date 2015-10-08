@@ -12,6 +12,7 @@
 namespace Pyrech\ComposerChangelogs\tests\UrlGenerator;
 
 use Pyrech\ComposerChangelogs\UrlGenerator\BitbucketUrlGenerator;
+use Pyrech\ComposerChangelogs\Version;
 
 class BitbucketUrlGeneratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -35,37 +36,71 @@ class BitbucketUrlGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->SUT->supports('https://github.com/symfony/console'));
     }
 
-    public function test_it_generate_compare_urls()
+    public function test_it_generates_compare_urls_with_or_without_git_extension_in_source_url()
     {
+        $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
+        $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
+
         $this->assertSame(
             'https://bitbucket.org/acme/repo/branches/compare/v1.0.1%0Dv1.0.0',
             $this->SUT->generateCompareUrl(
                 'https://bitbucket.org/acme/repo',
-                'v1.0.0',
-                'v1.0.1'
+                $versionFrom,
+                $versionTo
             )
         );
 
         $this->assertSame(
-            'https://bitbucket.org/acme/repo/branches/compare/v1.0.2%0Dv1.0.1',
+            'https://bitbucket.org/acme/repo/branches/compare/v1.0.1%0Dv1.0.0',
             $this->SUT->generateCompareUrl(
                 'https://bitbucket.org/acme/repo.git',
-                'v1.0.1',
-                'v1.0.2'
+                $versionFrom,
+                $versionTo
+            )
+        );
+    }
+
+    public function test_it_generates_compare_urls_with_dev_versions()
+    {
+        $versionFrom = new Version('v1.0.9999999.9999999-dev', 'dev-master', 'dev-master 1234abc');
+        $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
+
+        $this->assertSame(
+            'https://bitbucket.org/acme/repo/branches/compare/v1.0.1%0D1234abc',
+            $this->SUT->generateCompareUrl(
+                'https://bitbucket.org/acme/repo.git',
+                $versionFrom,
+                $versionTo
+            )
+        );
+
+        $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
+        $versionTo = new Version('9999999-dev', 'dev-master', 'dev-master 6789def');
+
+        $this->assertSame(
+            'https://bitbucket.org/acme/repo/branches/compare/6789def%0Dv1.0.0',
+            $this->SUT->generateCompareUrl(
+                'https://bitbucket.org/acme/repo.git',
+                $versionFrom,
+                $versionTo
             )
         );
     }
 
     public function test_it_does_not_generate_release_urls()
     {
-        $this->assertFalse($this->SUT->generateReleaseUrl(
-            'https://bitbucket.org/acme/repo',
-            'v1.0.1'
-        ));
+        $this->assertFalse(
+            $this->SUT->generateReleaseUrl(
+                'https://bitbucket.org/acme/repo',
+                new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1')
+            )
+        );
 
-        $this->assertFalse($this->SUT->generateReleaseUrl(
-            'https://bitbucket.org/acme/repo.git',
-            'v1.0.2'
-        ));
+        $this->assertFalse(
+            $this->SUT->generateReleaseUrl(
+                'https://bitbucket.org/acme/repo.git',
+                new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1')
+            )
+        );
     }
 }

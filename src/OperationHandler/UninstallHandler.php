@@ -14,6 +14,7 @@ namespace Pyrech\ComposerChangelogs\OperationHandler;
 use Composer\DependencyResolver\Operation\OperationInterface;
 use Composer\DependencyResolver\Operation\UninstallOperation;
 use Pyrech\ComposerChangelogs\UrlGenerator\UrlGenerator;
+use Pyrech\ComposerChangelogs\Version;
 
 class UninstallHandler implements OperationHandler
 {
@@ -49,12 +50,16 @@ class UninstallHandler implements OperationHandler
         $output = [];
 
         $package = $operation->getPackage();
-        $version = $package->getPrettyVersion();
+        $version = new Version(
+            $package->getVersion(),
+            $package->getPrettyVersion(),
+            $package->getFullPrettyVersion()
+        );
 
         $output[] = sprintf(
             ' - <fg=green>%s</fg=green> removed (installed version was <fg=yellow>%s</fg=yellow>)',
             $package->getName(),
-            $version
+            $version->getPretty()
         );
 
         return $output;
