@@ -11,6 +11,8 @@
 
 namespace Pyrech\ComposerChangelogs\UrlGenerator;
 
+use Pyrech\ComposerChangelogs\Version;
+
 class BitbucketUrlGenerator extends AbstractUrlGenerator
 {
     const DOMAIN = 'bitbucket.org';
@@ -26,20 +28,20 @@ class BitbucketUrlGenerator extends AbstractUrlGenerator
     /**
      * {@inheritdoc}
      */
-    public function generateCompareUrl($sourceUrl, $versionFrom, $versionTo)
+    public function generateCompareUrl($sourceUrl, Version $versionFrom, Version $versionTo)
     {
         return sprintf(
             '%s/branches/compare/%s%%0D%s',
             $this->generateBaseUrl($sourceUrl),
-            $versionTo,
-            $versionFrom
+            $this->getCompareVersion($versionTo),
+            $this->getCompareVersion($versionFrom)
         );
     }
 
     /**
      * {@inheritdoc}
      */
-    public function generateReleaseUrl($sourceUrl, $version)
+    public function generateReleaseUrl($sourceUrl, Version $version)
     {
         // Releases are not supported on Bitbucket :'(
         return false;

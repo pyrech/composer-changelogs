@@ -14,6 +14,7 @@ namespace Pyrech\ComposerChangelogs\OperationHandler;
 use Composer\DependencyResolver\Operation\OperationInterface;
 use Composer\DependencyResolver\Operation\UpdateOperation;
 use Pyrech\ComposerChangelogs\UrlGenerator\UrlGenerator;
+use Pyrech\ComposerChangelogs\Version;
 
 class UpdateHandler implements OperationHandler
 {
@@ -51,14 +52,22 @@ class UpdateHandler implements OperationHandler
         $initialPackage = $operation->getInitialPackage();
         $targetPackage = $operation->getTargetPackage();
 
-        $versionFrom = $initialPackage->getPrettyVersion();
-        $versionTo = $targetPackage->getPrettyVersion();
+        $versionFrom = new Version(
+            $initialPackage->getVersion(),
+            $initialPackage->getPrettyVersion(),
+            $initialPackage->getFullPrettyVersion()
+        );
+        $versionTo = new Version(
+            $targetPackage->getVersion(),
+            $targetPackage->getPrettyVersion(),
+            $targetPackage->getFullPrettyVersion()
+        );
 
         $output[] = sprintf(
             ' - <fg=green>%s</fg=green> updated from <fg=yellow>%s</fg=yellow> to <fg=yellow>%s</fg=yellow>',
             $initialPackage->getName(),
-            $versionFrom,
-            $versionTo
+            $versionFrom->getPretty(),
+            $versionTo->getPretty()
         );
 
         if ($urlGenerator) {

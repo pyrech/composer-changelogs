@@ -14,6 +14,7 @@ namespace Pyrech\ComposerChangelogs\tests\resources;
 use Composer\DependencyResolver\Operation\OperationInterface;
 use Pyrech\ComposerChangelogs\OperationHandler\OperationHandler;
 use Pyrech\ComposerChangelogs\UrlGenerator\UrlGenerator;
+use Pyrech\ComposerChangelogs\Version;
 
 class FakeHandler implements OperationHandler
 {
@@ -68,8 +69,8 @@ class FakeHandler implements OperationHandler
         ];
 
         if ($urlGenerator) {
-            $output[] = '   '.$urlGenerator->generateCompareUrl($this->sourceUrl, '1', '2');
-            $output[] = '   '.$urlGenerator->generateReleaseUrl($this->sourceUrl, '2');
+            $output[] = '   '.$urlGenerator->generateCompareUrl($this->sourceUrl, new Version('', '', ''), new Version('', '', ''));
+            $output[] = '   '.$urlGenerator->generateReleaseUrl($this->sourceUrl, new Version('', '', ''));
         }
 
         return $output;

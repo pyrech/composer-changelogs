@@ -12,6 +12,7 @@
 namespace Pyrech\ComposerChangelogs\tests\UrlGenerator;
 
 use Pyrech\ComposerChangelogs\UrlGenerator\GithubUrlGenerator;
+use Pyrech\ComposerChangelogs\Version;
 
 class GithubUrlGeneratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -35,42 +36,82 @@ class GithubUrlGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->SUT->supports('https://bitbucket.org/rogoOOS/rog'));
     }
 
-    public function test_it_generate_compare_urls()
+    public function test_it_generates_compare_urls_with_or_without_git_extension_in_source_url()
     {
+        $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
+        $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
+
         $this->assertSame(
             'https://github.com/acme/repo/compare/v1.0.0...v1.0.1',
             $this->SUT->generateCompareUrl(
                 'https://github.com/acme/repo',
-                'v1.0.0',
-                'v1.0.1'
+                $versionFrom,
+                $versionTo
             )
         );
 
         $this->assertSame(
-            'https://github.com/acme/repo/compare/v1.0.1...v1.0.2',
+            'https://github.com/acme/repo/compare/v1.0.0...v1.0.1',
             $this->SUT->generateCompareUrl(
                 'https://github.com/acme/repo.git',
-                'v1.0.1',
-                'v1.0.2'
+                $versionFrom,
+                $versionTo
             )
         );
     }
 
-    public function test_it_generate_release_urls()
+    public function test_it_generates_compare_urls_with_dev_versions()
+    {
+        $versionFrom = new Version('v.1.0.9999999.9999999-dev', 'dev-master', 'dev-master 1234abc');
+        $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
+
+        $this->assertSame(
+            'https://github.com/acme/repo/compare/1234abc...v1.0.1',
+            $this->SUT->generateCompareUrl(
+                'https://github.com/acme/repo.git',
+                $versionFrom,
+                $versionTo
+            )
+        );
+
+        $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
+        $versionTo = new Version('9999999-dev', 'dev-master', 'dev-master 6789def');
+
+        $this->assertSame(
+            'https://github.com/acme/repo/compare/v1.0.0...6789def',
+            $this->SUT->generateCompareUrl(
+                'https://github.com/acme/repo.git',
+                $versionFrom,
+                $versionTo
+            )
+        );
+    }
+
+    public function test_it_does_not_generate_release_urls_for_dev_version()
+    {
+        $this->assertFalse(
+            $this->SUT->generateReleaseUrl(
+                'https://github.com/acme/repo',
+                new Version('9999999-dev', 'dev-master', 'dev-master 1234abc')
+            )
+        );
+    }
+
+    public function test_it_generates_release_urls()
     {
         $this->assertSame(
             'https://github.com/acme/repo/releases/tag/v1.0.1',
             $this->SUT->generateReleaseUrl(
                 'https://github.com/acme/repo',
-                'v1.0.1'
+                new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1')
             )
         );
 
         $this->assertSame(
-            'https://github.com/acme/repo/releases/tag/v1.0.2',
+            'https://github.com/acme/repo/releases/tag/v1.0.1',
             $this->SUT->generateReleaseUrl(
                 'https://github.com/acme/repo.git',
-                'v1.0.2'
+                new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1')
             )
         );
     }

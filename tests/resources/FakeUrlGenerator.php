@@ -12,6 +12,7 @@
 namespace Pyrech\ComposerChangelogs\tests\resources;
 
 use Pyrech\ComposerChangelogs\UrlGenerator\UrlGenerator;
+use Pyrech\ComposerChangelogs\Version;
 
 class FakeUrlGenerator implements UrlGenerator
 {
@@ -47,7 +48,7 @@ class FakeUrlGenerator implements UrlGenerator
     /**
      * {@inheritdoc}
      */
-    public function generateCompareUrl($sourceUrl, $versionFrom, $versionTo)
+    public function generateCompareUrl($sourceUrl, Version $versionFrom, Version $versionTo)
     {
         return $this->compareUrl;
     }
@@ -55,7 +56,7 @@ class FakeUrlGenerator implements UrlGenerator
     /**
      * {@inheritdoc}
      */
-    public function generateReleaseUrl($sourceUrl, $version)
+    public function generateReleaseUrl($sourceUrl, Version $version)
     {
         return $this->releaseUrl;
     }
