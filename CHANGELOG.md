@@ -1,5 +1,9 @@
 # Changes between versions
 
+## Not yet released
+
+* Add support for old versions of composer (at least v1.0.0-alpha8)
+
 ## 1.1 (2015-10-10)
 
 * Add support for bitbucket repositories

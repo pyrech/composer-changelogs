@@ -13,6 +13,7 @@ namespace Pyrech\ComposerChangelogs\OperationHandler;
 
 use Composer\DependencyResolver\Operation\OperationInterface;
 use Composer\DependencyResolver\Operation\UpdateOperation;
+use Composer\Package\Version\VersionParser;
 use Pyrech\ComposerChangelogs\UrlGenerator\UrlGenerator;
 use Pyrech\ComposerChangelogs\Version;
 
@@ -55,12 +56,16 @@ class UpdateHandler implements OperationHandler
         $versionFrom = new Version(
             $initialPackage->getVersion(),
             $initialPackage->getPrettyVersion(),
-            $initialPackage->getFullPrettyVersion()
+            method_exists($initialPackage, 'getFullPrettyVersion') // This method was added after composer v1.0.0-alpha10
+                ? $initialPackage->getFullPrettyVersion()
+                : VersionParser::formatVersion($initialPackage)
         );
         $versionTo = new Version(
             $targetPackage->getVersion(),
             $targetPackage->getPrettyVersion(),
-            $targetPackage->getFullPrettyVersion()
+            method_exists($targetPackage, 'getFullPrettyVersion') // This method was added after composer v1.0.0-alpha10
+                ? $targetPackage->getFullPrettyVersion()
+                : VersionParser::formatVersion($targetPackage)
         );
 
         $output[] = sprintf(
