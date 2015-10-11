@@ -1,6 +1,6 @@
 # Changes between versions
 
-## Not yet released
+## 1.1.1 (2015-10-11)
 
 * Add support for old versions of composer (at least v1.0.0-alpha8)
 
