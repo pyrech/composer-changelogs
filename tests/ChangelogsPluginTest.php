@@ -73,7 +73,7 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
             new DefaultPolicy(false, false),
             new Pool(),
             new CompositeRepository([]),
-            new Request(),
+            new Request(new Pool()),
             [$operation],
             $operation
         );
