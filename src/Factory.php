@@ -36,6 +36,7 @@ class Factory
         return [
             new \Pyrech\ComposerChangelogs\UrlGenerator\GithubUrlGenerator(),
             new \Pyrech\ComposerChangelogs\UrlGenerator\BitbucketUrlGenerator(),
+            new \Pyrech\ComposerChangelogs\UrlGenerator\WordPressUrlGenerator(),
         ];
     }
 
