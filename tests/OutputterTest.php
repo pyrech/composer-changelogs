@@ -129,7 +129,6 @@ TEXT;
     {
         $expectedOutput = <<<TEXT
 <fg=green>No changelogs summary</fg=green>
-
 TEXT;
 
         $this->assertSame($expectedOutput, $this->SUT->getOutput());

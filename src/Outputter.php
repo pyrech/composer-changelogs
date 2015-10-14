@@ -60,9 +60,9 @@ class Outputter
             foreach ($this->operations as $operation) {
                 $this->createOperationOutput($output, $operation);
             }
-        }
 
-        $output[] = '';
+            $output[] = '';
+        }
 
         return implode("\n", $output);
     }
