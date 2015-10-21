@@ -25,7 +25,7 @@ composer global require "pyrech/composer-changelogs"
 or locally:
 
 ```shell
-composer require "pyrech/composer-changelogs"
+composer require --dev "pyrech/composer-changelogs"
 ```
 
 ## Usage
