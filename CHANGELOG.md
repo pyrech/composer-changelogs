@@ -1,6 +1,6 @@
 # Changes between versions
 
-## Not yet released
+## 1.2 (2015-10-22)
 
 * Add a WordPress url generator for theme and plugin package ([#11](https://github.com/pyrech/composer-changelogs/pull/11))
 * Remove new line in output in case nothing to display ([#12](https://github.com/pyrech/composer-changelogs/pull/12))
