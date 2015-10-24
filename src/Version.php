@@ -57,4 +57,14 @@ class Version
     {
         return $this->fullPretty;
     }
+
+    /**
+     * Return whether the version is dev or not.
+     *
+     * @return string
+     */
+    public function isDev()
+    {
+        return substr($this->name, 0, 4) === 'dev-' || substr($this->name, -4) === '-dev';
+    }
 }
