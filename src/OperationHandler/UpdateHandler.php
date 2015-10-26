@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the composer-changelogs project.
  *
  * (c) Loïck Piera <pyrech@gmail.com>
@@ -51,7 +51,7 @@ class UpdateHandler implements OperationHandler
         $output = [];
 
         $initialPackage = $operation->getInitialPackage();
-        $targetPackage = $operation->getTargetPackage();
+        $targetPackage  = $operation->getTargetPackage();
 
         $versionFrom = new Version(
             $initialPackage->getVersion(),

@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the composer-changelogs project.
  *
  * (c) Loïck Piera <pyrech@gmail.com>
@@ -32,7 +32,7 @@ class FakeUrlGenerator implements UrlGenerator
      */
     public function __construct($supports, $compareUrl, $releaseUrl)
     {
-        $this->supports = $supports;
+        $this->supports   = $supports;
         $this->compareUrl = $compareUrl;
         $this->releaseUrl = $releaseUrl;
     }

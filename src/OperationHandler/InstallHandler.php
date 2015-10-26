@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the composer-changelogs project.
  *
  * (c) Loïck Piera <pyrech@gmail.com>

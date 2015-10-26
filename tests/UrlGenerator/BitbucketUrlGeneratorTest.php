@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the composer-changelogs project.
  *
  * (c) Loïck Piera <pyrech@gmail.com>
@@ -39,7 +39,7 @@ class BitbucketUrlGeneratorTest extends \PHPUnit_Framework_TestCase
     public function test_it_generates_compare_urls_with_or_without_git_extension_in_source_url()
     {
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
-        $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
+        $versionTo   = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
 
         $this->assertSame(
             'https://bitbucket.org/acme/repo/branches/compare/v1.0.1%0Dv1.0.0',
@@ -63,7 +63,7 @@ class BitbucketUrlGeneratorTest extends \PHPUnit_Framework_TestCase
     public function test_it_generates_compare_urls_with_dev_versions()
     {
         $versionFrom = new Version('v1.0.9999999.9999999-dev', 'dev-master', 'dev-master 1234abc');
-        $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
+        $versionTo   = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
 
         $this->assertSame(
             'https://bitbucket.org/acme/repo/branches/compare/v1.0.1%0D1234abc',
@@ -75,7 +75,7 @@ class BitbucketUrlGeneratorTest extends \PHPUnit_Framework_TestCase
         );
 
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
-        $versionTo = new Version('9999999-dev', 'dev-master', 'dev-master 6789def');
+        $versionTo   = new Version('9999999-dev', 'dev-master', 'dev-master 6789def');
 
         $this->assertSame(
             'https://bitbucket.org/acme/repo/branches/compare/6789def%0Dv1.0.0',

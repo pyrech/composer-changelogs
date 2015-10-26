@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the composer-changelogs project.
  *
  * (c) Loïck Piera <pyrech@gmail.com>
@@ -29,8 +29,8 @@ class Version
      */
     public function __construct($name, $pretty, $fullPretty)
     {
-        $this->name = $name;
-        $this->pretty = $pretty;
+        $this->name       = $name;
+        $this->pretty     = $pretty;
         $this->fullPretty = $fullPretty;
     }
 

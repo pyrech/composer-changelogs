@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the composer-changelogs project.
  *
  * (c) Loïck Piera <pyrech@gmail.com>
@@ -33,7 +33,7 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
      */
     public function activate(Composer $composer, IOInterface $io)
     {
-        $this->io = $io;
+        $this->io        = $io;
         $this->outputter = Factory::createOutputter();
     }
 

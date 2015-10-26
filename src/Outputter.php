@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the composer-changelogs project.
  *
  * (c) Loïck Piera <pyrech@gmail.com>
@@ -32,9 +32,9 @@ class Outputter
      */
     public function __construct(array $operationHandlers, array $urlGenerators)
     {
-        $this->urlGenerators = $urlGenerators;
+        $this->urlGenerators     = $urlGenerators;
         $this->operationHandlers = $operationHandlers;
-        $this->operations = [];
+        $this->operations        = [];
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the composer-changelogs project.
  *
  * (c) Loïck Piera <pyrech@gmail.com>
@@ -25,7 +25,7 @@ abstract class AbstractUrlGenerator implements UrlGenerator
     protected function generateBaseUrl($sourceUrl)
     {
         $sourceUrl = parse_url($sourceUrl);
-        $pos = strrpos($sourceUrl['path'], '.git');
+        $pos       = strrpos($sourceUrl['path'], '.git');
 
         return sprintf(
             '%s://%s%s',

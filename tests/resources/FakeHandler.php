@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the composer-changelogs project.
  *
  * (c) Loïck Piera <pyrech@gmail.com>
@@ -34,9 +34,9 @@ class FakeHandler implements OperationHandler
      */
     public function __construct($supports, $sourceUrl, $output)
     {
-        $this->supports = $supports;
+        $this->supports  = $supports;
         $this->sourceUrl = $sourceUrl;
-        $this->output = $output;
+        $this->output    = $output;
     }
 
     /**
