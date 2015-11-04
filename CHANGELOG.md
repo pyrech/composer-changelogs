@@ -1,5 +1,9 @@
 # Changes between versions
 
+## Not yet released
+
+* Add support for comparison across forks and better detect dev versions ([#19](https://github.com/pyrech/composer-changelogs/pull/19))
+
 ## 1.2 (2015-10-22)
 
 * Add a WordPress url generator for theme and plugin package ([#11](https://github.com/pyrech/composer-changelogs/pull/11))
