@@ -67,7 +67,7 @@ class InstallHandler implements OperationHandler
 
         if ($urlGenerator) {
             $releaseUrl = $urlGenerator->generateReleaseUrl(
-                $package->getSourceUrl(),
+                $this->extractSourceUrl($operation),
                 $version
             );
 

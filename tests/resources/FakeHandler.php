@@ -69,7 +69,7 @@ class FakeHandler implements OperationHandler
         ];
 
         if ($urlGenerator) {
-            $output[] = '   '.$urlGenerator->generateCompareUrl($this->sourceUrl, new Version('', '', ''), new Version('', '', ''));
+            $output[] = '   '.$urlGenerator->generateCompareUrl($this->sourceUrl, new Version('', '', ''), $this->sourceUrl, new Version('', '', ''));
             $output[] = '   '.$urlGenerator->generateReleaseUrl($this->sourceUrl, new Version('', '', ''));
         }
 

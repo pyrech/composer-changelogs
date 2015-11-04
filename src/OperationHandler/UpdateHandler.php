@@ -79,6 +79,7 @@ class UpdateHandler implements OperationHandler
             $compareUrl = $urlGenerator->generateCompareUrl(
                 $initialPackage->getSourceUrl(),
                 $versionFrom,
+                $targetPackage->getSourceUrl(),
                 $versionTo
             );
 
@@ -90,7 +91,7 @@ class UpdateHandler implements OperationHandler
             }
 
             $releaseUrl = $urlGenerator->generateReleaseUrl(
-                $initialPackage->getSourceUrl(),
+                $this->extractSourceUrl($operation),
                 $versionTo
             );
 

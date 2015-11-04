@@ -15,7 +15,8 @@ use Pyrech\ComposerChangelogs\Version;
 
 class BitbucketUrlGenerator extends AbstractUrlGenerator
 {
-    const DOMAIN = 'bitbucket.org';
+    const DOMAIN    = 'bitbucket.org';
+    const URL_REGEX = '@bitbucket.org/(?P<user>[^/]+)/(?P<repository>[^/]+)@';
 
     /**
      * {@inheritdoc}
@@ -28,11 +29,31 @@ class BitbucketUrlGenerator extends AbstractUrlGenerator
     /**
      * {@inheritdoc}
      */
-    public function generateCompareUrl($sourceUrl, Version $versionFrom, Version $versionTo)
+    public function generateCompareUrl($sourceUrlFrom, Version $versionFrom, $sourceUrlTo, Version $versionTo)
     {
+        $sourceUrlFrom = $this->generateBaseUrl($sourceUrlFrom);
+        $sourceUrlTo = $this->generateBaseUrl($sourceUrlTo);
+
+        // Check if comparison across forks is needed
+        if ($sourceUrlFrom !== $sourceUrlTo) {
+            $repositoryFrom = $this->extractRepositoryInformation($sourceUrlFrom);
+            $repositoryTo = $this->extractRepositoryInformation($sourceUrlTo);
+
+            return sprintf(
+                '%s/branches/compare/%s/%s:%s%%0D%s/%s:%s',
+                $sourceUrlTo,
+                $repositoryTo['user'],
+                $repositoryTo['repository'],
+                $this->getCompareVersion($versionTo),
+                $repositoryFrom['user'],
+                $repositoryFrom['repository'],
+                $this->getCompareVersion($versionFrom)
+            );
+        }
+
         return sprintf(
             '%s/branches/compare/%s%%0D%s',
-            $this->generateBaseUrl($sourceUrl),
+            $sourceUrlTo,
             $this->getCompareVersion($versionTo),
             $this->getCompareVersion($versionFrom)
         );
@@ -45,5 +66,26 @@ class BitbucketUrlGenerator extends AbstractUrlGenerator
     {
         // Releases are not supported on Bitbucket :'(
         return false;
+    }
+
+    /**
+     * @param string $sourceUrl
+     *
+     * @return array
+     */
+    private function extractRepositoryInformation($sourceUrl)
+    {
+        preg_match(self::URL_REGEX, $sourceUrl, $matches);
+
+        if (!isset($matches['user']) || !isset($matches['repository'])) {
+            throw new \LogicException(
+                sprintf('Malformed Bitbucket source url: "%s"', $sourceUrl)
+            );
+        }
+
+        return [
+            'user' => $matches['user'],
+            'repository' => $matches['repository'],
+        ];
     }
 }
