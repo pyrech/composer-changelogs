@@ -26,13 +26,17 @@ interface UrlGenerator
      * Return the compare url for these versions or false if compare url is not
      * supported.
      *
-     * @param string  $sourceUrl
+     * In case the from and to source urls are different, this probably means
+     * that an across fork compare url should be generated instead.
+     *
+     * @param string  $sourceUrlFrom
      * @param Version $versionFrom
+     * @param string  $sourceUrlTo
      * @param Version $versionTo
      *
      * @return string|false
      */
-    public function generateCompareUrl($sourceUrl, Version $versionFrom, Version $versionTo);
+    public function generateCompareUrl($sourceUrlFrom, Version $versionFrom, $sourceUrlTo, Version $versionTo);
 
     /**
      * Return the release url for the given version or false if compare url is

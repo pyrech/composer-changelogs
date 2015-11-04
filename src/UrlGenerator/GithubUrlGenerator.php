@@ -16,6 +16,7 @@ use Pyrech\ComposerChangelogs\Version;
 class GithubUrlGenerator extends AbstractUrlGenerator
 {
     const DOMAIN = 'github.com';
+    const URL_REGEX = '@github.com/(?P<user>[^/]+)/(?P<repository>[^/]+)@';
 
     /**
      * {@inheritdoc}
@@ -28,11 +29,29 @@ class GithubUrlGenerator extends AbstractUrlGenerator
     /**
      * {@inheritdoc}
      */
-    public function generateCompareUrl($sourceUrl, Version $versionFrom, Version $versionTo)
+    public function generateCompareUrl($sourceUrlFrom, Version $versionFrom, $sourceUrlTo, Version $versionTo)
     {
+        $sourceUrlFrom = $this->generateBaseUrl($sourceUrlFrom);
+        $sourceUrlTo = $this->generateBaseUrl($sourceUrlTo);
+
+        // Check if comparison across forks is needed
+        if ($sourceUrlFrom !== $sourceUrlTo) {
+            $userFrom = $this->extractUser($sourceUrlFrom);
+            $userTo = $this->extractUser($sourceUrlTo);
+
+            return sprintf(
+                '%s/compare/%s:%s...%s:%s',
+                $sourceUrlTo,
+                $userFrom,
+                $this->getCompareVersion($versionFrom),
+                $userTo,
+                $this->getCompareVersion($versionTo)
+            );
+        }
+
         return sprintf(
             '%s/compare/%s...%s',
-            $this->generateBaseUrl($sourceUrl),
+            $sourceUrlTo,
             $this->getCompareVersion($versionFrom),
             $this->getCompareVersion($versionTo)
         );
@@ -52,5 +71,23 @@ class GithubUrlGenerator extends AbstractUrlGenerator
             $this->generateBaseUrl($sourceUrl),
             $version->getPretty()
         );
+    }
+
+    /**
+     * @param string $sourceUrl
+     *
+     * @¶eturn string
+     */
+    private function extractUser($sourceUrl)
+    {
+        preg_match(self::URL_REGEX, $sourceUrl, $matches);
+
+        if (!isset($matches['user'])) {
+            throw new \LogicException(
+                sprintf('Malformed Github source url: "%s"', $sourceUrl)
+            );
+        }
+
+        return $matches['user'];
     }
 }

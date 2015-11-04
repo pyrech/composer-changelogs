@@ -46,6 +46,7 @@ class BitbucketUrlGeneratorTest extends \PHPUnit_Framework_TestCase
             $this->SUT->generateCompareUrl(
                 'https://bitbucket.org/acme/repo',
                 $versionFrom,
+                'https://bitbucket.org/acme/repo',
                 $versionTo
             )
         );
@@ -55,6 +56,7 @@ class BitbucketUrlGeneratorTest extends \PHPUnit_Framework_TestCase
             $this->SUT->generateCompareUrl(
                 'https://bitbucket.org/acme/repo.git',
                 $versionFrom,
+                'https://bitbucket.org/acme/repo.git',
                 $versionTo
             )
         );
@@ -70,6 +72,7 @@ class BitbucketUrlGeneratorTest extends \PHPUnit_Framework_TestCase
             $this->SUT->generateCompareUrl(
                 'https://bitbucket.org/acme/repo.git',
                 $versionFrom,
+                'https://bitbucket.org/acme/repo.git',
                 $versionTo
             )
         );
@@ -82,8 +85,55 @@ class BitbucketUrlGeneratorTest extends \PHPUnit_Framework_TestCase
             $this->SUT->generateCompareUrl(
                 'https://bitbucket.org/acme/repo.git',
                 $versionFrom,
+                'https://bitbucket.org/acme/repo.git',
                 $versionTo
             )
+        );
+
+        $versionFrom = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
+        $versionTo   = new Version('dev-fix/issue', 'dev-fix/issue', 'dev-fix/issue 1234abc');
+
+        $this->assertSame(
+            'https://bitbucket.org/acme/repo/branches/compare/1234abc%0Dv1.0.1',
+            $this->SUT->generateCompareUrl(
+                'https://bitbucket.org/acme/repo.git',
+                $versionFrom,
+                'https://bitbucket.org/acme/repo.git',
+                $versionTo
+            )
+        );
+    }
+
+    public function test_it_generates_compare_urls_across_forks()
+    {
+        $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
+        $versionTo   = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
+
+        $this->assertSame(
+            'https://bitbucket.org/acme2/repo/branches/compare/acme2/repo:v1.0.1%0Dacme1/repo:v1.0.0',
+            $this->SUT->generateCompareUrl(
+                'https://bitbucket.org/acme1/repo',
+                $versionFrom,
+                'https://bitbucket.org/acme2/repo',
+                $versionTo
+            )
+        );
+    }
+
+    /**
+     * @expectedException \LogicException
+     * @expectedExceptionMessage Malformed Bitbucket source url: "https://example.com/url/to/repo"
+     */
+    public function test_it_throws_exception_when_generating_compare_urls_across_forks_if_a_source_url_is_invalid()
+    {
+        $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
+        $versionTo   = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
+
+        $this->SUT->generateCompareUrl(
+            'https://bitbucket.org/acme1/repo',
+            $versionFrom,
+            'https://example.com/url/to/repo',
+            $versionTo
         );
     }
 

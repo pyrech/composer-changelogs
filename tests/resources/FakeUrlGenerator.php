@@ -48,7 +48,7 @@ class FakeUrlGenerator implements UrlGenerator
     /**
      * {@inheritdoc}
      */
-    public function generateCompareUrl($sourceUrl, Version $versionFrom, Version $versionTo)
+    public function generateCompareUrl($sourceUrlFrom, Version $versionFrom, $sourceUrlTo, Version $versionTo)
     {
         return $this->compareUrl;
     }

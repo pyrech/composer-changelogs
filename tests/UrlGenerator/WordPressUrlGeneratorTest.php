@@ -51,6 +51,7 @@ class WordPressUrlGeneratorTest extends \PHPUnit_Framework_TestCase
             $this->SUT->generateCompareUrl(
                 'http://plugins.svn.wordpress.org/askimet/',
                 $versionFrom,
+                'http://plugins.svn.wordpress.org/askimet/',
                 $versionTo
             )
         );
@@ -60,6 +61,7 @@ class WordPressUrlGeneratorTest extends \PHPUnit_Framework_TestCase
             $this->SUT->generateCompareUrl(
                 'http://themes.svn.wordpress.org/minimize/',
                 $versionFrom,
+                'http://themes.svn.wordpress.org/minimize/',
                 $versionTo
             )
         );

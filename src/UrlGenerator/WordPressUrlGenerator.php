@@ -31,15 +31,15 @@ class WordPressUrlGenerator implements UrlGenerator
     /**
      * {@inheritdoc}
      */
-    public function generateCompareUrl($sourceUrl, Version $versionFrom, Version $versionTo)
+    public function generateCompareUrl($sourceUrlFrom, Version $versionFrom, $sourceUrlTo, Version $versionTo)
     {
-        if (preg_match('#plugins.svn.wordpress.org/(.*)/#', $sourceUrl, $matches)) {
+        if (preg_match('#plugins.svn.wordpress.org/(.*)/#', $sourceUrlTo, $matches)) {
             $plugin = $matches[1];
 
             return sprintf('https://wordpress.org/plugins/%s/changelog/', $plugin);
         }
 
-        if (preg_match('#themes.svn.wordpress.org/(.*)/#', $sourceUrl, $matches)) {
+        if (preg_match('#themes.svn.wordpress.org/(.*)/#', $sourceUrlTo, $matches)) {
             $theme = $matches[1];
 
             return sprintf('https://themes.trac.wordpress.org/log/%s/', $theme);

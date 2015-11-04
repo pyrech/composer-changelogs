@@ -44,7 +44,7 @@ abstract class AbstractUrlGenerator implements UrlGenerator
      */
     protected function isDevVersion(Version $version)
     {
-        return substr($version->getName(), -4) === '-dev';
+        return substr($version->getName(), 0, 4) === 'dev-' || substr($version->getName(), -4) === '-dev';
     }
 
     /**
