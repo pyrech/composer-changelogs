@@ -35,6 +35,8 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
     {
         $this->io        = $io;
         $this->outputter = Factory::createOutputter();
+
+        $this->autoloadNeededClasses();
     }
 
     /**
@@ -74,5 +76,27 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
     public function postUpdate(Event $event)
     {
         $this->io->write($this->outputter->getOutput());
+    }
+
+    /**
+     * This method ensures all the classes required to make the plugin working
+     * are loaded.
+     *
+     * It's required to avoid composer looking for classes no longer existing
+     * (after the plugin is updated or removed for example).
+     *
+     * All operation handlers, url generators and Outputter classes do not
+     * need this because they are already autoloaded by the Factory.
+     */
+    private function autoloadNeededClasses()
+    {
+        $classes = [
+            'Pyrech\ComposerChangelogs\Version',
+        ];
+
+        foreach ($classes as $class) {
+            // Force the class to be autoloaded
+            class_exists($class, true);
+        }
     }
 }
