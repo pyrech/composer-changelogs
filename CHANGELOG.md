@@ -1,6 +1,6 @@
 # Changes between versions
 
-## Not yet released
+## 1.3 (2015-11-13)
 
 * Add support for comparison across forks and better detect dev versions ([#19](https://github.com/pyrech/composer-changelogs/pull/19))
 * Add autoloading of classes required to make the plugin always working ([#22](https://github.com/pyrech/composer-changelogs/pull/22))
