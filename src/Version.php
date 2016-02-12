@@ -29,8 +29,8 @@ class Version
      */
     public function __construct($name, $pretty, $fullPretty)
     {
-        $this->name       = $name;
-        $this->pretty     = $pretty;
+        $this->name = $name;
+        $this->pretty = $pretty;
         $this->fullPretty = $fullPretty;
     }
 

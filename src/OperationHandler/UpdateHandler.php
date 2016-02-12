@@ -51,7 +51,7 @@ class UpdateHandler implements OperationHandler
         $output = [];
 
         $initialPackage = $operation->getInitialPackage();
-        $targetPackage  = $operation->getTargetPackage();
+        $targetPackage = $operation->getTargetPackage();
 
         $versionFrom = new Version(
             $initialPackage->getVersion(),

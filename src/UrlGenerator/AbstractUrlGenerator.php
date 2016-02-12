@@ -25,7 +25,7 @@ abstract class AbstractUrlGenerator implements UrlGenerator
     protected function generateBaseUrl($sourceUrl)
     {
         $sourceUrl = parse_url($sourceUrl);
-        $pos       = strrpos($sourceUrl['path'], '.git');
+        $pos = strrpos($sourceUrl['path'], '.git');
 
         return sprintf(
             '%s://%s%s',

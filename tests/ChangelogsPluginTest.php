@@ -39,7 +39,7 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->io       = new BufferIO();
+        $this->io = new BufferIO();
         $this->composer = new Composer();
         $this->composer->setPackage(new RootPackage('my/project', '1.0.0', '1.0.0'));
         $this->composer->setPluginManager(new PluginManager($this->io, $this->composer));

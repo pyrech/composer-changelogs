@@ -44,7 +44,7 @@ class WordPressUrlGeneratorTest extends \PHPUnit_Framework_TestCase
     public function test_it_generates_compare_urls()
     {
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
-        $versionTo   = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
+        $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
 
         $this->assertSame(
             'https://wordpress.org/plugins/askimet/changelog/',

@@ -33,7 +33,7 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
      */
     public function activate(Composer $composer, IOInterface $io)
     {
-        $this->io        = $io;
+        $this->io = $io;
         $this->outputter = Factory::createOutputter();
 
         $this->autoloadNeededClasses();
