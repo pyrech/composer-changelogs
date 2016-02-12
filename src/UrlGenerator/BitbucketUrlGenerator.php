@@ -15,7 +15,7 @@ use Pyrech\ComposerChangelogs\Version;
 
 class BitbucketUrlGenerator extends AbstractUrlGenerator
 {
-    const DOMAIN    = 'bitbucket.org';
+    const DOMAIN = 'bitbucket.org';
     const URL_REGEX = '@bitbucket.org/(?P<user>[^/]+)/(?P<repository>[^/]+)@';
 
     /**

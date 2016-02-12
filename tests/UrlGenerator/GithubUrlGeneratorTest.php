@@ -39,7 +39,7 @@ class GithubUrlGeneratorTest extends \PHPUnit_Framework_TestCase
     public function test_it_generates_compare_urls_with_or_without_git_extension_in_source_url()
     {
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
-        $versionTo   = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
+        $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
 
         $this->assertSame(
             'https://github.com/acme/repo/compare/v1.0.0...v1.0.1',
@@ -65,7 +65,7 @@ class GithubUrlGeneratorTest extends \PHPUnit_Framework_TestCase
     public function test_it_generates_compare_urls_with_dev_versions()
     {
         $versionFrom = new Version('v.1.0.9999999.9999999-dev', 'dev-master', 'dev-master 1234abc');
-        $versionTo   = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
+        $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
 
         $this->assertSame(
             'https://github.com/acme/repo/compare/1234abc...v1.0.1',
@@ -78,7 +78,7 @@ class GithubUrlGeneratorTest extends \PHPUnit_Framework_TestCase
         );
 
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
-        $versionTo   = new Version('9999999-dev', 'dev-master', 'dev-master 6789def');
+        $versionTo = new Version('9999999-dev', 'dev-master', 'dev-master 6789def');
 
         $this->assertSame(
             'https://github.com/acme/repo/compare/v1.0.0...6789def',
@@ -91,7 +91,7 @@ class GithubUrlGeneratorTest extends \PHPUnit_Framework_TestCase
         );
 
         $versionFrom = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
-        $versionTo   = new Version('dev-fix/issue', 'dev-fix/issue', 'dev-fix/issue 1234abc');
+        $versionTo = new Version('dev-fix/issue', 'dev-fix/issue', 'dev-fix/issue 1234abc');
 
         $this->assertSame(
             'https://github.com/acme/repo/compare/v1.0.1...1234abc',
@@ -107,7 +107,7 @@ class GithubUrlGeneratorTest extends \PHPUnit_Framework_TestCase
     public function test_it_generates_compare_urls_across_forks()
     {
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
-        $versionTo   = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
+        $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
 
         $this->assertSame(
             'https://github.com/acme2/repo/compare/acme1:v1.0.0...acme2:v1.0.1',
@@ -127,7 +127,7 @@ class GithubUrlGeneratorTest extends \PHPUnit_Framework_TestCase
     public function test_it_throws_exception_when_generating_compare_urls_across_forks_if_a_source_url_is_invalid()
     {
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
-        $versionTo   = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
+        $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
 
         $this->SUT->generateCompareUrl(
             'https://github.com/acme1/repo',

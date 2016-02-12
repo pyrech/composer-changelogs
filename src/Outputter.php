@@ -32,9 +32,9 @@ class Outputter
      */
     public function __construct(array $operationHandlers, array $urlGenerators)
     {
-        $this->urlGenerators     = $urlGenerators;
+        $this->urlGenerators = $urlGenerators;
         $this->operationHandlers = $operationHandlers;
-        $this->operations        = [];
+        $this->operations = [];
     }
 
     /**

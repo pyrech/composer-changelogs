@@ -10,6 +10,7 @@ matrix:
     include:
         - php: hhvm
         - php: 5.4
+          env: check_cs=true
         - php: 5.5
         - php: 5.6
           env: deps=low coverage=true
@@ -21,6 +22,7 @@ env:
     global:
         - deps=high
         - coverage=false
+        - check_cs=false
 
 install:
     - if [ "$deps" = "low" ]; then composer --prefer-source --prefer-lowest update; fi;
@@ -29,6 +31,7 @@ install:
 script:
     - if [ "$coverage" = "true" ]; then vendor/bin/phpunit --coverage-clover=coverage; fi;
     - if [ "$coverage" != "true" ]; then vendor/bin/phpunit; fi;
+    - if [ "$check_cs" = "true" ]; then vendor/bin/php-cs-fixer fix --config-file=.php_cs --dry-run --diff; fi;
 
 after_script:
     - if [ "$coverage" = "true" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi;

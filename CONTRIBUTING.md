@@ -48,6 +48,10 @@ changes, improvements or alternatives may be given).
 Run the tests using the following script:
 
 ```shell
+vendor/bin/phpunit
+```
+or the alias:
+```shell
 composer test
 ```
 
@@ -57,7 +61,11 @@ Use [PHP CS fixer](http://cs.sensiolabs.org/) to make your code compliant with
 composer-changelogs's coding standards:
 
 ```shell
-vendor/bin/php-cs-fixer fix .
+vendor/bin/php-cs-fixer fix --config-file=.php_cs --diff
+```
+or the alias:
+```shell
+composer fix-cs
 ```
 
 ## Keeping your fork up-to-date

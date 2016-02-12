@@ -36,6 +36,8 @@
         }
     },
     "scripts": {
-        "test": "phpunit"
+        "test": "vendor/bin/phpunit",
+        "cs": "vendor/bin/php-cs-fixer fix --config-file=.php_cs --diff --dry-run",
+        "fix-cs": "vendor/bin/php-cs-fixer fix --config-file=.php_cs --diff"
     }
 }

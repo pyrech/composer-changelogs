@@ -34,9 +34,9 @@ class FakeHandler implements OperationHandler
      */
     public function __construct($supports, $sourceUrl, $output)
     {
-        $this->supports  = $supports;
+        $this->supports = $supports;
         $this->sourceUrl = $sourceUrl;
-        $this->output    = $output;
+        $this->output = $output;
     }
 
     /**
@@ -65,12 +65,12 @@ class FakeHandler implements OperationHandler
         }
 
         $output = [
-            ' - '.$this->output.', '.$operation->getText(),
+            ' - ' . $this->output . ', ' . $operation->getText(),
         ];
 
         if ($urlGenerator) {
-            $output[] = '   '.$urlGenerator->generateCompareUrl($this->sourceUrl, new Version('', '', ''), $this->sourceUrl, new Version('', '', ''));
-            $output[] = '   '.$urlGenerator->generateReleaseUrl($this->sourceUrl, new Version('', '', ''));
+            $output[] = '   ' . $urlGenerator->generateCompareUrl($this->sourceUrl, new Version('', '', ''), $this->sourceUrl, new Version('', '', ''));
+            $output[] = '   ' . $urlGenerator->generateReleaseUrl($this->sourceUrl, new Version('', '', ''));
         }
 
         return $output;
