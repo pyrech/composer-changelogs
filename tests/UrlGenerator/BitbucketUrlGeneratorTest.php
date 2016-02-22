@@ -28,6 +28,7 @@ class BitbucketUrlGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertTrue($this->SUT->supports('https://bitbucket.org/mailchimp/mandrill-api-php.git'));
         $this->assertTrue($this->SUT->supports('https://bitbucket.org/rogoOOS/rog'));
+        $this->assertTrue($this->SUT->supports('git@bitbucket.org:private/repo.git'));
     }
 
     public function test_it_does_not_support_non_bitbucket_urls()
@@ -150,6 +151,22 @@ class BitbucketUrlGeneratorTest extends \PHPUnit_Framework_TestCase
             $this->SUT->generateReleaseUrl(
                 'https://bitbucket.org/acme/repo.git',
                 new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1')
+            )
+        );
+    }
+
+    public function test_it_generates_compare_urls_with_ssh_source_url()
+    {
+        $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
+        $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
+
+        $this->assertSame(
+            'https://bitbucket.org/acme/repo/branches/compare/v1.0.1%0Dv1.0.0',
+            $this->SUT->generateCompareUrl(
+                'git@bitbucket.org:acme/repo.git',
+                $versionFrom,
+                'git@bitbucket.org:acme/repo.git',
+                $versionTo
             )
         );
     }

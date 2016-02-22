@@ -17,6 +17,7 @@ class BitbucketUrlGenerator extends AbstractUrlGenerator
 {
     const DOMAIN = 'bitbucket.org';
     const URL_REGEX = '@bitbucket.org/(?P<user>[^/]+)/(?P<repository>[^/]+)@';
+    const SSH_REGEX = '/^git@bitbucket\.org:(?P<user>[^\/]+)\/(?P<repository>.+)\.git$/';
 
     /**
      * {@inheritdoc}
@@ -31,8 +32,8 @@ class BitbucketUrlGenerator extends AbstractUrlGenerator
      */
     public function generateCompareUrl($sourceUrlFrom, Version $versionFrom, $sourceUrlTo, Version $versionTo)
     {
-        $sourceUrlFrom = $this->generateBaseUrl($sourceUrlFrom);
-        $sourceUrlTo = $this->generateBaseUrl($sourceUrlTo);
+        $sourceUrlFrom = $this->generateBaseUrl($this->reformatSshUrl($sourceUrlFrom));
+        $sourceUrlTo = $this->generateBaseUrl($this->reformatSshUrl($sourceUrlTo));
 
         // Check if comparison across forks is needed
         if ($sourceUrlFrom !== $sourceUrlTo) {
@@ -87,5 +88,23 @@ class BitbucketUrlGenerator extends AbstractUrlGenerator
             'user' => $matches['user'],
             'repository' => $matches['repository'],
         ];
+    }
+
+    /**
+     * @param string $url
+     *
+     * @return string
+     */
+    private function reformatSshUrl($url)
+    {
+        if (preg_match(self::SSH_REGEX, $url, $matches)) {
+            return sprintf(
+                'https://bitbucket.org/%s/%s',
+                $matches['user'],
+                $matches['repository']
+            );
+        }
+
+        return $url;
     }
 }
