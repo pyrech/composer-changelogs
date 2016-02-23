@@ -48,6 +48,10 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
 
     public function test_it_is_registered_and_activated()
     {
+        if (! is_callable([$this->composer->getPluginManager(), 'addPlugin'])) {
+            $this->markTestSkipped('Newer versions of composer have no public addPlugin method');
+        }
+
         $plugin = new ChangelogsPlugin();
         $this->composer->getPluginManager()->addPlugin($plugin);
         $this->assertSame([$plugin], $this->composer->getPluginManager()->getPlugins());
@@ -57,6 +61,10 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
 
     public function test_it_receives_event()
     {
+        if (! is_callable([$this->composer->getPluginManager(), 'addPlugin'])) {
+            $this->markTestSkipped('Newer versions of composer have no public addPlugin method');
+        }
+
         $this->composer->getPluginManager()->addPlugin(new ChangelogsPlugin());
 
         $initialPackage = new Package('foo/bar', '1.0.0.0', 'v1.0.0');
