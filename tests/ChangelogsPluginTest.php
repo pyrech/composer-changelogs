@@ -17,12 +17,14 @@ use Composer\DependencyResolver\Operation\UpdateOperation;
 use Composer\DependencyResolver\Pool;
 use Composer\DependencyResolver\Request;
 use Composer\EventDispatcher\EventDispatcher;
+use Composer\Installer\PackageEvent;
 use Composer\Installer\PackageEvents;
 use Composer\IO\BufferIO;
 use Composer\Package\Package;
 use Composer\Package\RootPackage;
 use Composer\Plugin\PluginManager;
 use Composer\Repository\CompositeRepository;
+use Composer\Script\Event;
 use Composer\Script\ScriptEvents;
 use Pyrech\ComposerChangelogs\ChangelogsPlugin;
 
@@ -87,6 +89,49 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->composer->getEventDispatcher()->dispatchScript(ScriptEvents::POST_UPDATE_CMD);
+
+        $expectedOutput = <<<OUTPUT
+Changelogs summary:
+
+ - foo/bar updated from v1.0.0 to v1.0.1
+   See changes: https://github.com/foo/bar/compare/v1.0.0...v1.0.1
+   Release notes: https://github.com/foo/bar/releases/tag/v1.0.1
+
+
+OUTPUT;
+
+        $this->assertSame($expectedOutput, $this->io->getOutput());
+    }
+
+    public function test_events_are_handled()
+    {
+        $plugin = new ChangelogsPlugin();
+        $plugin->activate($this->composer, $this->io);
+
+        $initialPackage = new Package('foo/bar', '1.0.0.0', 'v1.0.0');
+        $initialPackage->setSourceUrl('https://github.com/foo/bar.git');
+
+        $targetPackage = new Package('foo/bar', '1.0.1.0', 'v1.0.1');
+        $targetPackage->setSourceUrl('https://github.com/foo/bar.git');
+
+        $operation = new UpdateOperation($initialPackage, $targetPackage);
+
+        $packageEvent = new PackageEvent(
+            PackageEvents::POST_PACKAGE_UPDATE,
+            $this->composer,
+            $this->io,
+            false,
+            new DefaultPolicy(false, false),
+            new Pool(),
+            new CompositeRepository([]),
+            new Request(new Pool()),
+            [$operation],
+            $operation
+        );
+        $plugin->postPackageOperation($packageEvent);
+
+        $postUpdateEvent = new Event(ScriptEvents::POST_UPDATE_CMD, $this->composer, $this->io);
+        $plugin->postUpdate($postUpdateEvent);
 
         $expectedOutput = <<<OUTPUT
 Changelogs summary:
