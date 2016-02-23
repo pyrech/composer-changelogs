@@ -50,7 +50,7 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
 
     public function test_it_is_registered_and_activated()
     {
-        if (! is_callable([$this->composer->getPluginManager(), 'addPlugin'])) {
+        if (!is_callable([$this->composer->getPluginManager(), 'addPlugin'])) {
             $this->markTestSkipped('Newer versions of composer have no public addPlugin method');
         }
 
@@ -63,7 +63,7 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
 
     public function test_it_receives_event()
     {
-        if (! is_callable([$this->composer->getPluginManager(), 'addPlugin'])) {
+        if (!is_callable([$this->composer->getPluginManager(), 'addPlugin'])) {
             $this->markTestSkipped('Newer versions of composer have no public addPlugin method');
         }
 
