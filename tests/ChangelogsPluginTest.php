@@ -12,6 +12,7 @@
 namespace Pyrech\ComposerChangelogs\tests;
 
 use Composer\Composer;
+use Composer\Config;
 use Composer\DependencyResolver\DefaultPolicy;
 use Composer\DependencyResolver\Operation\UpdateOperation;
 use Composer\DependencyResolver\Pool;
@@ -36,13 +37,25 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
     /** @var Composer */
     private $composer;
 
+    /** @var Config */
+    private $config;
+
     /**
      * {@inheritdoc}
      */
     protected function setUp()
     {
+        $this->config = new Config(false, realpath(__DIR__ . '/fixtures/local'));
+        $this->config->merge([
+            'config' => [
+                'home' => __DIR__,
+            ],
+        ]);
+
         $this->io = new BufferIO();
+
         $this->composer = new Composer();
+        $this->composer->setConfig($this->config);
         $this->composer->setPackage(new RootPackage('my/project', '1.0.0', '1.0.0'));
         $this->composer->setPluginManager(new PluginManager($this->io, $this->composer));
         $this->composer->setEventDispatcher(new EventDispatcher($this->composer, $this->io));
@@ -69,13 +82,7 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
 
         $this->composer->getPluginManager()->addPlugin(new ChangelogsPlugin());
 
-        $initialPackage = new Package('foo/bar', '1.0.0.0', 'v1.0.0');
-        $initialPackage->setSourceUrl('https://github.com/foo/bar.git');
-
-        $targetPackage = new Package('foo/bar', '1.0.1.0', 'v1.0.1');
-        $targetPackage->setSourceUrl('https://github.com/foo/bar.git');
-
-        $operation = new UpdateOperation($initialPackage, $targetPackage);
+        $operation = $this->getUpdateOperation();
 
         $this->composer->getEventDispatcher()->dispatchPackageEvent(
             PackageEvents::POST_PACKAGE_UPDATE,
@@ -108,13 +115,7 @@ OUTPUT;
         $plugin = new ChangelogsPlugin();
         $plugin->activate($this->composer, $this->io);
 
-        $initialPackage = new Package('foo/bar', '1.0.0.0', 'v1.0.0');
-        $initialPackage->setSourceUrl('https://github.com/foo/bar.git');
-
-        $targetPackage = new Package('foo/bar', '1.0.1.0', 'v1.0.1');
-        $targetPackage->setSourceUrl('https://github.com/foo/bar.git');
-
-        $operation = new UpdateOperation($initialPackage, $targetPackage);
+        $operation = $this->getUpdateOperation();
 
         $packageEvent = new PackageEvent(
             PackageEvents::POST_PACKAGE_UPDATE,
@@ -144,5 +145,52 @@ Changelogs summary:
 OUTPUT;
 
         $this->assertSame($expectedOutput, $this->io->getOutput());
+    }
+
+    public function test_it_commits_with_always_option()
+    {
+        $this->config->merge([
+            'config' => [
+                'home' => realpath(__DIR__ . '/fixtures/home'),
+            ],
+        ]);
+
+        $plugin = new ChangelogsPlugin();
+        $plugin->activate($this->composer, $this->io);
+
+        $operation = $this->getUpdateOperation();
+
+        $packageEvent = new PackageEvent(
+            PackageEvents::POST_PACKAGE_UPDATE,
+            $this->composer,
+            $this->io,
+            false,
+            new DefaultPolicy(false, false),
+            new Pool(),
+            new CompositeRepository([]),
+            new Request(new Pool()),
+            [$operation],
+            $operation
+        );
+        $plugin->postPackageOperation($packageEvent);
+
+        $postUpdateEvent = new Event(ScriptEvents::POST_UPDATE_CMD, $this->composer, $this->io);
+        $plugin->postUpdate($postUpdateEvent);
+
+        $this->assertStringMatchesFormat('%aExecuting following command: %s/tests/fixtures/bin/fake.sh \'%s\' \'%s/composer-changelogs-%s\'', $this->io->getOutput());
+    }
+
+    /**
+     * @return UpdateOperation
+     */
+    private function getUpdateOperation()
+    {
+        $initialPackage = new Package('foo/bar', '1.0.0.0', 'v1.0.0');
+        $initialPackage->setSourceUrl('https://github.com/foo/bar.git');
+
+        $targetPackage = new Package('foo/bar', '1.0.1.0', 'v1.0.1');
+        $targetPackage->setSourceUrl('https://github.com/foo/bar.git');
+
+        return new UpdateOperation($initialPackage, $targetPackage);
     }
 }

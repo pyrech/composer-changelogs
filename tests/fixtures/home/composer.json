@@ -1,0 +1,11 @@
+{
+    "extra": {
+        "composer-changelogs": {
+            "commit-auto": "always",
+            "commit-bin-file": "../bin/fake.sh"
+        },
+        "my-global-config": {
+            "bar": "foo"
+        }
+    }
+}

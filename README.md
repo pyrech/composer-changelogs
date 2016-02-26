@@ -39,6 +39,10 @@ If you no longer want to display summary, you can either:
 
 ## Further documentation
 
+Here is some documentation about the project:
+
+* [Experimental autocommit feature](doc/autocommit.md)
+
 You can see the current and past versions using one of the following:
 
 * the `git tag` command

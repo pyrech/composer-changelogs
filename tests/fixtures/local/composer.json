@@ -1,0 +1,7 @@
+{
+    "extra": {
+        "my-local-config": {
+            "foo": "bar"
+        }
+    }
+}
