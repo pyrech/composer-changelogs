@@ -5,6 +5,7 @@
 * Update coding standards ([#25](https://github.com/pyrech/composer-changelogs/pull/25))
 * Add support for bitbucket ssh urls ([#27](https://github.com/pyrech/composer-changelogs/pull/27))
 * Fix tests with newer composer versions ([#28](https://github.com/pyrech/composer-changelogs/pull/28))
+* Fix bug when switching from a local repository back to the original repository ([#30](https://github.com/pyrech/composer-changelogs/pull/30))
 
 ## 1.3 (2015-11-13)
 

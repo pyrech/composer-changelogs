@@ -32,6 +32,12 @@ class BitbucketUrlGenerator extends AbstractUrlGenerator
      */
     public function generateCompareUrl($sourceUrlFrom, Version $versionFrom, $sourceUrlTo, Version $versionTo)
     {
+        // Check if both urls come from the supported domain
+        // It avoids problems when one url is from another domain or is local
+        if (!$this->supports($sourceUrlFrom) || !$this->supports($sourceUrlTo)) {
+            return false;
+        }
+
         $sourceUrlFrom = $this->generateBaseUrl($this->reformatSshUrl($sourceUrlFrom));
         $sourceUrlTo = $this->generateBaseUrl($this->reformatSshUrl($sourceUrlTo));
 

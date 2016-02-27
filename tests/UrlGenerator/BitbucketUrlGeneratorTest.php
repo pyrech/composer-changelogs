@@ -121,9 +121,33 @@ class BitbucketUrlGeneratorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function test_it_does_not_generate_compare_urls_for_unsupported_url()
+    {
+        $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
+        $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
+
+        $this->assertFalse(
+            $this->SUT->generateCompareUrl(
+                '/home/toto/work/my-package',
+                $versionFrom,
+                'https://bitbucket.org/acme2/repo',
+                $versionTo
+            )
+        );
+
+        $this->assertFalse(
+            $this->SUT->generateCompareUrl(
+                'https://bitbucket.org/acme1/repo',
+                $versionFrom,
+                '/home/toto/work/my-package',
+                $versionTo
+            )
+        );
+    }
+
     /**
      * @expectedException \LogicException
-     * @expectedExceptionMessage Malformed Bitbucket source url: "https://example.com/url/to/repo"
+     * @expectedExceptionMessage Malformed Bitbucket source url: "https://bitbucket.org/acme2"
      */
     public function test_it_throws_exception_when_generating_compare_urls_across_forks_if_a_source_url_is_invalid()
     {
@@ -133,7 +157,7 @@ class BitbucketUrlGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->SUT->generateCompareUrl(
             'https://bitbucket.org/acme1/repo',
             $versionFrom,
-            'https://example.com/url/to/repo',
+            'https://bitbucket.org/acme2',
             $versionTo
         );
     }
