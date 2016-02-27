@@ -1,5 +1,11 @@
 # Changes between versions
 
+## Not yet released
+
+* Update coding standards ([#25](https://github.com/pyrech/composer-changelogs/pull/25))
+* Add support for bitbucket ssh urls ([#27](https://github.com/pyrech/composer-changelogs/pull/27))
+* Fix tests with newer composer versions ([#28](https://github.com/pyrech/composer-changelogs/pull/28))
+
 ## 1.3 (2015-11-13)
 
 * Add support for comparison across forks and better detect dev versions ([#19](https://github.com/pyrech/composer-changelogs/pull/19))
