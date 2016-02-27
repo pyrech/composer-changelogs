@@ -68,7 +68,7 @@ class GithubUrlGenerator extends AbstractUrlGenerator
      */
     public function generateReleaseUrl($sourceUrl, Version $version)
     {
-        if ($this->isDevVersion($version)) {
+        if ($version->isDev()) {
             return false;
         }
 

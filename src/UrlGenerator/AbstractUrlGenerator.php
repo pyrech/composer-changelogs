@@ -13,58 +13,22 @@ namespace Pyrech\ComposerChangelogs\UrlGenerator;
 
 use Pyrech\ComposerChangelogs\Version;
 
-abstract class AbstractUrlGenerator implements UrlGenerator
+/**
+ * @deprecated since v1.4, will be removed in v2.0. Use GitBasedUrlGenerator class instead.
+ */
+abstract class AbstractUrlGenerator extends GitBasedUrlGenerator
 {
-    /**
-     * Generates the base url for a repository by removing the .git part.
-     *
-     * @param string $sourceUrl
-     *
-     * @return string
-     */
-    protected function generateBaseUrl($sourceUrl)
-    {
-        $sourceUrl = parse_url($sourceUrl);
-        $pos = strrpos($sourceUrl['path'], '.git');
-
-        return sprintf(
-            '%s://%s%s',
-            $sourceUrl['scheme'],
-            $sourceUrl['host'],
-            $pos === false ? $sourceUrl['path'] : substr($sourceUrl['path'], 0, strrpos($sourceUrl['path'], '.git'))
-        );
-    }
-
     /**
      * Return whether the version is dev or not.
      *
      * @param Version $version
      *
      * @return string
+     *
+     * @deprecated since v1.4, will be removed in v2.0. Use $version->isDev() instead.
      */
     protected function isDevVersion(Version $version)
     {
-        return substr($version->getName(), 0, 4) === 'dev-' || substr($version->getName(), -4) === '-dev';
-    }
-
-    /**
-     * Get the version to use for the compare url.
-     *
-     * For dev versions, it returns the commit short hash in full pretty version.
-     *
-     * @param Version $version
-     *
-     * @return string
-     */
-    protected function getCompareVersion(Version $version)
-    {
-        if ($this->isDevVersion($version)) {
-            return substr(
-                $version->getFullPretty(),
-                strlen($version->getPretty()) + 1
-            );
-        }
-
-        return $version->getPretty();
+        return $version->isDev();
     }
 }
