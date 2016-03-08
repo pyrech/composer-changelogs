@@ -84,6 +84,7 @@ class OutputterTest extends \PHPUnit_Framework_TestCase
 
 TEXT;
 
+        $this->assertFalse($this->SUT->isEmpty());
         $this->assertSame($expectedOutput, $this->SUT->getOutput());
     }
 
@@ -101,6 +102,7 @@ TEXT;
 
 TEXT;
 
+        $this->assertFalse($this->SUT->isEmpty());
         $this->assertSame($expectedOutput, $this->SUT->getOutput());
     }
 
@@ -122,6 +124,7 @@ TEXT;
 
 TEXT;
 
+        $this->assertFalse($this->SUT->isEmpty());
         $this->assertSame($expectedOutput, $this->SUT->getOutput());
     }
 
@@ -131,6 +134,7 @@ TEXT;
 <fg=green>No changelogs summary</fg=green>
 TEXT;
 
+        $this->assertTrue($this->SUT->isEmpty());
         $this->assertSame($expectedOutput, $this->SUT->getOutput());
     }
 }

@@ -46,13 +46,21 @@ class Outputter
     }
 
     /**
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return empty($this->operations);
+    }
+
+    /**
      * @return string
      */
     public function getOutput()
     {
         $output = [];
 
-        if (empty($this->operations)) {
+        if ($this->isEmpty()) {
             $output[] = '<fg=green>No changelogs summary</fg=green>';
         } else {
             $output[] = '<fg=green>Changelogs summary:</fg=green>';

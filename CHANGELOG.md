@@ -7,6 +7,7 @@
 * Fix tests with newer composer versions ([#28](https://github.com/pyrech/composer-changelogs/pull/28))
 * Fix bug when switching from a local repository back to the original repository ([#30](https://github.com/pyrech/composer-changelogs/pull/30))
 * Add GitBasedUrlGenerator to replace AbstractUrlGenerator ([#20](https://github.com/pyrech/composer-changelogs/pull/20))
+* Add experimental autocommit feature ([#29](https://github.com/pyrech/composer-changelogs/pull/29))
 
 ## 1.3 (2015-11-13)
 
