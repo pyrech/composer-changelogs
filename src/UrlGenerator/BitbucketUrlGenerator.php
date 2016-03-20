@@ -15,16 +15,12 @@ use Pyrech\ComposerChangelogs\Version;
 
 class BitbucketUrlGenerator extends AbstractUrlGenerator
 {
-    const DOMAIN = 'bitbucket.org';
-    const URL_REGEX = '@bitbucket.org/(?P<user>[^/]+)/(?P<repository>[^/]+)@';
-    const SSH_REGEX = '/^git@bitbucket\.org:(?P<user>[^\/]+)\/(?P<repository>.+)\.git$/';
-
     /**
      * {@inheritdoc}
      */
-    public function supports($sourceUrl)
+    protected function getDomain()
     {
-        return strpos($sourceUrl, self::DOMAIN) !== false;
+        return 'bitbucket.org';
     }
 
     /**
@@ -38,8 +34,8 @@ class BitbucketUrlGenerator extends AbstractUrlGenerator
             return false;
         }
 
-        $sourceUrlFrom = $this->generateBaseUrl($this->reformatSshUrl($sourceUrlFrom));
-        $sourceUrlTo = $this->generateBaseUrl($this->reformatSshUrl($sourceUrlTo));
+        $sourceUrlFrom = $this->generateBaseUrl($sourceUrlFrom);
+        $sourceUrlTo = $this->generateBaseUrl($sourceUrlTo);
 
         // Check if comparison across forks is needed
         if ($sourceUrlFrom !== $sourceUrlTo) {
@@ -73,44 +69,5 @@ class BitbucketUrlGenerator extends AbstractUrlGenerator
     {
         // Releases are not supported on Bitbucket :'(
         return false;
-    }
-
-    /**
-     * @param string $sourceUrl
-     *
-     * @return array
-     */
-    private function extractRepositoryInformation($sourceUrl)
-    {
-        preg_match(self::URL_REGEX, $sourceUrl, $matches);
-
-        if (!isset($matches['user']) || !isset($matches['repository'])) {
-            throw new \LogicException(
-                sprintf('Malformed Bitbucket source url: "%s"', $sourceUrl)
-            );
-        }
-
-        return [
-            'user' => $matches['user'],
-            'repository' => $matches['repository'],
-        ];
-    }
-
-    /**
-     * @param string $url
-     *
-     * @return string
-     */
-    private function reformatSshUrl($url)
-    {
-        if (preg_match(self::SSH_REGEX, $url, $matches)) {
-            return sprintf(
-                'https://bitbucket.org/%s/%s',
-                $matches['user'],
-                $matches['repository']
-            );
-        }
-
-        return $url;
     }
 }
