@@ -1,6 +1,6 @@
 # Changes between versions
 
-## Not yet released
+## 1.4 (2016-03-21)
 
 * Update coding standards ([#25](https://github.com/pyrech/composer-changelogs/pull/25))
 * Add support for bitbucket ssh urls ([#27](https://github.com/pyrech/composer-changelogs/pull/27))
