@@ -28,6 +28,7 @@ class GithubUrlGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertTrue($this->SUT->supports('https://github.com/phpunit/phpunit-mock-objects.git'));
         $this->assertTrue($this->SUT->supports('https://github.com/symfony/console'));
+        $this->assertTrue($this->SUT->supports('git@github.com:private/repo.git'));
     }
 
     public function test_it_does_not_support_non_github_urls()
@@ -146,7 +147,7 @@ class GithubUrlGeneratorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \LogicException
-     * @expectedExceptionMessage Malformed Github source url: "https://github.com/acme2"
+     * @expectedExceptionMessage Unrecognized url format for github.com ("https://github.com/acme2")
      */
     public function test_it_throws_exception_when_generating_compare_urls_across_forks_if_a_source_url_is_invalid()
     {
@@ -158,6 +159,22 @@ class GithubUrlGeneratorTest extends \PHPUnit_Framework_TestCase
             $versionFrom,
             'https://github.com/acme2',
             $versionTo
+        );
+    }
+
+    public function test_it_generates_compare_urls_with_ssh_source_url()
+    {
+        $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
+        $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
+
+        $this->assertSame(
+            'https://github.com/acme/repo/compare/v1.0.0...v1.0.1',
+            $this->SUT->generateCompareUrl(
+                'git@github.com:acme/repo.git',
+                $versionFrom,
+                'git@github.com:acme/repo.git',
+                $versionTo
+            )
         );
     }
 
@@ -192,6 +209,17 @@ class GithubUrlGeneratorTest extends \PHPUnit_Framework_TestCase
             'https://github.com/acme/repo/releases/tag/v1.0.1',
             $this->SUT->generateReleaseUrl(
                 'https://github.com/acme/repo.git',
+                new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1')
+            )
+        );
+    }
+
+    public function test_it_generates_release_url_with_ssh_source_url()
+    {
+        $this->assertSame(
+            'https://github.com/acme/repo/releases/tag/v1.0.1',
+            $this->SUT->generateReleaseUrl(
+                'git@github.com:acme/repo.git',
                 new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1')
             )
         );

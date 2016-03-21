@@ -15,15 +15,12 @@ use Pyrech\ComposerChangelogs\Version;
 
 class GithubUrlGenerator extends AbstractUrlGenerator
 {
-    const DOMAIN = 'github.com';
-    const URL_REGEX = '@github.com/(?P<user>[^/]+)/(?P<repository>[^/]+)@';
-
     /**
      * {@inheritdoc}
      */
-    public function supports($sourceUrl)
+    protected function getDomain()
     {
-        return strpos($sourceUrl, self::DOMAIN) !== false;
+        return 'github.com';
     }
 
     /**
@@ -42,15 +39,15 @@ class GithubUrlGenerator extends AbstractUrlGenerator
 
         // Check if comparison across forks is needed
         if ($sourceUrlFrom !== $sourceUrlTo) {
-            $userFrom = $this->extractUser($sourceUrlFrom);
-            $userTo = $this->extractUser($sourceUrlTo);
+            $repositoryFrom = $this->extractRepositoryInformation($sourceUrlFrom);
+            $repositoryTo = $this->extractRepositoryInformation($sourceUrlTo);
 
             return sprintf(
                 '%s/compare/%s:%s...%s:%s',
                 $sourceUrlTo,
-                $userFrom,
+                $repositoryFrom['user'],
                 $this->getCompareVersion($versionFrom),
-                $userTo,
+                $repositoryTo['user'],
                 $this->getCompareVersion($versionTo)
             );
         }
@@ -77,23 +74,5 @@ class GithubUrlGenerator extends AbstractUrlGenerator
             $this->generateBaseUrl($sourceUrl),
             $version->getPretty()
         );
-    }
-
-    /**
-     * @param string $sourceUrl
-     *
-     * @¶eturn string
-     */
-    private function extractUser($sourceUrl)
-    {
-        preg_match(self::URL_REGEX, $sourceUrl, $matches);
-
-        if (!isset($matches['user'])) {
-            throw new \LogicException(
-                sprintf('Malformed Github source url: "%s"', $sourceUrl)
-            );
-        }
-
-        return $matches['user'];
     }
 }
