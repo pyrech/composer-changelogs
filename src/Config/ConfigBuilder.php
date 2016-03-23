@@ -36,6 +36,7 @@ class ConfigBuilder
 
         $commitAuto = 'never';
         $commitBinFile = null;
+        $commitMessage = 'Update dependencies';
 
         if (array_key_exists('commit-auto', $extra)) {
             if (in_array($extra['commit-auto'], self::$validCommitAutoValues, true)) {
@@ -75,7 +76,15 @@ class ConfigBuilder
             }
         }
 
-        return new Config($commitAuto, $commitBinFile);
+        if (array_key_exists('commit-message', $extra)) {
+            if (strlen(trim($extra['commit-message'])) === 0) {
+                $this->warnings[] = '"commit-message" is specified but empty. Ignoring and using default commit message.';
+            } else {
+                $commitMessage = $extra['commit-message'];
+            }
+        }
+
+        return new Config($commitAuto, $commitBinFile, $commitMessage);
     }
 
     /**

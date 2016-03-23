@@ -40,11 +40,15 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
     /** @var Config */
     private $config;
 
+    /** @var string */
+    private $tempDir;
+
     /**
      * {@inheritdoc}
      */
     protected function setUp()
     {
+        $this->tempDir = __DIR__ . '/temp';
         $this->config = new Config(false, realpath(__DIR__ . '/fixtures/local'));
         $this->config->merge([
             'config' => [
@@ -59,6 +63,32 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
         $this->composer->setPackage(new RootPackage('my/project', '1.0.0', '1.0.0'));
         $this->composer->setPluginManager(new PluginManager($this->io, $this->composer));
         $this->composer->setEventDispatcher(new EventDispatcher($this->composer, $this->io));
+
+        self::cleanTempDir();
+        mkdir($this->tempDir);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function tearDown()
+    {
+        self::cleanTempDir();
+    }
+
+    /**
+     * Completely remove the temp dir and its content if it exists.
+     */
+    private function cleanTempDir()
+    {
+        if (!is_dir($this->tempDir)) {
+            return;
+        }
+        $files = glob($this->tempDir . '/*');
+        foreach ($files as $file) {
+            unlink($file);
+        }
+        rmdir($this->tempDir);
     }
 
     public function test_it_is_registered_and_activated()
@@ -178,6 +208,76 @@ OUTPUT;
         $plugin->postUpdate($postUpdateEvent);
 
         $this->assertStringMatchesFormat('%aExecuting following command: %s/tests/fixtures/bin/fake.sh \'%s\' \'%s/composer-changelogs-%s\'', $this->io->getOutput());
+    }
+
+    public function test_it_commits_with_default_commit_message()
+    {
+        $this->config->merge([
+            'config' => [
+                'home' => realpath(__DIR__ . '/fixtures/home'),
+            ],
+        ]);
+
+        $plugin = new ChangelogsPlugin();
+        $plugin->activate($this->composer, $this->io);
+
+        $operation = $this->getUpdateOperation();
+
+        $packageEvent = new PackageEvent(
+            PackageEvents::POST_PACKAGE_UPDATE,
+            $this->composer,
+            $this->io,
+            false,
+            new DefaultPolicy(false, false),
+            new Pool(),
+            new CompositeRepository([]),
+            new Request(new Pool()),
+            [$operation],
+            $operation
+        );
+        $plugin->postPackageOperation($packageEvent);
+
+        $postUpdateEvent = new Event(ScriptEvents::POST_UPDATE_CMD, $this->composer, $this->io);
+        $plugin->postUpdate($postUpdateEvent);
+
+        $this->assertFileExists($this->tempDir . '/commit-message.txt');
+        $commitMessage = file_get_contents($this->tempDir . '/commit-message.txt');
+        $this->assertStringMatchesFormat('Update dependencies%aChangelogs summary:%a', $commitMessage);
+    }
+
+    public function test_it_commits_with_custom_commit_message()
+    {
+        $this->config->merge([
+            'config' => [
+                'home' => realpath(__DIR__ . '/fixtures/home-commit-message'),
+            ],
+        ]);
+
+        $plugin = new ChangelogsPlugin();
+        $plugin->activate($this->composer, $this->io);
+
+        $operation = $this->getUpdateOperation();
+
+        $packageEvent = new PackageEvent(
+            PackageEvents::POST_PACKAGE_UPDATE,
+            $this->composer,
+            $this->io,
+            false,
+            new DefaultPolicy(false, false),
+            new Pool(),
+            new CompositeRepository([]),
+            new Request(new Pool()),
+            [$operation],
+            $operation
+        );
+        $plugin->postPackageOperation($packageEvent);
+
+        $postUpdateEvent = new Event(ScriptEvents::POST_UPDATE_CMD, $this->composer, $this->io);
+        $plugin->postUpdate($postUpdateEvent);
+
+        $this->assertFileExists($this->tempDir . '/commit-message.txt');
+        $commitMessage = file_get_contents($this->tempDir . '/commit-message.txt');
+        $this->assertStringMatchesFormat('chore: Update composer%aChangelogs summary:%a', $commitMessage);
     }
 
     /**

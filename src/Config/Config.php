@@ -19,14 +19,19 @@ class Config
     /** @var string|null */
     private $commitBinFile;
 
+    /** @var string */
+    private $commitMessage;
+
     /**
      * @param string      $commitAuto
      * @param string|null $commitBinFile
+     * @param string      $commitMessage
      */
-    public function __construct($commitAuto, $commitBinFile)
+    public function __construct($commitAuto, $commitBinFile, $commitMessage)
     {
         $this->commitAuto = $commitAuto;
         $this->commitBinFile = $commitBinFile;
+        $this->commitMessage = $commitMessage;
     }
 
     /**
@@ -43,5 +48,13 @@ class Config
     public function getCommitBinFile()
     {
         return $this->commitBinFile;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCommitMessage()
+    {
+        return $this->commitMessage;
     }
 }
