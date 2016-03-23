@@ -166,7 +166,7 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
 
         $workingDirectory = getcwd();
         $filename = tempnam(sys_get_temp_dir(), 'composer-changelogs-');
-        $message = 'Update dependencies' . PHP_EOL . PHP_EOL . strip_tags($this->outputter->getOutput());
+        $message = $this->config->getCommitMessage() . PHP_EOL . PHP_EOL . strip_tags($this->outputter->getOutput());
 
         file_put_contents($filename, $message);
 

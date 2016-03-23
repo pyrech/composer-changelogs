@@ -19,7 +19,8 @@ some `extra` config in your composer.json:
     "extra": {
         "composer-changelogs": {
             "commit-auto": "ask",
-            "commit-bin-file": "path/to/bin"
+            "commit-bin-file": "path/to/bin",
+            "commit-message": "First line of commit message"
         }
     }
 }
@@ -69,3 +70,9 @@ one requiring the plugin):
     }
 }
 ```
+
+### commit-message
+
+This option can override the first line of the default commit message. If the
+setting is omitted or the value is empty, the default message is used:
+> Update dependencies
