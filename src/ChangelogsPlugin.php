@@ -49,11 +49,12 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
     {
         $this->composer = $composer;
         $this->io = $io;
-        $this->outputter = Factory::createOutputter();
         $this->configLocator = new ConfigLocator($composer);
 
         $this->setupConfig();
         $this->autoloadNeededClasses();
+
+        $this->outputter = Factory::createOutputter($this->config->getGitlabHosts());
     }
 
     /**

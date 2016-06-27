@@ -29,25 +29,35 @@ class Factory
     }
 
     /**
+     * @param string[] $gitlabHosts
+     *
      * @return UrlGenerator[]
      */
-    public static function createUrlGenerators()
+    public static function createUrlGenerators(array $gitlabHosts = [])
     {
-        return [
+        $hosts = [
             new \Pyrech\ComposerChangelogs\UrlGenerator\GithubUrlGenerator(),
             new \Pyrech\ComposerChangelogs\UrlGenerator\BitbucketUrlGenerator(),
             new \Pyrech\ComposerChangelogs\UrlGenerator\WordPressUrlGenerator(),
         ];
+
+        foreach ($gitlabHosts as $gitlabHost) {
+            $hosts[] = new \Pyrech\ComposerChangelogs\UrlGenerator\GitlabUrlGenerator($gitlabHost);
+        }
+
+        return $hosts;
     }
 
     /**
+     * @param string[] $gitlabHosts
+     *
      * @return Outputter
      */
-    public static function createOutputter()
+    public static function createOutputter(array $gitlabHosts = [])
     {
         return new Outputter(
             self::createOperationHandlers(),
-            self::createUrlGenerators()
+            self::createUrlGenerators($gitlabHosts)
         );
     }
 }

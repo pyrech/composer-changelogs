@@ -22,16 +22,21 @@ class Config
     /** @var string */
     private $commitMessage;
 
+    /** @var string[] */
+    private $gitlabHosts;
+
     /**
      * @param string      $commitAuto
      * @param string|null $commitBinFile
      * @param string      $commitMessage
+     * @param string[]    $gitlabHosts
      */
-    public function __construct($commitAuto, $commitBinFile, $commitMessage)
+    public function __construct($commitAuto, $commitBinFile, $commitMessage, array $gitlabHosts)
     {
         $this->commitAuto = $commitAuto;
         $this->commitBinFile = $commitBinFile;
         $this->commitMessage = $commitMessage;
+        $this->gitlabHosts = $gitlabHosts;
     }
 
     /**
@@ -56,5 +61,13 @@ class Config
     public function getCommitMessage()
     {
         return $this->commitMessage;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getGitlabHosts()
+    {
+        return $this->gitlabHosts;
     }
 }

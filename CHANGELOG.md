@@ -4,6 +4,7 @@
 
 * Add better description for downgrade operations ([#39](https://github.com/pyrech/composer-changelogs/pull/39))
 * Remove tests skipping ([#38](https://github.com/pyrech/composer-changelogs/pull/38))
+* Add support for gitlab repositories ([#37](https://github.com/pyrech/composer-changelogs/pull/37))
 
 ## 1.4 (2016-03-21)
 

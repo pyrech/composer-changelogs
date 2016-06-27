@@ -26,12 +26,9 @@ some `extra` config in your composer.json:
 }
 ```
 
-### Config location
+> See [this documentation](configuration.md) for where to put your config.
 
-This `composer-changelogs` extra config can be put either in your local
-`composer.json` (the one of the project you are working on) or the global
-one in your `.composer` home directory (like
-`/home/{user}/.composer/composer.json` on Linux).
+## Options available
 
 ### commit-auto
 
