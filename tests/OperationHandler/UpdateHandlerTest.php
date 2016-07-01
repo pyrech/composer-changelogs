@@ -168,4 +168,32 @@ class UpdateHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $this->SUT->getOutput(new FakeOperation(''));
     }
+
+    public function test_it_uses_correct_action_name()
+    {
+        $package1 = new Package('acme/my-project1', 'v1.0.0.0', 'v1.0.0');
+        $package2 = new Package('acme/my-project2', 'v1.0.1.0', 'v1.0.1');
+
+        $operationUpdate = new UpdateOperation($package1, $package2);
+
+        $expectedOutput = [
+            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow>',
+        ];
+
+        $this->assertSame(
+            $expectedOutput,
+            $this->SUT->getOutput($operationUpdate, null)
+        );
+
+        $operationDowngrade = new UpdateOperation($package2, $package1);
+
+        $expectedOutput = [
+            ' - <fg=green>acme/my-project2</fg=green> downgraded from <fg=yellow>v1.0.1</fg=yellow> to <fg=yellow>v1.0.0</fg=yellow>',
+        ];
+
+        $this->assertSame(
+            $expectedOutput,
+            $this->SUT->getOutput($operationDowngrade, null)
+        );
+    }
 }

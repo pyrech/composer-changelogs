@@ -1,5 +1,9 @@
 # Changes between versions
 
+## Not yet released
+
+* Add better description for downgrade operations ([#39](https://github.com/pyrech/composer-changelogs/pull/39))
+
 ## 1.4 (2016-03-21)
 
 * Update coding standards ([#25](https://github.com/pyrech/composer-changelogs/pull/25))
