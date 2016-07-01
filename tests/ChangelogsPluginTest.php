@@ -23,6 +23,7 @@ use Composer\Installer\PackageEvents;
 use Composer\IO\BufferIO;
 use Composer\Package\Package;
 use Composer\Package\RootPackage;
+use Composer\Plugin\PluginInterface;
 use Composer\Plugin\PluginManager;
 use Composer\Repository\CompositeRepository;
 use Composer\Script\Event;
@@ -93,12 +94,10 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
 
     public function test_it_is_registered_and_activated()
     {
-        if (!is_callable([$this->composer->getPluginManager(), 'addPlugin'])) {
-            $this->markTestSkipped('Newer versions of composer have no public addPlugin method');
-        }
-
         $plugin = new ChangelogsPlugin();
-        $this->composer->getPluginManager()->addPlugin($plugin);
+
+        $this->addComposerPlugin($plugin);
+
         $this->assertSame([$plugin], $this->composer->getPluginManager()->getPlugins());
         $this->assertAttributeInstanceOf('Composer\IO\IOInterface', 'io', $plugin);
         $this->assertAttributeInstanceOf('Pyrech\ComposerChangelogs\Outputter', 'outputter', $plugin);
@@ -106,11 +105,7 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
 
     public function test_it_receives_event()
     {
-        if (!is_callable([$this->composer->getPluginManager(), 'addPlugin'])) {
-            $this->markTestSkipped('Newer versions of composer have no public addPlugin method');
-        }
-
-        $this->composer->getPluginManager()->addPlugin(new ChangelogsPlugin());
+        $this->addComposerPlugin(new ChangelogsPlugin());
 
         $operation = $this->getUpdateOperation();
 
@@ -278,6 +273,14 @@ OUTPUT;
         $this->assertFileExists($this->tempDir . '/commit-message.txt');
         $commitMessage = file_get_contents($this->tempDir . '/commit-message.txt');
         $this->assertStringMatchesFormat('chore: Update composer%aChangelogs summary:%a', $commitMessage);
+    }
+
+    private function addComposerPlugin(PluginInterface $plugin)
+    {
+        $pluginManagerReflection = new \ReflectionClass($this->composer->getPluginManager());
+        $addPluginReflection = $pluginManagerReflection->getMethod('addPlugin');
+        $addPluginReflection->setAccessible(true);
+        $addPluginReflection->invoke($this->composer->getPluginManager(), $plugin);
     }
 
     /**
