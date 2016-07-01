@@ -14,6 +14,7 @@ namespace Pyrech\ComposerChangelogs\OperationHandler;
 use Composer\DependencyResolver\Operation\OperationInterface;
 use Composer\DependencyResolver\Operation\UpdateOperation;
 use Composer\Package\Version\VersionParser;
+use Composer\Semver\Comparator;
 use Pyrech\ComposerChangelogs\UrlGenerator\UrlGenerator;
 use Pyrech\ComposerChangelogs\Version;
 
@@ -68,9 +69,16 @@ class UpdateHandler implements OperationHandler
                 : VersionParser::formatVersion($targetPackage)
         );
 
+        $action = 'updated';
+
+        if (Comparator::greaterThan($versionFrom->getName(), $versionTo->getName())) {
+            $action = 'downgraded';
+        }
+
         $output[] = sprintf(
-            ' - <fg=green>%s</fg=green> updated from <fg=yellow>%s</fg=yellow> to <fg=yellow>%s</fg=yellow>',
+            ' - <fg=green>%s</fg=green> %s from <fg=yellow>%s</fg=yellow> to <fg=yellow>%s</fg=yellow>',
             $initialPackage->getName(),
+            $action,
             $versionFrom->getPretty(),
             $versionTo->getPretty()
         );

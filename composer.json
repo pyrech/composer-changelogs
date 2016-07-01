@@ -27,12 +27,13 @@
     "require-dev": {
         "phpunit/phpunit": "^4.8",
         "fabpot/php-cs-fixer": "~1.5",
-        "composer/composer": "~1.0.0-alpha10@dev"
+        "composer/composer": "~1.0.0-alpha10@dev",
+        "composer/semver": "1.2.0"
     },
     "extra": {
         "class": "Pyrech\\ComposerChangelogs\\ChangelogsPlugin",
         "branch-alias": {
-            "dev-master": "1.3.x-dev"
+            "dev-master": "1.5.x-dev"
         }
     },
     "scripts": {
