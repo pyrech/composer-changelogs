@@ -37,6 +37,7 @@ class ConfigBuilder
         $commitAuto = 'never';
         $commitBinFile = null;
         $commitMessage = 'Update dependencies';
+        $gitlabHosts = [];
 
         if (array_key_exists('commit-auto', $extra)) {
             if (in_array($extra['commit-auto'], self::$validCommitAutoValues, true)) {
@@ -84,7 +85,15 @@ class ConfigBuilder
             }
         }
 
-        return new Config($commitAuto, $commitBinFile, $commitMessage);
+        if (array_key_exists('gitlab-hosts', $extra)) {
+            if (!is_array($extra['gitlab-hosts'])) {
+                $this->warnings[] = '"gitlab-hosts" is specified but should be an array. Ignoring.';
+            } else {
+                $gitlabHosts = (array) $extra['gitlab-hosts'];
+            }
+        }
+
+        return new Config($commitAuto, $commitBinFile, $commitMessage, $gitlabHosts);
     }
 
     /**

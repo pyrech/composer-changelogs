@@ -41,6 +41,7 @@ If you no longer want to display summary, you can either:
 
 Here is some documentation about the project:
 
+* [Configuration, like gitlab hosts setup](doc/configuration.md)
 * [Experimental autocommit feature](doc/autocommit.md)
 
 You can see the current and past versions using one of the following:
