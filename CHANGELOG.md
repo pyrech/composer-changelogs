@@ -1,6 +1,6 @@
 # Changes between versions
 
-## Not yet released
+## 1.5 (2016-07-04)
 
 * Add better description for downgrade operations ([#39](https://github.com/pyrech/composer-changelogs/pull/39))
 * Remove tests skipping ([#38](https://github.com/pyrech/composer-changelogs/pull/38))
