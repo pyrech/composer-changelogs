@@ -34,7 +34,7 @@ some `extra` config in your composer.json:
 
 This option can be one value between `never`, `ask` and `always`.
 
-- `never` is the default option. It disable completly th autocommit feature.
+- `never` is the default option. It disable completly the autocommit feature.
 - `ask` will propose you interactively to trigger a commit after each
 `composer update` in case some dependencies were updated.
 - `always` will trigger a commit everytime a `composer update` is ran and some
