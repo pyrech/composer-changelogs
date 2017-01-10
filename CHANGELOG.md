@@ -1,5 +1,9 @@
 # Changes between versions
 
+## Not yet released
+
+* Fix compatibility with newest Composer Plugin API ([#42](https://github.com/pyrech/composer-changelogs/pull/42))
+
 ## 1.5 (2016-07-04)
 
 * Add better description for downgrade operations ([#39](https://github.com/pyrech/composer-changelogs/pull/39))
