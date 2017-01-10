@@ -14,7 +14,7 @@ namespace Pyrech\ComposerChangelogs\UrlGenerator;
 use Pyrech\ComposerChangelogs\Version;
 
 /**
- * @deprecated since v1.4, will be removed in v2.0. Use GitBasedUrlGenerator class instead.
+ * @deprecated since v1.4, will be removed in v2.0. Use GitBasedUrlGenerator class instead
  */
 abstract class AbstractUrlGenerator extends GitBasedUrlGenerator
 {
@@ -25,7 +25,7 @@ abstract class AbstractUrlGenerator extends GitBasedUrlGenerator
      *
      * @return string
      *
-     * @deprecated since v1.4, will be removed in v2.0. Use $version->isDev() instead.
+     * @deprecated since v1.4, will be removed in v2.0. Use $version->isDev() instead
      */
     protected function isDevVersion(Version $version)
     {
