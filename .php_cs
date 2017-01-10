@@ -32,6 +32,7 @@ return Symfony\CS\Config\Config::create()
         'unalign_equals',           // Keep equals simple
         'strict',                   // Strict comparison
         'strict_param',             // Functions should use $strict param
+        '-heredoc_to_nowdoc',        // Do not convert heredoc to nowdoc
     ))
     ->setUsingCache(true)
     ->finder($finder)
