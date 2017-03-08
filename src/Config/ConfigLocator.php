@@ -19,7 +19,7 @@ class ConfigLocator
     private $composer;
 
     /** @var array */
-    public $cache = [];
+    public $cache = array();
 
     /**
      * @param Composer $composer
@@ -74,11 +74,11 @@ class ConfigLocator
             return true;
         }
 
-        $this->cache[$key] = [
+        $this->cache[$key] = array(
             'found' => false,
-            'config' => [],
+            'config' => array(),
             'path' => null,
-        ];
+        );
 
         return false;
     }
@@ -104,11 +104,11 @@ class ConfigLocator
         $localComposerExtra = $this->composer->getPackage()->getExtra();
 
         if (array_key_exists($key, $localComposerExtra)) {
-            $this->cache[$key] = [
+            $this->cache[$key] = array(
                 'found' => true,
                 'config' => $localComposerExtra[$key],
                 'path' => $path,
-            ];
+            );
 
             return true;
         }
@@ -133,11 +133,11 @@ class ConfigLocator
             $globalComposerJson = json_decode(file_get_contents($globalComposerJsonFile), true);
 
             if (array_key_exists('extra', $globalComposerJson) && array_key_exists($key, $globalComposerJson['extra'])) {
-                $this->cache[$key] = [
+                $this->cache[$key] = array(
                     'found' => true,
                     'config' => $globalComposerJson['extra'][$key],
                     'path' => $path,
-                ];
+                );
 
                 return true;
             }

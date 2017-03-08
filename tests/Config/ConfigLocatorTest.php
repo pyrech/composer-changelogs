@@ -42,18 +42,18 @@ class ConfigLocatorTest extends \PHPUnit_Framework_TestCase
         $this->globalConfigPath = realpath(__DIR__ . '/../fixtures/home');
 
         $this->config = new Config(false, $this->localConfigPath);
-        $this->config->merge([
-            'config' => [
+        $this->config->merge(array(
+            'config' => array(
                 'home' => $this->globalConfigPath,
-            ],
-        ]);
+            ),
+        ));
 
         $package = new RootPackage('my/project', '1.0.0', '1.0.0');
-        $package->setExtra([
-            'my-local-config' => [
+        $package->setExtra(array(
+            'my-local-config' => array(
                 'foo' => 'bar',
-            ],
-        ]);
+            ),
+        ));
 
         $this->composer = new Composer();
         $this->composer->setConfig($this->config);
@@ -69,7 +69,7 @@ class ConfigLocatorTest extends \PHPUnit_Framework_TestCase
         static::assertTrue($this->SUT->locate($key));
 
         static::assertSame($this->localConfigPath, $this->SUT->getPath($key));
-        static::assertSame(['foo' => 'bar'], $this->SUT->getConfig($key));
+        static::assertSame(array('foo' => 'bar'), $this->SUT->getConfig($key));
     }
 
     public function test_it_locates_global_config()
@@ -79,7 +79,7 @@ class ConfigLocatorTest extends \PHPUnit_Framework_TestCase
         static::assertTrue($this->SUT->locate($key));
 
         static::assertSame($this->globalConfigPath, $this->SUT->getPath($key));
-        static::assertSame(['bar' => 'foo'], $this->SUT->getConfig($key));
+        static::assertSame(array('bar' => 'foo'), $this->SUT->getConfig($key));
     }
 
     public function test_it_does_not_locate_non_existing_config()
@@ -89,6 +89,6 @@ class ConfigLocatorTest extends \PHPUnit_Framework_TestCase
         static::assertFalse($this->SUT->locate($key));
 
         static::assertNull($this->SUT->getPath($key));
-        static::assertSame([], $this->SUT->getConfig($key));
+        static::assertSame(array(), $this->SUT->getConfig($key));
     }
 }

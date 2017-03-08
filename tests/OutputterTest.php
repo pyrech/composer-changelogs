@@ -31,46 +31,46 @@ class OutputterTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->operationHandlers = [
+        $this->operationHandlers = array(
             new FakeHandler(false, 'http://domain1', 'Output handler 1'),
             new FakeHandler(true, 'http://domain2', 'Output handler 2'),
             new FakeHandler(true, 'http://domain3', 'Output handler 3'),
-        ];
+        );
 
-        $this->urlGenerators = [
+        $this->urlGenerators = array(
             new FakeUrlGenerator(false, '/compare-url1', '/release-url1'),
             new FakeUrlGenerator(true, '/compare-url2', '/release-url2'),
             new FakeUrlGenerator(true, '/compare-url3', '/release-url3'),
-        ];
+        );
 
         $this->SUT = new Outputter($this->operationHandlers, $this->urlGenerators);
     }
 
     public function test_it_adds_operation()
     {
-        $this->assertAttributeSame([], 'operations', $this->SUT);
+        $this->assertAttributeSame(array(), 'operations', $this->SUT);
 
         $operation1 = new FakeOperation('');
         $this->SUT->addOperation($operation1);
 
-        $this->assertAttributeSame([
+        $this->assertAttributeSame(array(
             $operation1,
-        ], 'operations', $this->SUT);
+        ), 'operations', $this->SUT);
 
         $operation2 = new FakeOperation('');
         $this->SUT->addOperation($operation2);
 
-        $this->assertAttributeSame([
+        $this->assertAttributeSame(array(
             $operation1,
             $operation2,
-        ], 'operations', $this->SUT);
+        ), 'operations', $this->SUT);
     }
 
     public function test_it_outputs_with_no_supported_url_generator()
     {
-        $this->SUT = new Outputter($this->operationHandlers, [
+        $this->SUT = new Outputter($this->operationHandlers, array(
             new FakeUrlGenerator(false, '', ''),
-        ]);
+        ));
 
         $this->SUT->addOperation(new FakeOperation('operation 1'));
         $this->SUT->addOperation(new FakeOperation('operation 2'));
@@ -90,9 +90,9 @@ TEXT;
 
     public function test_it_outputs_with_no_supported_operation_handler()
     {
-        $this->SUT = new Outputter([
+        $this->SUT = new Outputter(array(
             new FakeHandler(false, '', ''),
-        ], $this->urlGenerators);
+        ), $this->urlGenerators);
 
         $this->SUT->addOperation(new FakeOperation('operation 1'));
         $this->SUT->addOperation(new FakeOperation('operation 2'));

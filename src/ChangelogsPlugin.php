@@ -62,20 +62,20 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return [
-            PackageEvents::POST_PACKAGE_UPDATE => [
-                ['postPackageOperation'],
-            ],
-            PackageEvents::POST_PACKAGE_INSTALL => [
-                ['postPackageOperation'],
-            ],
-            PackageEvents::POST_PACKAGE_UNINSTALL => [
-                ['postPackageOperation'],
-            ],
-            ScriptEvents::POST_UPDATE_CMD => [
-                ['postUpdate'],
-            ],
-        ];
+        return array(
+            PackageEvents::POST_PACKAGE_UPDATE => array(
+                array('postPackageOperation'),
+            ),
+            PackageEvents::POST_PACKAGE_INSTALL => array(
+                array('postPackageOperation'),
+            ),
+            PackageEvents::POST_PACKAGE_UNINSTALL => array(
+                array('postPackageOperation'),
+            ),
+            ScriptEvents::POST_UPDATE_CMD => array(
+                array('postUpdate'),
+            ),
+        );
     }
 
     /**
@@ -111,9 +111,9 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
      */
     private function autoloadNeededClasses()
     {
-        $classes = [
+        $classes = array(
             'Pyrech\ComposerChangelogs\Version',
-        ];
+        );
 
         foreach ($classes as $class) {
             // Force the class to be autoloaded

@@ -70,9 +70,9 @@ class InstallHandlerTest extends \PHPUnit_Framework_TestCase
 
         $operation = new InstallOperation($package);
 
-        $expectedOutput = [
+        $expectedOutput = array(
             ' - <fg=green>acme/my-project</fg=green> installed in version <fg=yellow>v1.0.0</fg=yellow>',
-        ];
+        );
 
         $this->assertSame(
             $expectedOutput,
@@ -92,10 +92,10 @@ class InstallHandlerTest extends \PHPUnit_Framework_TestCase
             'https://example.com/acme/my-project/release/v1.0.1'
         );
 
-        $expectedOutput = [
+        $expectedOutput = array(
             ' - <fg=green>acme/my-project</fg=green> installed in version <fg=yellow>v1.0.0</fg=yellow>',
             '   Release notes: https://example.com/acme/my-project/release/v1.0.1',
-        ];
+        );
 
         $this->assertSame(
             $expectedOutput,
@@ -115,9 +115,9 @@ class InstallHandlerTest extends \PHPUnit_Framework_TestCase
             false
         );
 
-        $expectedOutput = [
+        $expectedOutput = array(
             ' - <fg=green>acme/my-project</fg=green> installed in version <fg=yellow>v1.0.0</fg=yellow>',
-        ];
+        );
 
         $this->assertSame(
             $expectedOutput,
@@ -137,10 +137,10 @@ class InstallHandlerTest extends \PHPUnit_Framework_TestCase
             'https://example.com/acme/my-project/release/v1.0.1'
         );
 
-        $expectedOutput = [
+        $expectedOutput = array(
             ' - <fg=green>acme/my-project</fg=green> installed in version <fg=yellow>v1.0.0</fg=yellow>',
             '   Release notes: https://example.com/acme/my-project/release/v1.0.1',
-        ];
+        );
 
         $this->assertSame(
             $expectedOutput,

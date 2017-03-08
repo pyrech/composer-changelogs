@@ -48,7 +48,7 @@ class InstallHandler implements OperationHandler
             throw new \LogicException('Operation should be an instance of InstallOperation');
         }
 
-        $output = [];
+        $output = array();
 
         $package = $operation->getPackage();
         $version = new Version(

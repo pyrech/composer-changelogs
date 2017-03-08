@@ -21,11 +21,11 @@ class Factory
      */
     public static function createOperationHandlers()
     {
-        return [
+        return array(
             new \Pyrech\ComposerChangelogs\OperationHandler\InstallHandler(),
             new \Pyrech\ComposerChangelogs\OperationHandler\UpdateHandler(),
             new \Pyrech\ComposerChangelogs\OperationHandler\UninstallHandler(),
-        ];
+        );
     }
 
     /**
@@ -33,13 +33,13 @@ class Factory
      *
      * @return UrlGenerator[]
      */
-    public static function createUrlGenerators(array $gitlabHosts = [])
+    public static function createUrlGenerators(array $gitlabHosts = array())
     {
-        $hosts = [
+        $hosts = array(
             new \Pyrech\ComposerChangelogs\UrlGenerator\GithubUrlGenerator(),
             new \Pyrech\ComposerChangelogs\UrlGenerator\BitbucketUrlGenerator(),
             new \Pyrech\ComposerChangelogs\UrlGenerator\WordPressUrlGenerator(),
-        ];
+        );
 
         foreach ($gitlabHosts as $gitlabHost) {
             $hosts[] = new \Pyrech\ComposerChangelogs\UrlGenerator\GitlabUrlGenerator($gitlabHost);
@@ -53,7 +53,7 @@ class Factory
      *
      * @return Outputter
      */
-    public static function createOutputter(array $gitlabHosts = [])
+    public static function createOutputter(array $gitlabHosts = array())
     {
         return new Outputter(
             self::createOperationHandlers(),

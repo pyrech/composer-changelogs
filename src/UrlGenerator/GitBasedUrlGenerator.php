@@ -100,10 +100,10 @@ abstract class GitBasedUrlGenerator implements UrlGenerator
             );
         }
 
-        return [
+        return array(
             'user' => $matches['user'],
             'repository' => $matches['repository'],
-        ];
+        );
     }
 
     /**

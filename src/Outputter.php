@@ -34,7 +34,7 @@ class Outputter
     {
         $this->urlGenerators = $urlGenerators;
         $this->operationHandlers = $operationHandlers;
-        $this->operations = [];
+        $this->operations = array();
     }
 
     /**
@@ -58,7 +58,7 @@ class Outputter
      */
     public function getOutput()
     {
-        $output = [];
+        $output = array();
 
         if ($this->isEmpty()) {
             $output[] = '<fg=green>No changelogs summary</fg=green>';
