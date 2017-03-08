@@ -51,11 +51,11 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
     {
         $this->tempDir = __DIR__ . '/temp';
         $this->config = new Config(false, realpath(__DIR__ . '/fixtures/local'));
-        $this->config->merge([
-            'config' => [
+        $this->config->merge(array(
+            'config' => array(
                 'home' => __DIR__,
-            ],
-        ]);
+            ),
+        ));
 
         $this->io = new BufferIO();
 
@@ -98,7 +98,7 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
 
         $this->addComposerPlugin($plugin);
 
-        $this->assertSame([$plugin], $this->composer->getPluginManager()->getPlugins());
+        $this->assertSame(array($plugin), $this->composer->getPluginManager()->getPlugins());
         $this->assertAttributeInstanceOf('Composer\IO\IOInterface', 'io', $plugin);
         $this->assertAttributeInstanceOf('Pyrech\ComposerChangelogs\Outputter', 'outputter', $plugin);
     }
@@ -114,9 +114,9 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
             false,
             new DefaultPolicy(false, false),
             new Pool(),
-            new CompositeRepository([]),
+            new CompositeRepository(array()),
             new Request(new Pool()),
-            [$operation],
+            array($operation),
             $operation
         );
 
@@ -149,9 +149,9 @@ OUTPUT;
             false,
             new DefaultPolicy(false, false),
             new Pool(),
-            new CompositeRepository([]),
+            new CompositeRepository(array()),
             new Request(new Pool()),
-            [$operation],
+            array($operation),
             $operation
         );
         $plugin->postPackageOperation($packageEvent);
@@ -174,11 +174,11 @@ OUTPUT;
 
     public function test_it_commits_with_always_option()
     {
-        $this->config->merge([
-            'config' => [
+        $this->config->merge(array(
+            'config' => array(
                 'home' => realpath(__DIR__ . '/fixtures/home'),
-            ],
-        ]);
+            ),
+        ));
 
         $plugin = new ChangelogsPlugin();
         $plugin->activate($this->composer, $this->io);
@@ -192,9 +192,9 @@ OUTPUT;
             false,
             new DefaultPolicy(false, false),
             new Pool(),
-            new CompositeRepository([]),
+            new CompositeRepository(array()),
             new Request(new Pool()),
-            [$operation],
+            array($operation),
             $operation
         );
         $plugin->postPackageOperation($packageEvent);
@@ -207,11 +207,11 @@ OUTPUT;
 
     public function test_it_commits_with_default_commit_message()
     {
-        $this->config->merge([
-            'config' => [
+        $this->config->merge(array(
+            'config' => array(
                 'home' => realpath(__DIR__ . '/fixtures/home'),
-            ],
-        ]);
+            ),
+        ));
 
         $plugin = new ChangelogsPlugin();
         $plugin->activate($this->composer, $this->io);
@@ -225,9 +225,9 @@ OUTPUT;
             false,
             new DefaultPolicy(false, false),
             new Pool(),
-            new CompositeRepository([]),
+            new CompositeRepository(array()),
             new Request(new Pool()),
-            [$operation],
+            array($operation),
             $operation
         );
         $plugin->postPackageOperation($packageEvent);
@@ -242,11 +242,11 @@ OUTPUT;
 
     public function test_it_commits_with_custom_commit_message()
     {
-        $this->config->merge([
-            'config' => [
+        $this->config->merge(array(
+            'config' => array(
                 'home' => realpath(__DIR__ . '/fixtures/home-commit-message'),
-            ],
-        ]);
+            ),
+        ));
 
         $plugin = new ChangelogsPlugin();
         $plugin->activate($this->composer, $this->io);
@@ -260,9 +260,9 @@ OUTPUT;
             false,
             new DefaultPolicy(false, false),
             new Pool(),
-            new CompositeRepository([]),
+            new CompositeRepository(array()),
             new Request(new Pool()),
-            [$operation],
+            array($operation),
             $operation
         );
         $plugin->postPackageOperation($packageEvent);

@@ -77,9 +77,9 @@ class UpdateHandlerTest extends \PHPUnit_Framework_TestCase
 
         $operation = new UpdateOperation($package1, $package2);
 
-        $expectedOutput = [
+        $expectedOutput = array(
             ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow>',
-        ];
+        );
 
         $this->assertSame(
             $expectedOutput,
@@ -100,10 +100,10 @@ class UpdateHandlerTest extends \PHPUnit_Framework_TestCase
             'https://example.com/acme/my-project/release/v1.0.1'
         );
 
-        $expectedOutput = [
+        $expectedOutput = array(
             ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow>',
             '   Release notes: https://example.com/acme/my-project/release/v1.0.1',
-        ];
+        );
 
         $this->assertSame(
             $expectedOutput,
@@ -124,10 +124,10 @@ class UpdateHandlerTest extends \PHPUnit_Framework_TestCase
             false
         );
 
-        $expectedOutput = [
+        $expectedOutput = array(
             ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow>',
             '   See changes: https://example.com/acme/my-project/compare/v1.0.0/v1.0.1',
-        ];
+        );
 
         $this->assertSame(
             $expectedOutput,
@@ -148,11 +148,11 @@ class UpdateHandlerTest extends \PHPUnit_Framework_TestCase
             'https://example.com/acme/my-project/release/v1.0.1'
         );
 
-        $expectedOutput = [
+        $expectedOutput = array(
             ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow>',
             '   See changes: https://example.com/acme/my-project/compare/v1.0.0/v1.0.1',
             '   Release notes: https://example.com/acme/my-project/release/v1.0.1',
-        ];
+        );
 
         $this->assertSame(
             $expectedOutput,
@@ -176,9 +176,9 @@ class UpdateHandlerTest extends \PHPUnit_Framework_TestCase
 
         $operationUpdate = new UpdateOperation($package1, $package2);
 
-        $expectedOutput = [
+        $expectedOutput = array(
             ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow>',
-        ];
+        );
 
         $this->assertSame(
             $expectedOutput,
@@ -187,9 +187,9 @@ class UpdateHandlerTest extends \PHPUnit_Framework_TestCase
 
         $operationDowngrade = new UpdateOperation($package2, $package1);
 
-        $expectedOutput = [
+        $expectedOutput = array(
             ' - <fg=green>acme/my-project2</fg=green> downgraded from <fg=yellow>v1.0.1</fg=yellow> to <fg=yellow>v1.0.0</fg=yellow>',
-        ];
+        );
 
         $this->assertSame(
             $expectedOutput,

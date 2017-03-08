@@ -61,12 +61,12 @@ class FakeHandler implements OperationHandler
     public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null)
     {
         if (!($operation instanceof FakeOperation)) {
-            return [];
+            return array();
         }
 
-        $output = [
+        $output = array(
             ' - ' . $this->output . ', ' . $operation->getText(),
-        ];
+        );
 
         if ($urlGenerator) {
             $output[] = '   ' . $urlGenerator->generateCompareUrl($this->sourceUrl, new Version('', '', ''), $this->sourceUrl, new Version('', '', ''));
