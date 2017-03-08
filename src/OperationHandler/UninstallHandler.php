@@ -48,7 +48,7 @@ class UninstallHandler implements OperationHandler
             throw new \LogicException('Operation should be an instance of UninstallOperation');
         }
 
-        $output = [];
+        $output = array();
 
         $package = $operation->getPackage();
         $version = new Version(

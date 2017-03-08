@@ -15,14 +15,14 @@ use Pyrech\ComposerChangelogs\Util\FileSystemHelper;
 
 class ConfigBuilder
 {
-    private static $validCommitAutoValues = [
+    private static $validCommitAutoValues = array(
         'never',
         'ask',
         'always',
-    ];
+    );
 
     /** @var string[] */
-    private $warnings = [];
+    private $warnings = array();
 
     /**
      * @param array  $extra
@@ -37,7 +37,7 @@ class ConfigBuilder
         $commitAuto = 'never';
         $commitBinFile = null;
         $commitMessage = 'Update dependencies';
-        $gitlabHosts = [];
+        $gitlabHosts = array();
 
         if (array_key_exists('commit-auto', $extra)) {
             if (in_array($extra['commit-auto'], self::$validCommitAutoValues, true)) {
@@ -106,7 +106,7 @@ class ConfigBuilder
 
     private function reset()
     {
-        $this->warnings = [];
+        $this->warnings = array();
     }
 
     /**

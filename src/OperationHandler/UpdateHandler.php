@@ -49,7 +49,7 @@ class UpdateHandler implements OperationHandler
             throw new \LogicException('Operation should be an instance of UpdateOperation');
         }
 
-        $output = [];
+        $output = array();
 
         $initialPackage = $operation->getInitialPackage();
         $targetPackage = $operation->getTargetPackage();
