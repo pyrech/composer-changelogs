@@ -37,6 +37,10 @@ If you no longer want to display summary, you can either:
 - run your Composer command with the option `--no-plugins`
 - uninstall the package
 
+```shell
+composer global remove "pyrech/composer-changelogs"
+```
+
 ## Further documentation
 
 Here is some documentation about the project:
