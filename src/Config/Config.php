@@ -25,18 +25,23 @@ class Config
     /** @var string[] */
     private $gitlabHosts;
 
+    /** @var int */
+    private $postUpdatePriority;
+
     /**
      * @param string      $commitAuto
      * @param string|null $commitBinFile
      * @param string      $commitMessage
      * @param string[]    $gitlabHosts
+     * @param int         $postUpdatePriority
      */
-    public function __construct($commitAuto, $commitBinFile, $commitMessage, array $gitlabHosts)
+    public function __construct($commitAuto, $commitBinFile, $commitMessage, array $gitlabHosts, $postUpdatePriority)
     {
         $this->commitAuto = $commitAuto;
         $this->commitBinFile = $commitBinFile;
         $this->commitMessage = $commitMessage;
         $this->gitlabHosts = $gitlabHosts;
+        $this->postUpdatePriority = $postUpdatePriority;
     }
 
     /**
@@ -69,5 +74,13 @@ class Config
     public function getGitlabHosts()
     {
         return $this->gitlabHosts;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPostUpdatePriority()
+    {
+        return $this->postUpdatePriority;
     }
 }

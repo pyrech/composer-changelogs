@@ -38,6 +38,7 @@ class ConfigBuilder
         $commitBinFile = null;
         $commitMessage = 'Update dependencies';
         $gitlabHosts = [];
+        $postUpdatePriority = -1;
 
         if (array_key_exists('commit-auto', $extra)) {
             if (in_array($extra['commit-auto'], self::$validCommitAutoValues, true)) {
@@ -93,7 +94,15 @@ class ConfigBuilder
             }
         }
 
-        return new Config($commitAuto, $commitBinFile, $commitMessage, $gitlabHosts);
+        if (array_key_exists('post-update-priority', $extra)) {
+            if (!preg_match('/^-?\d+$/', $extra['post-update-priority'])) {
+                $this->warnings[] = '"post-update-priority" is specified but not an integer. Ignoring and using default commit event priority.';
+            } else {
+                $postUpdatePriority = (int) $extra['post-update-priority'];
+            }
+        }
+
+        return new Config($commitAuto, $commitBinFile, $commitMessage, $gitlabHosts, $postUpdatePriority);
     }
 
     /**
