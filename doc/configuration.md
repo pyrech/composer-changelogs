@@ -25,7 +25,7 @@ one in your `.composer` home directory (like
 
 ## Configuration available
 
-Currently, there is 2 configurable behaviors:
+The available configuration options are listed below:
 
 ### Gitlab hosts
 
@@ -52,3 +52,25 @@ should consider as Gitlab instance.
 
 See [the full documentation of this feature](autocommit.md).
 
+### Post Update Priority
+
+The option `post-update-priority` can set a custom event priority for
+the composer `post-update-cmd` event. This will delay the changelog
+printing and [autocommit feature](autocommit.md).
+
+The default value is set to `-1`. The value must be a signed int.
+A lower event priority also means its run later.
+
+This default behaviour ensures that you can run user defined
+[composer scripts](https://getcomposer.org/doc/articles/scripts.md#command-events)
+for the `post-update-cmd` event before.
+
+```json
+{
+    "extra": {
+        "composer-changelogs": {
+            "post-update-priority": -1
+        }
+    }
+}
+```
