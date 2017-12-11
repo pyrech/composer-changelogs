@@ -1,6 +1,6 @@
 # Changes between versions
 
-## Not yet released
+## 1.6.0 (2017-12-11)
 
 * Adding configurable post update priority ([#46](https://github.com/pyrech/composer-changelogs/pull/46))
 
