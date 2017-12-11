@@ -1,5 +1,9 @@
 # Changes between versions
 
+## Not yet released
+
+* Adding configurable post update priority ([#46](https://github.com/pyrech/composer-changelogs/pull/46))
+
 ## 1.5.1 (2017-01-10)
 
 * Fix compatibility with newest Composer Plugin API ([#42](https://github.com/pyrech/composer-changelogs/pull/42))
