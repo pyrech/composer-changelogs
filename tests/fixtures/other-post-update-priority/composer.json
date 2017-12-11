@@ -1,0 +1,7 @@
+{
+    "extra": {
+        "composer-changelogs": {
+            "post-update-priority": -1337
+        }
+    }
+}
