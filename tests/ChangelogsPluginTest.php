@@ -172,6 +172,25 @@ OUTPUT;
         $this->assertSame($expectedOutput, $this->io->getOutput());
     }
 
+    public function test_post_update_event_priority_is_handled()
+    {
+        $this->config->merge([
+            'config' => [
+                'home' => realpath(__DIR__ . '/fixtures/other-post-update-priority'),
+            ],
+        ]);
+
+        $this->addComposerPlugin(new ChangelogsPlugin());
+
+        $eventDispatcherReflection = new \ReflectionClass($this->composer->getEventDispatcher());
+        $eventListenerReflection = $eventDispatcherReflection->getProperty('listeners');
+        $eventListenerReflection->setAccessible(true);
+        $eventListeners = $eventListenerReflection->getValue($this->composer->getEventDispatcher());
+
+        $this->assertArrayHasKey(ScriptEvents::POST_UPDATE_CMD, $eventListeners);
+        $this->assertArrayHasKey(-1337, $eventListeners[ScriptEvents::POST_UPDATE_CMD]);
+    }
+
     public function test_it_commits_with_always_option()
     {
         $this->config->merge([

@@ -42,6 +42,9 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
     /** @var Config */
     private $config;
 
+    /** @var int */
+    private static $postUpdatePriority = -1;
+
     /**
      * {@inheritdoc}
      */
@@ -73,7 +76,7 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
                 ['postPackageOperation'],
             ],
             ScriptEvents::POST_UPDATE_CMD => [
-                ['postUpdate'],
+                ['postUpdate', static::$postUpdatePriority],
             ],
         ];
     }
@@ -129,6 +132,8 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
             $this->configLocator->getConfig(self::EXTRA_KEY),
             $this->configLocator->getPath(self::EXTRA_KEY)
         );
+
+        static::$postUpdatePriority = $this->config->getPostUpdatePriority();
 
         if (count($builder->getWarnings()) > 0) {
             $this->io->writeError('<error>Invalid config for composer-changelogs plugin:</error>');
