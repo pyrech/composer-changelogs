@@ -59,7 +59,7 @@ the composer `post-update-cmd` event. This will delay the changelog
 printing and [autocommit feature](autocommit.md).
 
 The default value is set to `-1`. The value must be a signed int.
-A lower event priority also means its run later.
+A lower event priority also means it's run later.
 
 This default behaviour ensures that you can run user defined
 [composer scripts](https://getcomposer.org/doc/articles/scripts.md#command-events)
