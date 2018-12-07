@@ -25,6 +25,9 @@
         "friendsofphp/php-cs-fixer": "~1.5",
         "phpunit/phpunit": "^4.8"
     },
+    "config": {
+        "sort-packages": true
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.5.x-dev"
