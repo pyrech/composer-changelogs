@@ -114,7 +114,7 @@ class Outputter
             }
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -130,6 +130,6 @@ class Outputter
             }
         }
 
-        return;
+        return null;
     }
 }
