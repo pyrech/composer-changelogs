@@ -95,6 +95,10 @@ class Outputter
             $operationHandler->extractSourceUrl($operation)
         );
 
+        if (null === $urlGenerator) {
+            return;
+        }
+
         $output = array_merge(
             $output,
             $operationHandler->getOutput($operation, $urlGenerator)
