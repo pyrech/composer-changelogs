@@ -26,7 +26,6 @@ use Composer\Package\RootPackage;
 use Composer\Plugin\PluginInterface;
 use Composer\Plugin\PluginManager;
 use Composer\Repository\CompositeRepository;
-use Composer\Script\Event;
 use Composer\Script\ScriptEvents;
 use Pyrech\ComposerChangelogs\ChangelogsPlugin;
 
@@ -156,8 +155,7 @@ OUTPUT;
         );
         $plugin->postPackageOperation($packageEvent);
 
-        $postUpdateEvent = new Event(ScriptEvents::POST_UPDATE_CMD, $this->composer, $this->io);
-        $plugin->postUpdate($postUpdateEvent);
+        $plugin->postUpdate();
 
         $expectedOutput = <<<OUTPUT
 Changelogs summary:
@@ -218,8 +216,7 @@ OUTPUT;
         );
         $plugin->postPackageOperation($packageEvent);
 
-        $postUpdateEvent = new Event(ScriptEvents::POST_UPDATE_CMD, $this->composer, $this->io);
-        $plugin->postUpdate($postUpdateEvent);
+        $plugin->postUpdate();
 
         $this->assertStringMatchesFormat('%aExecuting following command: %s/tests/fixtures/bin/fake.sh \'%s\' \'%s/composer-changelogs-%s\'', $this->io->getOutput());
     }
@@ -251,8 +248,7 @@ OUTPUT;
         );
         $plugin->postPackageOperation($packageEvent);
 
-        $postUpdateEvent = new Event(ScriptEvents::POST_UPDATE_CMD, $this->composer, $this->io);
-        $plugin->postUpdate($postUpdateEvent);
+        $plugin->postUpdate();
 
         $this->assertFileExists($this->tempDir . '/commit-message.txt');
         $commitMessage = file_get_contents($this->tempDir . '/commit-message.txt');
@@ -286,8 +282,7 @@ OUTPUT;
         );
         $plugin->postPackageOperation($packageEvent);
 
-        $postUpdateEvent = new Event(ScriptEvents::POST_UPDATE_CMD, $this->composer, $this->io);
-        $plugin->postUpdate($postUpdateEvent);
+        $plugin->postUpdate();
 
         $this->assertFileExists($this->tempDir . '/commit-message.txt');
         $commitMessage = file_get_contents($this->tempDir . '/commit-message.txt');
