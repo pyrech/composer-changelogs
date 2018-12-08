@@ -45,8 +45,8 @@
         }
     },
     "scripts": {
-        "cs": "vendor/bin/php-cs-fixer fix --config-file=.php_cs --diff --dry-run",
-        "fix-cs": "vendor/bin/php-cs-fixer fix --config-file=.php_cs --diff",
+        "cs": "vendor/bin/php-cs-fixer fix --config-file=.php_cs --diff --dry-run --verbose",
+        "fix-cs": "vendor/bin/php-cs-fixer fix --config-file=.php_cs --diff --verbose",
         "test": "vendor/bin/phpunit"
     }
 }
