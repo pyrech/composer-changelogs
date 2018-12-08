@@ -17,7 +17,6 @@ use Composer\Installer\PackageEvent;
 use Composer\Installer\PackageEvents;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
-use Composer\Script\Event;
 use Composer\Script\ScriptEvents;
 use Pyrech\ComposerChangelogs\Config\Config;
 use Pyrech\ComposerChangelogs\Config\ConfigBuilder;
@@ -91,10 +90,7 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
         $this->outputter->addOperation($operation);
     }
 
-    /**
-     * @param Event $event
-     */
-    public function postUpdate(Event $event)
+    public function postUpdate()
     {
         $this->io->write($this->outputter->getOutput());
 
