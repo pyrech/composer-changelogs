@@ -8,7 +8,6 @@ cache:
 
 matrix:
     include:
-        - php: hhvm
         - php: 5.4
           env: check_cs=true
         - php: 5.5
