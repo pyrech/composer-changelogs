@@ -11,15 +11,16 @@
 
 namespace Pyrech\ComposerChangelogs\tests\UrlGenerator;
 
+use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\UrlGenerator\BitbucketUrlGenerator;
 use Pyrech\ComposerChangelogs\Version;
 
-class BitbucketUrlGeneratorTest extends \PHPUnit_Framework_TestCase
+class BitbucketUrlGeneratorTest extends TestCase
 {
     /** @var BitbucketUrlGenerator */
     private $SUT;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->SUT = new BitbucketUrlGenerator();
     }
@@ -145,12 +146,11 @@ class BitbucketUrlGeneratorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException \LogicException
-     * @expectedExceptionMessage Unrecognized url format for bitbucket.org ("https://bitbucket.org/acme2")
-     */
     public function test_it_throws_exception_when_generating_compare_urls_across_forks_if_a_source_url_is_invalid()
     {
+        $this->expectException(\LogicException::class);
+        $this->expectExceptionMessage('Unrecognized url format for bitbucket.org ("https://bitbucket.org/acme2")');
+
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
         $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
 

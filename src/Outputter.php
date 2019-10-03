@@ -45,6 +45,15 @@ class Outputter
         $this->operations[] = $operation;
     }
 
+
+    /**
+     * @return OperationInterface[]
+     */
+    public function getOperations()
+    {
+        return $this->operations;
+    }
+
     /**
      * @return bool
      */

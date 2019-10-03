@@ -11,9 +11,10 @@
 
 namespace Pyrech\ComposerChangelogs\tests\Util;
 
+use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\Util\FileSystemHelper;
 
-class FileSystemHelperTest extends \PHPUnit_Framework_TestCase
+class FileSystemHelperTest extends TestCase
 {
     public function test_it_correctly_differentiates_absolute_paths_from_relative_ones()
     {

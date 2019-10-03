@@ -14,9 +14,10 @@ namespace Pyrech\ComposerChangelogs\tests;
 use Composer\Composer;
 use Composer\Config;
 use Composer\Package\RootPackage;
+use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\Config\ConfigLocator;
 
-class ConfigLocatorTest extends \PHPUnit_Framework_TestCase
+class ConfigLocatorTest extends TestCase
 {
     /** @var string */
     private $localConfigPath;
@@ -36,7 +37,7 @@ class ConfigLocatorTest extends \PHPUnit_Framework_TestCase
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->localConfigPath = realpath(__DIR__ . '/../fixtures/local');
         $this->globalConfigPath = realpath(__DIR__ . '/../fixtures/home');
