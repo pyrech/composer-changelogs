@@ -25,7 +25,7 @@ class WordPressUrlGenerator implements UrlGenerator
      */
     public function supports($sourceUrl)
     {
-        return strpos($sourceUrl, self::DOMAIN) !== false;
+        return false !== strpos($sourceUrl, self::DOMAIN);
     }
 
     /**

@@ -22,6 +22,7 @@
     "require-dev": {
         "composer/composer": "^1.9",
         "composer/semver": "^1.5",
+        "friendsofphp/php-cs-fixer": "^2.15",
         "phpunit/phpunit": "^8.3"
     },
     "config": {
@@ -44,8 +45,8 @@
         }
     },
     "scripts": {
-        "cs": "vendor/bin/php-cs-fixer fix --config-file=.php_cs --diff --dry-run --verbose",
-        "fix-cs": "vendor/bin/php-cs-fixer fix --config-file=.php_cs --diff --verbose",
+        "cs": "vendor/bin/php-cs-fixer fix --config=.php_cs --diff --dry-run --verbose",
+        "fix-cs": "vendor/bin/php-cs-fixer fix --config=.php_cs --diff --verbose",
         "test": "vendor/bin/phpunit"
     }
 }

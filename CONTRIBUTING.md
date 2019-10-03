@@ -61,7 +61,7 @@ Use [PHP CS fixer](http://cs.sensiolabs.org/) to make your code compliant with
 composer-changelogs's coding standards:
 
 ```shell
-vendor/bin/php-cs-fixer fix --config-file=.php_cs --diff
+vendor/bin/php-cs-fixer fix --config=.php_cs --diff
 ```
 or the alias:
 ```shell

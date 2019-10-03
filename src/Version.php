@@ -65,7 +65,7 @@ class Version
      */
     public function isDev()
     {
-        return substr($this->name, 0, 4) === 'dev-' || substr($this->name, -4) === '-dev';
+        return 'dev-' === substr($this->name, 0, 4) || '-dev' === substr($this->name, -4);
     }
 
     /**

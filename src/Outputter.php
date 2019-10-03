@@ -45,7 +45,6 @@ class Outputter
         $this->operations[] = $operation;
     }
 
-
     /**
      * @return OperationInterface[]
      */
