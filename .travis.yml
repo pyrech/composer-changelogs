@@ -8,17 +8,12 @@ cache:
 
 matrix:
     include:
-        - php: 5.4
-          env: check_cs=true
-        - php: 5.5
-        - php: 5.6
-          env: deps=low coverage=true
-        - php: 5.6
-          env: deps=high coverage=true
-        - php: 7.0
         - php: 7.1
+          env: deps=low coverage=true
         - php: 7.2
+          env: check_cs=true
         - php: 7.3
+          env: deps=high coverage=true
 
 env:
     global:
@@ -39,7 +34,7 @@ script:
     - if [ "$coverage" = "true" ]; then vendor/bin/phpunit --coverage-clover=coverage; fi;
     - if [ "$coverage" = "true" ]; then xdebug-disable; fi;
     - if [ "$coverage" != "true" ]; then vendor/bin/phpunit; fi;
-    - if [ "$check_cs" = "true" ]; then vendor/bin/php-cs-fixer fix --config-file=.php_cs --dry-run --diff; fi;
+    - if [ "$check_cs" = "true" ]; then vendor/bin/php-cs-fixer fix --config=.php_cs --dry-run --diff; fi;
 
 after_script:
     - if [ "$coverage" = "true" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi;
