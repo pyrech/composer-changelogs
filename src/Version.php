@@ -67,4 +67,26 @@ class Version
     {
         return substr($this->name, 0, 4) === 'dev-' || substr($this->name, -4) === '-dev';
     }
+
+    /**
+     * Return the version string for CLI Output
+     * In cas of dev version is adds the vcs hash
+     *
+     * @return string
+     */
+    public function getCliOutput()
+    {
+        $cliOutput = $this->getPretty();
+        if ($this->isDev()) {
+            $hash = substr(
+                $this->getFullPretty(),
+                strlen($this->getPretty()) + 1
+            );
+            if ($hash) {
+                $cliOutput .= '@' . $hash;
+            }
+        }
+
+        return $cliOutput;
+    }
 }

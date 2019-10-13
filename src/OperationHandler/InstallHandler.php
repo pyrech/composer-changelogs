@@ -62,7 +62,7 @@ class InstallHandler implements OperationHandler
         $output[] = sprintf(
             ' - <fg=green>%s</fg=green> installed in version <fg=yellow>%s</fg=yellow>',
             $package->getName(),
-            $version->getPretty()
+            $version->getCliOutput()
         );
 
         if ($urlGenerator) {

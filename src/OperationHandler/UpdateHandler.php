@@ -79,8 +79,8 @@ class UpdateHandler implements OperationHandler
             ' - <fg=green>%s</fg=green> %s from <fg=yellow>%s</fg=yellow> to <fg=yellow>%s</fg=yellow>',
             $initialPackage->getName(),
             $action,
-            $versionFrom->getPretty(),
-            $versionTo->getPretty()
+            $versionFrom->getCliOutput(),
+            $versionTo->getCliOutput()
         );
 
         if ($urlGenerator) {
