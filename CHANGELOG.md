@@ -1,5 +1,10 @@
 # Changes between versions
 
+## Not yet released
+
+* Display VCS Revision for dev version ([#64](https://github.com/pyrech/composer-changelogs/pull/64))
+* Update how the plugin autoload its classes ([#63](https://github.com/pyrech/composer-changelogs/pull/63))
+
 ## 1.6.0 (2017-12-11)
 
 * Adding configurable post update priority ([#46](https://github.com/pyrech/composer-changelogs/pull/46))
