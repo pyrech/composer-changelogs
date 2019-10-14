@@ -62,7 +62,7 @@ class UninstallHandler implements OperationHandler
         $output[] = sprintf(
             ' - <fg=green>%s</fg=green> removed (installed version was <fg=yellow>%s</fg=yellow>)',
             $package->getName(),
-            $version->getPretty()
+            $version->getCliOutput()
         );
 
         return $output;

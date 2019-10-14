@@ -196,4 +196,25 @@ class UpdateHandlerTest extends \PHPUnit_Framework_TestCase
             $this->SUT->getOutput($operationDowngrade, null)
         );
     }
+
+    public function test_it_displays_vcs_revision_for_dev_package()
+    {
+        $package1 = new Package('acme/my-project1', 'dev-master', 'dev-master');
+        $package1->setSourceType('git');
+        $package1->setSourceReference('958a5dd');
+        $package2 = new Package('acme/my-project2', 'dev-master', 'dev-master');
+        $package2->setSourceType('git');
+        $package2->setSourceReference('6d57476');
+
+        $operationUpdate = new UpdateOperation($package1, $package2);
+
+        $expectedOutput = [
+            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>dev-master@958a5dd</fg=yellow> to <fg=yellow>dev-master@6d57476</fg=yellow>',
+        ];
+
+        $this->assertSame(
+            $expectedOutput,
+            $this->SUT->getOutput($operationUpdate, null)
+        );
+    }
 }
