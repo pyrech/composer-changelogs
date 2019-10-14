@@ -98,11 +98,11 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
     }
 
     /**
-     * This method ensures all the classes required to make the plugin working
+     * This method ensures all the classes required to make the plugin work
      * are loaded.
      *
-     * It's required to avoid composer looking for classes no longer existing
-     * (after the plugin is updated or removed for example).
+     * It's required to avoid composer looking for classes which no longer exist
+     * (for example after the plugin is updated).
      *
      * Lot of classes (like operation handlers, url generators, Outputter, etc)
      * do not need this because they are already autoloaded at the activation
@@ -110,13 +110,10 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
      */
     private function autoloadNeededClasses()
     {
-        $classes = [
-            'Pyrech\ComposerChangelogs\Version',
-        ];
-
-        foreach ($classes as $class) {
-            // Force the class to be autoloaded
-            class_exists($class, true);
+        foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__, \FilesystemIterator::SKIP_DOTS)) as $file) {
+            if ('.php' === substr($file, 0, -4)) {
+                require_once $file;
+            }
         }
     }
 
