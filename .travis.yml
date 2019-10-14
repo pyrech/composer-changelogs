@@ -8,15 +8,8 @@ cache:
 
 matrix:
     include:
-        - php: 5.4
-          env: check_cs=true
-        - php: 5.5
-        - php: 5.6
-          env: deps=low coverage=true
-        - php: 5.6
-          env: deps=high coverage=true
-        - php: 7.0
         - php: 7.1
+          env: check_cs=true coverage=true
         - php: 7.2
         - php: 7.3
 
