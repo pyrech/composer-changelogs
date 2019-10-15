@@ -9,8 +9,9 @@ cache:
 matrix:
     include:
         - php: 7.1
-          env: deps=low check_cs=true coverage=true
+          env: deps=low coverage=true
         - php: 7.2
+          env: check_cs=true
         - php: 7.3
 
 env:
