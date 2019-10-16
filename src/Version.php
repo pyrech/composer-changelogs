@@ -70,7 +70,7 @@ class Version
 
     /**
      * Return the version string for CLI Output
-     * In cas of dev version is adds the vcs hash
+     * In case of dev version is adds the vcs hash.
      *
      * @return string
      */
