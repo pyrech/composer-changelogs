@@ -112,7 +112,7 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
     {
         foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__, \FilesystemIterator::SKIP_DOTS)) as $file) {
             if ('.php' === substr($file, 0, -4)) {
-                class_exists(__NAMESPACE__.str_replace('/', '\\', substr($file, \strlen(__DIR__), -4)));
+                class_exists(__NAMESPACE__ . str_replace('/', '\\', substr($file, \strlen(__DIR__), -4)));
             }
         }
     }
