@@ -4,6 +4,7 @@
 
 * Display VCS Revision for dev version ([#64](https://github.com/pyrech/composer-changelogs/pull/64))
 * Update how the plugin autoload its classes ([#63](https://github.com/pyrech/composer-changelogs/pull/63))
+* Drop support for PHP < 7.1 ([#66](https://github.com/pyrech/composer-changelogs/pull/66))
 
 ## 1.6.0 (2017-12-11)
 
