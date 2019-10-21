@@ -29,9 +29,6 @@
         "sort-packages": true
     },
     "extra": {
-        "branch-alias": {
-            "dev-master": "1.5.x-dev"
-        },
         "class": "Pyrech\\ComposerChangelogs\\ChangelogsPlugin"
     },
     "autoload": {
