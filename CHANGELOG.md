@@ -1,6 +1,6 @@
 # Changes between versions
 
-## Not yet released
+## 1.7.0 (2019-10-21)
 
 * Display VCS Revision for dev version ([#64](https://github.com/pyrech/composer-changelogs/pull/64))
 * Update how the plugin autoload its classes ([#63](https://github.com/pyrech/composer-changelogs/pull/63))
