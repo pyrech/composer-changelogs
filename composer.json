@@ -21,8 +21,8 @@
     },
     "require-dev": {
         "composer/composer": "~1.0.0-alpha10@dev",
-        "composer/semver": "1.2.0",
-        "friendsofphp/php-cs-fixer": "~1.5",
+        "composer/semver": "^1.2",
+        "friendsofphp/php-cs-fixer": "^2.16",
         "phpunit/phpunit": "^4.8"
     },
     "config": {
