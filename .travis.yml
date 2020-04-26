@@ -13,6 +13,8 @@ matrix:
         - php: 7.2
           env: check_cs=true
         - php: 7.3
+        - php: 7.4
+          dist: bionic
 
 env:
     global:
@@ -33,7 +35,12 @@ script:
     - if [ "$coverage" = "true" ]; then vendor/bin/phpunit --coverage-clover=coverage; fi;
     - if [ "$coverage" = "true" ]; then xdebug-disable; fi;
     - if [ "$coverage" != "true" ]; then vendor/bin/phpunit; fi;
-    - if [ "$check_cs" = "true" ]; then vendor/bin/php-cs-fixer fix --config-file=.php_cs.dist --dry-run --diff; fi;
+    - |
+      if [ "$check_cs" = "true" ]; then
+        wget https://cs.symfony.com/download/php-cs-fixer-v2.phar -O php-cs-fixer
+        chmod +x php-cs-fixer
+        ./php-cs-fixer fix --config=.php_cs.dist --dry-run --diff
+      fi;
 
 after_script:
     - if [ "$coverage" = "true" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi;
