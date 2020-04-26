@@ -13,16 +13,18 @@ namespace Pyrech\ComposerChangelogs\tests\OperationHandler;
 
 use Composer\DependencyResolver\Operation\UninstallOperation;
 use Composer\Package\Package;
+use LogicException;
+use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\OperationHandler\UninstallHandler;
 use Pyrech\ComposerChangelogs\tests\resources\FakeOperation;
 use Pyrech\ComposerChangelogs\tests\resources\FakeUrlGenerator;
 
-class UninstallHandlerTest extends \PHPUnit_Framework_TestCase
+class UninstallHandlerTest extends TestCase
 {
     /** @var UninstallHandler */
     private $SUT;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->SUT = new UninstallHandler();
     }
@@ -54,12 +56,11 @@ class UninstallHandlerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException \LogicException
-     * @expectedExceptionMessage Operation should be an instance of UninstallOperation
-     */
     public function test_it_throws_exception_when_extracting_source_url_from_non_uninstall_operation()
     {
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('Operation should be an instance of UninstallOperation');
+
         $this->SUT->extractSourceUrl(new FakeOperation(''));
     }
 
@@ -146,12 +147,11 @@ class UninstallHandlerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException \LogicException
-     * @expectedExceptionMessage Operation should be an instance of UninstallOperation
-     */
     public function test_it_throws_exception_when_getting_output_from_non_uninstall_operation()
     {
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('Operation should be an instance of UninstallOperation');
+
         $this->SUT->getOutput(new FakeOperation(''));
     }
 }

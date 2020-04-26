@@ -14,9 +14,10 @@ namespace Pyrech\ComposerChangelogs\tests;
 use Composer\Composer;
 use Composer\Config;
 use Composer\Package\RootPackage;
+use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\Config\ConfigLocator;
 
-class ConfigLocatorTest extends \PHPUnit_Framework_TestCase
+class ConfigLocatorTest extends TestCase
 {
     /** @var string */
     private $localConfigPath;
@@ -36,7 +37,7 @@ class ConfigLocatorTest extends \PHPUnit_Framework_TestCase
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->localConfigPath = realpath(__DIR__ . '/../fixtures/local');
         $this->globalConfigPath = realpath(__DIR__ . '/../fixtures/home');
@@ -66,29 +67,29 @@ class ConfigLocatorTest extends \PHPUnit_Framework_TestCase
     {
         $key = 'my-local-config';
 
-        static::assertTrue($this->SUT->locate($key));
+        $this->assertTrue($this->SUT->locate($key));
 
-        static::assertSame($this->localConfigPath, $this->SUT->getPath($key));
-        static::assertSame(['foo' => 'bar'], $this->SUT->getConfig($key));
+        $this->assertSame($this->localConfigPath, $this->SUT->getPath($key));
+        $this->assertSame(['foo' => 'bar'], $this->SUT->getConfig($key));
     }
 
     public function test_it_locates_global_config()
     {
         $key = 'my-global-config';
 
-        static::assertTrue($this->SUT->locate($key));
+        $this->assertTrue($this->SUT->locate($key));
 
-        static::assertSame($this->globalConfigPath, $this->SUT->getPath($key));
-        static::assertSame(['bar' => 'foo'], $this->SUT->getConfig($key));
+        $this->assertSame($this->globalConfigPath, $this->SUT->getPath($key));
+        $this->assertSame(['bar' => 'foo'], $this->SUT->getConfig($key));
     }
 
     public function test_it_does_not_locate_non_existing_config()
     {
         $key = 'my-non-existing-config';
 
-        static::assertFalse($this->SUT->locate($key));
+        $this->assertFalse($this->SUT->locate($key));
 
-        static::assertNull($this->SUT->getPath($key));
-        static::assertSame([], $this->SUT->getConfig($key));
+        $this->assertNull($this->SUT->getPath($key));
+        $this->assertSame([], $this->SUT->getConfig($key));
     }
 }

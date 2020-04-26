@@ -13,16 +13,18 @@ namespace Pyrech\ComposerChangelogs\tests\OperationHandler;
 
 use Composer\DependencyResolver\Operation\InstallOperation;
 use Composer\Package\Package;
+use LogicException;
+use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\OperationHandler\InstallHandler;
 use Pyrech\ComposerChangelogs\tests\resources\FakeOperation;
 use Pyrech\ComposerChangelogs\tests\resources\FakeUrlGenerator;
 
-class InstallHandlerTest extends \PHPUnit_Framework_TestCase
+class InstallHandlerTest extends TestCase
 {
     /** @var InstallHandler */
     private $SUT;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->SUT = new InstallHandler();
     }
@@ -54,12 +56,11 @@ class InstallHandlerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException \LogicException
-     * @expectedExceptionMessage Operation should be an instance of InstallOperation
-     */
     public function test_it_throws_exception_when_extracting_source_url_from_non_install_operation()
     {
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('Operation should be an instance of InstallOperation');
+
         $this->SUT->extractSourceUrl(new FakeOperation(''));
     }
 
@@ -148,12 +149,11 @@ class InstallHandlerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException \LogicException
-     * @expectedExceptionMessage Operation should be an instance of InstallOperation
-     */
     public function test_it_throws_exception_when_getting_output_from_non_install_operation()
     {
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('Operation should be an instance of InstallOperation');
+
         $this->SUT->getOutput(new FakeOperation(''));
     }
 }

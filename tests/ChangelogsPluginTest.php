@@ -27,9 +27,10 @@ use Composer\Plugin\PluginInterface;
 use Composer\Plugin\PluginManager;
 use Composer\Repository\CompositeRepository;
 use Composer\Script\ScriptEvents;
+use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\ChangelogsPlugin;
 
-class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
+class ChangelogsPluginTest extends TestCase
 {
     /** @var BufferIO */
     private $io;
@@ -46,7 +47,7 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->tempDir = __DIR__ . '/temp';
         $this->config = new Config(false, realpath(__DIR__ . '/fixtures/local'));
@@ -71,7 +72,7 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
     /**
      * {@inheritdoc}
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         self::cleanTempDir();
     }
@@ -98,8 +99,6 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
         $this->addComposerPlugin($plugin);
 
         $this->assertSame([$plugin], $this->composer->getPluginManager()->getPlugins());
-        $this->assertAttributeInstanceOf('Composer\IO\IOInterface', 'io', $plugin);
-        $this->assertAttributeInstanceOf('Pyrech\ComposerChangelogs\Outputter', 'outputter', $plugin);
     }
 
     public function test_it_receives_event()

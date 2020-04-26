@@ -11,15 +11,16 @@
 
 namespace Pyrech\ComposerChangelogs\tests\UrlGenerator;
 
+use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\UrlGenerator\GitlabUrlGenerator;
 use Pyrech\ComposerChangelogs\Version;
 
-class GitlabUrlGeneratorTest extends \PHPUnit_Framework_TestCase
+class GitlabUrlGeneratorTest extends TestCase
 {
     /** @var GitlabUrlGenerator */
     private $SUT;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->SUT = new GitlabUrlGenerator('gitlab.company.org');
     }

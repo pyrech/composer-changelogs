@@ -11,6 +11,7 @@
 
 namespace Pyrech\ComposerChangelogs\tests;
 
+use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\OperationHandler\OperationHandler;
 use Pyrech\ComposerChangelogs\Outputter;
 use Pyrech\ComposerChangelogs\tests\resources\FakeHandler;
@@ -18,7 +19,7 @@ use Pyrech\ComposerChangelogs\tests\resources\FakeOperation;
 use Pyrech\ComposerChangelogs\tests\resources\FakeUrlGenerator;
 use Pyrech\ComposerChangelogs\UrlGenerator\UrlGenerator;
 
-class OutputterTest extends \PHPUnit_Framework_TestCase
+class OutputterTest extends TestCase
 {
     /** @var Outputter */
     private $SUT;
@@ -29,7 +30,7 @@ class OutputterTest extends \PHPUnit_Framework_TestCase
     /** @var UrlGenerator[] */
     private $urlGenerators;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->operationHandlers = [
             new FakeHandler(false, 'http://domain1', 'Output handler 1'),
@@ -48,22 +49,27 @@ class OutputterTest extends \PHPUnit_Framework_TestCase
 
     public function test_it_adds_operation()
     {
-        $this->assertAttributeSame([], 'operations', $this->SUT);
-
         $operation1 = new FakeOperation('');
         $this->SUT->addOperation($operation1);
-
-        $this->assertAttributeSame([
-            $operation1,
-        ], 'operations', $this->SUT);
 
         $operation2 = new FakeOperation('');
         $this->SUT->addOperation($operation2);
 
-        $this->assertAttributeSame([
-            $operation1,
-            $operation2,
-        ], 'operations', $this->SUT);
+        $expectedOutput = <<<TEXT
+<fg=green>Changelogs summary:</fg=green>
+
+ - Output handler 2, 
+   /compare-url2
+   /release-url2
+
+ - Output handler 2, 
+   /compare-url2
+   /release-url2
+
+TEXT;
+
+        $this->assertFalse($this->SUT->isEmpty());
+        $this->assertSame($expectedOutput, $this->SUT->getOutput());
     }
 
     public function test_it_outputs_with_no_supported_url_generator()
