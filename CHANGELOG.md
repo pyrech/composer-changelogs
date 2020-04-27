@@ -1,5 +1,9 @@
 # Changes between versions
 
+## Unreleased
+
+* Add support for Composer ^2.0
+
 ## 1.7.0 (2019-10-21)
 
 * Display VCS Revision for dev version ([#64](https://github.com/pyrech/composer-changelogs/pull/64))

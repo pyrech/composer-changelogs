@@ -11,9 +11,10 @@
 
 namespace Pyrech\ComposerChangelogs\tests;
 
+use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\Version;
 
-class VersionTest extends \PHPUnit_Framework_TestCase
+class VersionTest extends TestCase
 {
     /** @var Version */
     private $SUT;

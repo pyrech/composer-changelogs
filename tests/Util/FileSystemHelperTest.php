@@ -11,18 +11,19 @@
 
 namespace Pyrech\ComposerChangelogs\tests\Util;
 
+use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\Util\FileSystemHelper;
 
-class FileSystemHelperTest extends \PHPUnit_Framework_TestCase
+class FileSystemHelperTest extends TestCase
 {
     public function test_it_correctly_differentiates_absolute_paths_from_relative_ones()
     {
-        static::assertTrue(FileSystemHelper::isAbsolute('/var/lib'));
-        static::assertTrue(FileSystemHelper::isAbsolute('c:\\\\var\\lib'));
-        static::assertTrue(FileSystemHelper::isAbsolute('\\var\\lib'));
+        $this->assertTrue(FileSystemHelper::isAbsolute('/var/lib'));
+        $this->assertTrue(FileSystemHelper::isAbsolute('c:\\\\var\\lib'));
+        $this->assertTrue(FileSystemHelper::isAbsolute('\\var\\lib'));
 
-        static::assertFalse(FileSystemHelper::isAbsolute('var/lib'));
-        static::assertFalse(FileSystemHelper::isAbsolute('../var/lib'));
-        static::assertFalse(FileSystemHelper::isAbsolute(''));
+        $this->assertFalse(FileSystemHelper::isAbsolute('var/lib'));
+        $this->assertFalse(FileSystemHelper::isAbsolute('../var/lib'));
+        $this->assertFalse(FileSystemHelper::isAbsolute(''));
     }
 }

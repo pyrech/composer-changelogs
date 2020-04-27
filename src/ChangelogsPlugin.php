@@ -59,6 +59,14 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
         $this->outputter = Factory::createOutputter($this->config->getGitlabHosts());
     }
 
+    public function deactivate(Composer $composer, IOInterface $io)
+    {
+    }
+
+    public function uninstall(Composer $composer, IOInterface $io)
+    {
+    }
+
     /**
      * {@inheritdoc}
      */

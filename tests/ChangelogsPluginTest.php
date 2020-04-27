@@ -26,10 +26,12 @@ use Composer\Package\RootPackage;
 use Composer\Plugin\PluginInterface;
 use Composer\Plugin\PluginManager;
 use Composer\Repository\CompositeRepository;
+use Composer\Repository\RepositoryInterface;
 use Composer\Script\ScriptEvents;
+use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\ChangelogsPlugin;
 
-class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
+class ChangelogsPluginTest extends TestCase
 {
     /** @var BufferIO */
     private $io;
@@ -46,7 +48,7 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->tempDir = __DIR__ . '/temp';
         $this->config = new Config(false, realpath(__DIR__ . '/fixtures/local'));
@@ -71,7 +73,7 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
     /**
      * {@inheritdoc}
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         self::cleanTempDir();
     }
@@ -98,8 +100,6 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
         $this->addComposerPlugin($plugin);
 
         $this->assertSame([$plugin], $this->composer->getPluginManager()->getPlugins());
-        $this->assertAttributeInstanceOf('Composer\IO\IOInterface', 'io', $plugin);
-        $this->assertAttributeInstanceOf('Pyrech\ComposerChangelogs\Outputter', 'outputter', $plugin);
     }
 
     public function test_it_receives_event()
@@ -108,16 +108,7 @@ class ChangelogsPluginTest extends \PHPUnit_Framework_TestCase
 
         $operation = $this->getUpdateOperation();
 
-        $this->composer->getEventDispatcher()->dispatchPackageEvent(
-            PackageEvents::POST_PACKAGE_UPDATE,
-            false,
-            new DefaultPolicy(false, false),
-            new Pool(),
-            new CompositeRepository([]),
-            new Request(new Pool()),
-            [$operation],
-            $operation
-        );
+        $this->dispatchPostPackageUpdateEvent($operation);
 
         $this->composer->getEventDispatcher()->dispatchScript(ScriptEvents::POST_UPDATE_CMD);
 
@@ -141,18 +132,8 @@ OUTPUT;
 
         $operation = $this->getUpdateOperation();
 
-        $packageEvent = new PackageEvent(
-            PackageEvents::POST_PACKAGE_UPDATE,
-            $this->composer,
-            $this->io,
-            false,
-            new DefaultPolicy(false, false),
-            new Pool(),
-            new CompositeRepository([]),
-            new Request(new Pool()),
-            [$operation],
-            $operation
-        );
+        $packageEvent = $this->createPostPackageUpdateEvent($operation);
+
         $plugin->postPackageOperation($packageEvent);
 
         $plugin->postUpdate();
@@ -202,18 +183,8 @@ OUTPUT;
 
         $operation = $this->getUpdateOperation();
 
-        $packageEvent = new PackageEvent(
-            PackageEvents::POST_PACKAGE_UPDATE,
-            $this->composer,
-            $this->io,
-            false,
-            new DefaultPolicy(false, false),
-            new Pool(),
-            new CompositeRepository([]),
-            new Request(new Pool()),
-            [$operation],
-            $operation
-        );
+        $packageEvent = $this->createPostPackageUpdateEvent($operation);
+
         $plugin->postPackageOperation($packageEvent);
 
         $plugin->postUpdate();
@@ -234,18 +205,8 @@ OUTPUT;
 
         $operation = $this->getUpdateOperation();
 
-        $packageEvent = new PackageEvent(
-            PackageEvents::POST_PACKAGE_UPDATE,
-            $this->composer,
-            $this->io,
-            false,
-            new DefaultPolicy(false, false),
-            new Pool(),
-            new CompositeRepository([]),
-            new Request(new Pool()),
-            [$operation],
-            $operation
-        );
+        $packageEvent = $this->createPostPackageUpdateEvent($operation);
+
         $plugin->postPackageOperation($packageEvent);
 
         $plugin->postUpdate();
@@ -268,18 +229,8 @@ OUTPUT;
 
         $operation = $this->getUpdateOperation();
 
-        $packageEvent = new PackageEvent(
-            PackageEvents::POST_PACKAGE_UPDATE,
-            $this->composer,
-            $this->io,
-            false,
-            new DefaultPolicy(false, false),
-            new Pool(),
-            new CompositeRepository([]),
-            new Request(new Pool()),
-            [$operation],
-            $operation
-        );
+        $packageEvent = $this->createPostPackageUpdateEvent($operation);
+
         $plugin->postPackageOperation($packageEvent);
 
         $plugin->postUpdate();
@@ -309,5 +260,59 @@ OUTPUT;
         $targetPackage->setSourceUrl('https://github.com/foo/bar.git');
 
         return new UpdateOperation($initialPackage, $targetPackage);
+    }
+
+    private function createPostPackageUpdateEvent($operation)
+    {
+        if (version_compare(PluginInterface::PLUGIN_API_VERSION, '2.0.0') >= 0) {
+            return new PackageEvent(
+                PackageEvents::POST_PACKAGE_UPDATE,
+                $this->composer,
+                $this->io,
+                false,
+                $this->createMock(RepositoryInterface::class),
+                [$operation],
+                $operation
+            );
+        }
+
+        return new PackageEvent(
+            PackageEvents::POST_PACKAGE_UPDATE,
+            $this->composer,
+            $this->io,
+            false,
+            new DefaultPolicy(false, false),
+            new Pool(),
+            new CompositeRepository([]),
+            new Request(new Pool()),
+            [$operation],
+            $operation
+        );
+    }
+
+    private function dispatchPostPackageUpdateEvent($operation)
+    {
+        if (version_compare(PluginInterface::PLUGIN_API_VERSION, '2.0.0') >= 0) {
+            $this->composer->getEventDispatcher()->dispatchPackageEvent(
+                PackageEvents::POST_PACKAGE_UPDATE,
+                false,
+                $this->createMock(RepositoryInterface::class),
+                [$operation],
+                $operation
+            );
+
+            return;
+        }
+
+        $this->composer->getEventDispatcher()->dispatchPackageEvent(
+            PackageEvents::POST_PACKAGE_UPDATE,
+            false,
+            new DefaultPolicy(false, false),
+            new Pool(),
+            new CompositeRepository([]),
+            new Request(new Pool()),
+            [$operation],
+            $operation
+        );
     }
 }

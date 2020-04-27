@@ -26,6 +26,11 @@ class FakeOperation implements OperationInterface
         $this->text = $text;
     }
 
+    public function getOperationType()
+    {
+        return '';
+    }
+
     /**
      * @return string
      */
@@ -46,6 +51,11 @@ class FakeOperation implements OperationInterface
      * {@inheritdoc}
      */
     public function getReason()
+    {
+        return '';
+    }
+
+    public function show($lock)
     {
         return '';
     }

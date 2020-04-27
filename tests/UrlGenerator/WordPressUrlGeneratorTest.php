@@ -11,17 +11,18 @@
 
 namespace Pyrech\ComposerChangelogs\tests\UrlGenerator;
 
+use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\UrlGenerator\WordPressUrlGenerator;
 use Pyrech\ComposerChangelogs\Version;
 
-class WordPressUrlGeneratorTest extends \PHPUnit_Framework_TestCase
+class WordPressUrlGeneratorTest extends TestCase
 {
     /**
      * @var WordPressUrlGenerator
      */
     private $SUT;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->SUT = new WordPressUrlGenerator();
     }
