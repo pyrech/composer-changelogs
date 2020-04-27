@@ -1,8 +1,8 @@
 # Changes between versions
 
-## Unreleased
+## 1.7.1 (2020-04-27)
 
-* Add support for Composer ^2.0
+* Add support for Composer ^2.0 ([#68](https://github.com/pyrech/composer-changelogs/pull/68))
 
 ## 1.7.0 (2019-10-21)
 
