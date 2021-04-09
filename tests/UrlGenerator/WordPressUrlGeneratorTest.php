@@ -27,14 +27,14 @@ class WordPressUrlGeneratorTest extends TestCase
         $this->SUT = new WordPressUrlGenerator();
     }
 
-    public function test_it_supports_wordpress_urls()
+    public function testItSupportsWordpressUrls()
     {
         $this->assertTrue($this->SUT->supports('http://plugins.svn.wordpress.org/social-networks-auto-poster-facebook-twitter-g/'));
         $this->assertTrue($this->SUT->supports('http://plugins.svn.wordpress.org/askimet/'));
         $this->assertTrue($this->SUT->supports('http://themes.svn.wordpress.org/minimize/'));
     }
 
-    public function test_it_does_not_support_non_wordpress_urls()
+    public function testItDoesNotSupportNonWordpressUrls()
     {
         $this->assertFalse($this->SUT->supports('https://github.com/phpunit/phpunit-mock-objects.git'));
         $this->assertFalse($this->SUT->supports('https://github.com/symfony/console'));
@@ -42,7 +42,7 @@ class WordPressUrlGeneratorTest extends TestCase
         $this->assertFalse($this->SUT->supports('https://bitbucket.org/rogoOOS/rog'));
     }
 
-    public function test_it_generates_compare_urls()
+    public function testItGeneratesCompareUrls()
     {
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
         $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
@@ -68,7 +68,7 @@ class WordPressUrlGeneratorTest extends TestCase
         );
     }
 
-    public function test_it_generates_release_urls()
+    public function testItGeneratesReleaseUrls()
     {
         $this->assertFalse($this->SUT->generateReleaseUrl(
             'http://themes.svn.wordpress.org/minimize/',

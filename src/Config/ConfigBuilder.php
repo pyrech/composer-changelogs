@@ -54,7 +54,7 @@ class ConfigBuilder
         }
 
         if (array_key_exists('commit-bin-file', $extra)) {
-            if ($commitAuto === 'never') {
+            if ('never' === $commitAuto) {
                 $this->warnings[] = '"commit-bin-file" is specified but "commit-auto" option is set to "never". Ignoring.';
             } else {
                 $file = realpath(
@@ -70,7 +70,7 @@ class ConfigBuilder
                 }
             }
         } else {
-            if ($commitAuto !== 'never') {
+            if ('never' !== $commitAuto) {
                 $this->warnings[] = sprintf(
                     '"commit-auto" is set to "%s" but "commit-bin-file" was not specified.',
                     $commitAuto
@@ -79,7 +79,7 @@ class ConfigBuilder
         }
 
         if (array_key_exists('commit-message', $extra)) {
-            if (strlen(trim($extra['commit-message'])) === 0) {
+            if (0 === strlen(trim($extra['commit-message']))) {
                 $this->warnings[] = '"commit-message" is specified but empty. Ignoring and using default commit message.';
             } else {
                 $commitMessage = $extra['commit-message'];

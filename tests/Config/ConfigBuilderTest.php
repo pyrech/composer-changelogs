@@ -30,7 +30,7 @@ class ConfigBuilderTest extends TestCase
         $this->SUT = new ConfigBuilder();
     }
 
-    public function test_it_has_a_default_setup()
+    public function testItHasADefaultSetup()
     {
         $extra = [];
 
@@ -45,7 +45,7 @@ class ConfigBuilderTest extends TestCase
         $this->assertCount(0, $this->SUT->getWarnings());
     }
 
-    public function test_it_warns_when_commit_auto_option_is_invalid()
+    public function testItWarnsWhenCommitAutoOptionIsInvalid()
     {
         $extra = [
             'commit-auto' => 'foo',
@@ -63,7 +63,7 @@ class ConfigBuilderTest extends TestCase
         $this->assertStringContainsString('Invalid value "foo" for option "commit-auto"', $this->SUT->getWarnings()[0]);
     }
 
-    public function test_it_warns_when_specifying_commit_bin_file_and_never_auto_commit()
+    public function testItWarnsWhenSpecifyingCommitBinFileAndNeverAutoCommit()
     {
         $extra = [
             'commit-auto' => 'never',
@@ -82,7 +82,7 @@ class ConfigBuilderTest extends TestCase
         $this->assertStringContainsString('"commit-bin-file" is specified but "commit-auto" option is set to "never". Ignoring.', $this->SUT->getWarnings()[0]);
     }
 
-    public function test_it_warns_when_specified_commit_bin_file_was_not_found()
+    public function testItWarnsWhenSpecifiedCommitBinFileWasNotFound()
     {
         $extra = [
             'commit-auto' => 'always',
@@ -101,7 +101,7 @@ class ConfigBuilderTest extends TestCase
         $this->assertStringContainsString('The file pointed by the option "commit-bin-file" was not found. Ignoring.', $this->SUT->getWarnings()[0]);
     }
 
-    public function test_it_warns_when_commit_bin_file_should_have_been_specified()
+    public function testItWarnsWhenCommitBinFileShouldHaveBeenSpecified()
     {
         $extra = [
             'commit-auto' => 'ask',
@@ -119,7 +119,7 @@ class ConfigBuilderTest extends TestCase
         $this->assertStringContainsString('"commit-auto" is set to "ask" but "commit-bin-file" was not specified.', $this->SUT->getWarnings()[0]);
     }
 
-    public function test_it_warns_when_commit_event_priority_value_is_invalid()
+    public function testItWarnsWhenCommitEventPriorityValueIsInvalid()
     {
         $extra = [
             'post-update-priority' => 'invalid-priority',
@@ -137,7 +137,7 @@ class ConfigBuilderTest extends TestCase
         $this->assertStringContainsString('"post-update-priority" is specified but not an integer. Ignoring and using default commit event priority.', $this->SUT->getWarnings()[0]);
     }
 
-    public function test_it_warns_when_gitlab_hosts_is_not_an_array()
+    public function testItWarnsWhenGitlabHostsIsNotAnArray()
     {
         $extra = [
             'gitlab-hosts' => 'gitlab.company1.com',
@@ -155,7 +155,7 @@ class ConfigBuilderTest extends TestCase
         $this->assertStringContainsString('"gitlab-hosts" is specified but should be an array. Ignoring.', $this->SUT->getWarnings()[0]);
     }
 
-    public function test_it_accepts_valid_setup()
+    public function testItAcceptsValidSetup()
     {
         $extra = [
             'commit-auto' => 'ask',

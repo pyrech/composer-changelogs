@@ -19,7 +19,7 @@ class VersionTest extends TestCase
     /** @var Version */
     private $SUT;
 
-    public function test_it_keep_version_formats()
+    public function testItKeepVersionFormats()
     {
         $this->SUT = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
 
@@ -34,7 +34,7 @@ class VersionTest extends TestCase
         $this->assertSame('dev-master 1234abc', $this->SUT->getFullPretty());
     }
 
-    public function test_it_detects_dev_version()
+    public function testItDetectsDevVersion()
     {
         $this->SUT = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
 

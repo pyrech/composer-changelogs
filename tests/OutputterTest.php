@@ -47,7 +47,7 @@ class OutputterTest extends TestCase
         $this->SUT = new Outputter($this->operationHandlers, $this->urlGenerators);
     }
 
-    public function test_it_adds_operation()
+    public function testItAddsOperation()
     {
         $operation1 = new FakeOperation('');
         $this->SUT->addOperation($operation1);
@@ -72,7 +72,7 @@ TEXT;
         $this->assertSame($expectedOutput, $this->SUT->getOutput());
     }
 
-    public function test_it_outputs_with_no_supported_url_generator()
+    public function testItOutputsWithNoSupportedUrlGenerator()
     {
         $this->SUT = new Outputter($this->operationHandlers, [
             new FakeUrlGenerator(false, '', ''),
@@ -94,7 +94,7 @@ TEXT;
         $this->assertSame($expectedOutput, $this->SUT->getOutput());
     }
 
-    public function test_it_outputs_with_no_supported_operation_handler()
+    public function testItOutputsWithNoSupportedOperationHandler()
     {
         $this->SUT = new Outputter([
             new FakeHandler(false, '', ''),
@@ -112,7 +112,7 @@ TEXT;
         $this->assertSame($expectedOutput, $this->SUT->getOutput());
     }
 
-    public function test_it_outputs_right_text()
+    public function testItOutputsRightText()
     {
         $this->SUT->addOperation(new FakeOperation('operation 1'));
         $this->SUT->addOperation(new FakeOperation('operation 2'));
@@ -134,7 +134,7 @@ TEXT;
         $this->assertSame($expectedOutput, $this->SUT->getOutput());
     }
 
-    public function test_it_outputs_nothing_without_operation()
+    public function testItOutputsNothingWithoutOperation()
     {
         $expectedOutput = <<<TEXT
 <fg=green>No changelogs summary</fg=green>

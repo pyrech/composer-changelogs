@@ -16,7 +16,7 @@ use Pyrech\ComposerChangelogs\Util\FileSystemHelper;
 
 class FileSystemHelperTest extends TestCase
 {
-    public function test_it_correctly_differentiates_absolute_paths_from_relative_ones()
+    public function testItCorrectlyDifferentiatesAbsolutePathsFromRelativeOnes()
     {
         $this->assertTrue(FileSystemHelper::isAbsolute('/var/lib'));
         $this->assertTrue(FileSystemHelper::isAbsolute('c:\\\\var\\lib'));

@@ -63,7 +63,7 @@ class ConfigLocatorTest extends TestCase
         $this->SUT = new ConfigLocator($this->composer);
     }
 
-    public function test_it_locates_local_config()
+    public function testItLocatesLocalConfig()
     {
         $key = 'my-local-config';
 
@@ -73,7 +73,7 @@ class ConfigLocatorTest extends TestCase
         $this->assertSame(['foo' => 'bar'], $this->SUT->getConfig($key));
     }
 
-    public function test_it_locates_global_config()
+    public function testItLocatesGlobalConfig()
     {
         $key = 'my-global-config';
 
@@ -83,7 +83,7 @@ class ConfigLocatorTest extends TestCase
         $this->assertSame(['bar' => 'foo'], $this->SUT->getConfig($key));
     }
 
-    public function test_it_does_not_locate_non_existing_config()
+    public function testItDoesNotLocateNonExistingConfig()
     {
         $key = 'my-non-existing-config';
 
