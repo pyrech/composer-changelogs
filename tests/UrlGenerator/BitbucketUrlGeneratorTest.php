@@ -26,20 +26,20 @@ class BitbucketUrlGeneratorTest extends TestCase
         $this->SUT = new BitbucketUrlGenerator();
     }
 
-    public function test_it_supports_bitbucket_urls()
+    public function testItSupportsBitbucketUrls()
     {
         $this->assertTrue($this->SUT->supports('https://bitbucket.org/mailchimp/mandrill-api-php.git'));
         $this->assertTrue($this->SUT->supports('https://bitbucket.org/rogoOOS/rog'));
         $this->assertTrue($this->SUT->supports('git@bitbucket.org:private/repo.git'));
     }
 
-    public function test_it_does_not_support_non_bitbucket_urls()
+    public function testItDoesNotSupportNonBitbucketUrls()
     {
         $this->assertFalse($this->SUT->supports('https://github.com/phpunit/phpunit-mock-objects.git'));
         $this->assertFalse($this->SUT->supports('https://github.com/symfony/console'));
     }
 
-    public function test_it_generates_compare_urls_with_or_without_git_extension_in_source_url()
+    public function testItGeneratesCompareUrlsWithOrWithoutGitExtensionInSourceUrl()
     {
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
         $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
@@ -65,7 +65,7 @@ class BitbucketUrlGeneratorTest extends TestCase
         );
     }
 
-    public function test_it_generates_compare_urls_with_dev_versions()
+    public function testItGeneratesCompareUrlsWithDevVersions()
     {
         $versionFrom = new Version('v1.0.9999999.9999999-dev', 'dev-master', 'dev-master 1234abc');
         $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
@@ -107,7 +107,7 @@ class BitbucketUrlGeneratorTest extends TestCase
         );
     }
 
-    public function test_it_generates_compare_urls_across_forks()
+    public function testItGeneratesCompareUrlsAcrossForks()
     {
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
         $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
@@ -123,7 +123,7 @@ class BitbucketUrlGeneratorTest extends TestCase
         );
     }
 
-    public function test_it_does_not_generate_compare_urls_for_unsupported_url()
+    public function testItDoesNotGenerateCompareUrlsForUnsupportedUrl()
     {
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
         $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
@@ -147,7 +147,7 @@ class BitbucketUrlGeneratorTest extends TestCase
         );
     }
 
-    public function test_it_throws_exception_when_generating_compare_urls_across_forks_if_a_source_url_is_invalid()
+    public function testItThrowsExceptionWhenGeneratingCompareUrlsAcrossForksIfASourceUrlIsInvalid()
     {
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Unrecognized url format for bitbucket.org ("https://bitbucket.org/acme2")');
@@ -163,7 +163,7 @@ class BitbucketUrlGeneratorTest extends TestCase
         );
     }
 
-    public function test_it_generates_compare_urls_with_ssh_source_url()
+    public function testItGeneratesCompareUrlsWithSshSourceUrl()
     {
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
         $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
@@ -179,7 +179,7 @@ class BitbucketUrlGeneratorTest extends TestCase
         );
     }
 
-    public function test_it_does_not_generate_release_urls()
+    public function testItDoesNotGenerateReleaseUrls()
     {
         $this->assertFalse(
             $this->SUT->generateReleaseUrl(

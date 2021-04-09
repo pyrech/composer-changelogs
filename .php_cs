@@ -28,7 +28,6 @@ return PhpCsFixer\Config::create()
         'single_line_throw' => false,               // Allow throwing exceptions in more than one row
         'strict_comparison' => true,                // Strict comparison
         'strict_param' => true,                     // Functions should use $strict param
-        'yoda_style' => null,                       // Ignore comparison style checks
     ])
     ->setUsingCache(true)
     ->setFinder($finder)

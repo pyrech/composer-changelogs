@@ -30,7 +30,7 @@ abstract class GitBasedUrlGenerator implements UrlGenerator
      */
     public function supports($sourceUrl)
     {
-        return strpos($sourceUrl, $this->getDomain()) !== false;
+        return false !== strpos($sourceUrl, $this->getDomain());
     }
 
     /**
@@ -56,7 +56,7 @@ abstract class GitBasedUrlGenerator implements UrlGenerator
             '%s://%s%s',
             $sourceUrl['scheme'],
             $sourceUrl['host'],
-            $pos === false ? $sourceUrl['path'] : substr($sourceUrl['path'], 0, strrpos($sourceUrl['path'], '.git'))
+            false === $pos ? $sourceUrl['path'] : substr($sourceUrl['path'], 0, strrpos($sourceUrl['path'], '.git'))
         );
     }
 
@@ -115,7 +115,7 @@ abstract class GitBasedUrlGenerator implements UrlGenerator
      */
     private function isSshUrl($url)
     {
-        return strpos($url, 'git@') !== false;
+        return false !== strpos($url, 'git@');
     }
 
     /**

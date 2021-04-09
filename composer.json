@@ -22,7 +22,8 @@
     "require-dev": {
         "composer/composer": "^1.0.0-alpha10@dev || ^2.0@dev",
         "composer/semver": "^1.2 || ^2.0",
-        "phpunit/phpunit": "^7.5"
+        "friendsofphp/php-cs-fixer": "^2.18",
+        "symfony/phpunit-bridge": "^5.2"
     },
     "config": {
         "sort-packages": true

@@ -57,7 +57,7 @@ composer test
 
 ## Standard code
 
-Use [PHP CS fixer](http://cs.sensiolabs.org/) to make your code compliant with
+Use [PHP CS fixer](https://cs.symfony.com/) to make your code compliant with
 composer-changelogs's coding standards:
 
 ```shell

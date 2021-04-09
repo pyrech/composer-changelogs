@@ -29,7 +29,7 @@ class InstallHandlerTest extends TestCase
         $this->SUT = new InstallHandler();
     }
 
-    public function test_it_supports_install_operation()
+    public function testItSupportsInstallOperation()
     {
         $operation = new InstallOperation(
             new Package('acme/my-project', 'v1.0.0.0', 'v1.0.0')
@@ -38,12 +38,12 @@ class InstallHandlerTest extends TestCase
         $this->assertTrue($this->SUT->supports($operation));
     }
 
-    public function test_it_does_not_support_non_install_operation()
+    public function testItDoesNotSupportNonInstallOperation()
     {
         $this->assertFalse($this->SUT->supports(new FakeOperation('')));
     }
 
-    public function test_it_extracts_source_url()
+    public function testItExtractsSourceUrl()
     {
         $package = new Package('acme/my-project', 'v1.0.0.0', 'v1.0.0');
         $package->setSourceUrl('https://example.com/acme/my-project.git');
@@ -56,7 +56,7 @@ class InstallHandlerTest extends TestCase
         );
     }
 
-    public function test_it_throws_exception_when_extracting_source_url_from_non_install_operation()
+    public function testItThrowsExceptionWhenExtractingSourceUrlFromNonInstallOperation()
     {
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Operation should be an instance of InstallOperation');
@@ -64,7 +64,7 @@ class InstallHandlerTest extends TestCase
         $this->SUT->extractSourceUrl(new FakeOperation(''));
     }
 
-    public function test_it_gets_output_without_url_generator()
+    public function testItGetsOutputWithoutUrlGenerator()
     {
         $package = new Package('acme/my-project', 'v1.0.0.0', 'v1.0.0');
         $package->setSourceUrl('https://example.com/acme/my-project.git');
@@ -81,7 +81,7 @@ class InstallHandlerTest extends TestCase
         );
     }
 
-    public function test_it_gets_output_with_url_generator_no_supporting_compare_url()
+    public function testItGetsOutputWithUrlGeneratorNoSupportingCompareUrl()
     {
         $operation = new InstallOperation(
             new Package('acme/my-project', 'v1.0.0.0', 'v1.0.0')
@@ -104,7 +104,7 @@ class InstallHandlerTest extends TestCase
         );
     }
 
-    public function test_it_gets_output_with_url_generator_no_supporting_release_url()
+    public function testItGetsOutputWithUrlGeneratorNoSupportingReleaseUrl()
     {
         $operation = new InstallOperation(
             new Package('acme/my-project', 'v1.0.0.0', 'v1.0.0')
@@ -126,7 +126,7 @@ class InstallHandlerTest extends TestCase
         );
     }
 
-    public function test_it_gets_output_with_url_generator_supporting_all_urls()
+    public function testItGetsOutputWithUrlGeneratorSupportingAllUrls()
     {
         $operation = new InstallOperation(
             new Package('acme/my-project', 'v1.0.0.0', 'v1.0.0')
@@ -149,7 +149,7 @@ class InstallHandlerTest extends TestCase
         );
     }
 
-    public function test_it_throws_exception_when_getting_output_from_non_install_operation()
+    public function testItThrowsExceptionWhenGettingOutputFromNonInstallOperation()
     {
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Operation should be an instance of InstallOperation');

@@ -26,20 +26,20 @@ class GithubUrlGeneratorTest extends TestCase
         $this->SUT = new GithubUrlGenerator();
     }
 
-    public function test_it_supports_github_urls()
+    public function testItSupportsGithubUrls()
     {
         $this->assertTrue($this->SUT->supports('https://github.com/phpunit/phpunit-mock-objects.git'));
         $this->assertTrue($this->SUT->supports('https://github.com/symfony/console'));
         $this->assertTrue($this->SUT->supports('git@github.com:private/repo.git'));
     }
 
-    public function test_it_does_not_support_non_github_urls()
+    public function testItDoesNotSupportNonGithubUrls()
     {
         $this->assertFalse($this->SUT->supports('https://bitbucket.org/mailchimp/mandrill-api-php.git'));
         $this->assertFalse($this->SUT->supports('https://bitbucket.org/rogoOOS/rog'));
     }
 
-    public function test_it_generates_compare_urls_with_or_without_git_extension_in_source_url()
+    public function testItGeneratesCompareUrlsWithOrWithoutGitExtensionInSourceUrl()
     {
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
         $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
@@ -65,7 +65,7 @@ class GithubUrlGeneratorTest extends TestCase
         );
     }
 
-    public function test_it_generates_compare_urls_with_dev_versions()
+    public function testItGeneratesCompareUrlsWithDevVersions()
     {
         $versionFrom = new Version('v.1.0.9999999.9999999-dev', 'dev-master', 'dev-master 1234abc');
         $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
@@ -107,7 +107,7 @@ class GithubUrlGeneratorTest extends TestCase
         );
     }
 
-    public function test_it_generates_compare_urls_across_forks()
+    public function testItGeneratesCompareUrlsAcrossForks()
     {
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
         $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
@@ -123,7 +123,7 @@ class GithubUrlGeneratorTest extends TestCase
         );
     }
 
-    public function test_it_does_not_generate_compare_urls_for_unsupported_url()
+    public function testItDoesNotGenerateCompareUrlsForUnsupportedUrl()
     {
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
         $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
@@ -147,7 +147,7 @@ class GithubUrlGeneratorTest extends TestCase
         );
     }
 
-    public function test_it_throws_exception_when_generating_compare_urls_across_forks_if_a_source_url_is_invalid()
+    public function testItThrowsExceptionWhenGeneratingCompareUrlsAcrossForksIfASourceUrlIsInvalid()
     {
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Unrecognized url format for github.com ("https://github.com/acme2")');
@@ -163,7 +163,7 @@ class GithubUrlGeneratorTest extends TestCase
         );
     }
 
-    public function test_it_generates_compare_urls_with_ssh_source_url()
+    public function testItGeneratesCompareUrlsWithSshSourceUrl()
     {
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
         $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
@@ -179,7 +179,7 @@ class GithubUrlGeneratorTest extends TestCase
         );
     }
 
-    public function test_it_does_not_generate_release_urls_for_dev_version()
+    public function testItDoesNotGenerateReleaseUrlsForDevVersion()
     {
         $this->assertFalse(
             $this->SUT->generateReleaseUrl(
@@ -196,7 +196,7 @@ class GithubUrlGeneratorTest extends TestCase
         );
     }
 
-    public function test_it_generates_release_urls()
+    public function testItGeneratesReleaseUrls()
     {
         $this->assertSame(
             'https://github.com/acme/repo/releases/tag/v1.0.1',
@@ -215,7 +215,7 @@ class GithubUrlGeneratorTest extends TestCase
         );
     }
 
-    public function test_it_generates_release_url_with_ssh_source_url()
+    public function testItGeneratesReleaseUrlWithSshSourceUrl()
     {
         $this->assertSame(
             'https://github.com/acme/repo/releases/tag/v1.0.1',

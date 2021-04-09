@@ -93,7 +93,7 @@ class ChangelogsPluginTest extends TestCase
         rmdir($this->tempDir);
     }
 
-    public function test_it_is_registered_and_activated()
+    public function testItIsRegisteredAndActivated()
     {
         $plugin = new ChangelogsPlugin();
 
@@ -102,7 +102,7 @@ class ChangelogsPluginTest extends TestCase
         $this->assertSame([$plugin], $this->composer->getPluginManager()->getPlugins());
     }
 
-    public function test_it_receives_event()
+    public function testItReceivesEvent()
     {
         $this->addComposerPlugin(new ChangelogsPlugin());
 
@@ -125,7 +125,7 @@ OUTPUT;
         $this->assertSame($expectedOutput, $this->io->getOutput());
     }
 
-    public function test_events_are_handled()
+    public function testEventsAreHandled()
     {
         $plugin = new ChangelogsPlugin();
         $plugin->activate($this->composer, $this->io);
@@ -151,7 +151,7 @@ OUTPUT;
         $this->assertSame($expectedOutput, $this->io->getOutput());
     }
 
-    public function test_post_update_event_priority_is_handled()
+    public function testPostUpdateEventPriorityIsHandled()
     {
         $this->config->merge([
             'config' => [
@@ -170,7 +170,7 @@ OUTPUT;
         $this->assertArrayHasKey(-1337, $eventListeners[ScriptEvents::POST_UPDATE_CMD]);
     }
 
-    public function test_it_commits_with_always_option()
+    public function testItCommitsWithAlwaysOption()
     {
         $this->config->merge([
             'config' => [
@@ -192,7 +192,7 @@ OUTPUT;
         $this->assertStringMatchesFormat('%aExecuting following command: %s/tests/fixtures/bin/fake.sh \'%s\' \'%s/composer-changelogs-%s\'', $this->io->getOutput());
     }
 
-    public function test_it_commits_with_default_commit_message()
+    public function testItCommitsWithDefaultCommitMessage()
     {
         $this->config->merge([
             'config' => [
@@ -216,7 +216,7 @@ OUTPUT;
         $this->assertStringMatchesFormat('Update dependencies%aChangelogs summary:%a', $commitMessage);
     }
 
-    public function test_it_commits_with_custom_commit_message()
+    public function testItCommitsWithCustomCommitMessage()
     {
         $this->config->merge([
             'config' => [
