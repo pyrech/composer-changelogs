@@ -15,8 +15,8 @@ use Pyrech\ComposerChangelogs\Version;
 
 abstract class GitBasedUrlGenerator implements UrlGenerator
 {
-    const REGEX_USER = '(?P<user>[^/]+)';
-    const REGEX_REPOSITORY = '(?P<repository>[^/]+)';
+    public const REGEX_USER = '(?P<user>[^/]+)';
+    public const REGEX_REPOSITORY = '(?P<repository>[^/]+)';
 
     /**
      * Returns the domain of the service, like "example.org".

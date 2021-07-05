@@ -24,7 +24,7 @@ use Pyrech\ComposerChangelogs\Config\ConfigLocator;
 
 class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
 {
-    const EXTRA_KEY = 'composer-changelogs';
+    public const EXTRA_KEY = 'composer-changelogs';
 
     /** @var Composer */
     private $composer;

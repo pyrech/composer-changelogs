@@ -16,7 +16,7 @@ use Pyrech\ComposerChangelogs\Config\ConfigBuilder;
 
 class ConfigBuilderTest extends TestCase
 {
-    const COMMIT_BIN_FILE = '../fixtures/bin/fake.sh';
+    public const COMMIT_BIN_FILE = '../fixtures/bin/fake.sh';
 
     /** @var string */
     private $absoluteCommitBinFile;

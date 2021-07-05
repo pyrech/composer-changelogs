@@ -13,7 +13,8 @@ $finder = PhpCsFixer\Finder::create()
     ->in([__DIR__])
 ;
 
-return PhpCsFixer\Config::create()
+$config = new PhpCsFixer\Config();
+$config
     ->setRiskyAllowed(true)
     ->setRules([
         '@Symfony' => true,
@@ -32,3 +33,5 @@ return PhpCsFixer\Config::create()
     ->setUsingCache(true)
     ->setFinder($finder)
 ;
+
+return $config;

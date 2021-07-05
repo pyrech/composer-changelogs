@@ -18,7 +18,7 @@ use Pyrech\ComposerChangelogs\Version;
  */
 class WordPressUrlGenerator implements UrlGenerator
 {
-    const DOMAIN = 'svn.wordpress.org';
+    public const DOMAIN = 'svn.wordpress.org';
 
     /**
      * {@inheritdoc}
