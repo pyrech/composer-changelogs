@@ -115,7 +115,7 @@ class ChangelogsPluginTest extends TestCase
         $expectedOutput = <<<OUTPUT
 Changelogs summary:
 
- - foo/bar updated from v1.0.0 to v1.0.1
+ - foo/bar updated from v1.0.0 to v1.0.1 patch
    See changes: https://github.com/foo/bar/compare/v1.0.0...v1.0.1
    Release notes: https://github.com/foo/bar/releases/tag/v1.0.1
 
@@ -141,7 +141,7 @@ OUTPUT;
         $expectedOutput = <<<OUTPUT
 Changelogs summary:
 
- - foo/bar updated from v1.0.0 to v1.0.1
+ - foo/bar updated from v1.0.0 to v1.0.1 patch
    See changes: https://github.com/foo/bar/compare/v1.0.0...v1.0.1
    Release notes: https://github.com/foo/bar/releases/tag/v1.0.1
 
