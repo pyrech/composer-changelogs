@@ -76,11 +76,12 @@ class UpdateHandler implements OperationHandler
         }
 
         $output[] = sprintf(
-            ' - <fg=green>%s</fg=green> %s from <fg=yellow>%s</fg=yellow> to <fg=yellow>%s</fg=yellow>',
+            ' - <fg=green>%s</fg=green> %s from <fg=yellow>%s</fg=yellow> to <fg=yellow>%s</fg=yellow>%s',
             $initialPackage->getName(),
             $action,
             $versionFrom->getCliOutput(),
-            $versionTo->getCliOutput()
+            $versionTo->getCliOutput(),
+            $this->getSemverOutput($versionFrom->getName(), $versionTo->getName())
         );
 
         if ($urlGenerator) {
@@ -112,5 +113,26 @@ class UpdateHandler implements OperationHandler
         }
 
         return $output;
+    }
+
+    /** @return string */
+    private function getSemverOutput(string $versionFrom, string $versionTo)
+    {
+        if (false === strpos($versionFrom, '.') && false === strpos($versionTo, '.')) {
+            return '';
+        }
+
+        $versionsFrom = \explode('.', $versionFrom);
+        $versionsTo = \explode('.', $versionTo);
+
+        if (version_compare($versionsFrom[0], $versionsTo[0], '!=')) {
+            return ' <bg=red>major</>';
+        }
+
+        if (version_compare($versionsFrom[0], $versionsTo[0], '==') && version_compare($versionsFrom[1], $versionsTo[1], '!=')) {
+            return ' <bg=yellow>minor</>';
+        }
+
+        return ' <bg=green>patch</>';
     }
 }
