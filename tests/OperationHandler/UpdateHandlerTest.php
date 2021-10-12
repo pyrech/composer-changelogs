@@ -79,7 +79,7 @@ class UpdateHandlerTest extends TestCase
         $operation = new UpdateOperation($package1, $package2);
 
         $expectedOutput = [
-            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.1.1</fg=yellow> <bg=yellow>minor</>',
+            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.1.1</fg=yellow> <fg=blue>minor</>',
         ];
 
         $this->assertSame(
@@ -102,7 +102,7 @@ class UpdateHandlerTest extends TestCase
         );
 
         $expectedOutput = [
-            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow> <bg=green>patch</>',
+            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow> <fg=cyan>patch</>',
             '   Release notes: https://example.com/acme/my-project/release/v1.0.1',
         ];
 
@@ -126,7 +126,7 @@ class UpdateHandlerTest extends TestCase
         );
 
         $expectedOutput = [
-            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow> <bg=green>patch</>',
+            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow> <fg=cyan>patch</>',
             '   See changes: https://example.com/acme/my-project/compare/v1.0.0/v1.0.1',
         ];
 
@@ -150,7 +150,7 @@ class UpdateHandlerTest extends TestCase
         );
 
         $expectedOutput = [
-            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow> <bg=green>patch</>',
+            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow> <fg=cyan>patch</>',
             '   See changes: https://example.com/acme/my-project/compare/v1.0.0/v1.0.1',
             '   Release notes: https://example.com/acme/my-project/release/v1.0.1',
         ];
@@ -177,7 +177,7 @@ class UpdateHandlerTest extends TestCase
         $operationUpdate = new UpdateOperation($package1, $package2);
 
         $expectedOutput = [
-            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow> <bg=green>patch</>',
+            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow> <fg=cyan>patch</>',
         ];
 
         $this->assertSame(
@@ -188,7 +188,7 @@ class UpdateHandlerTest extends TestCase
         $operationDowngrade = new UpdateOperation($package2, $package1);
 
         $expectedOutput = [
-            ' - <fg=green>acme/my-project2</fg=green> downgraded from <fg=yellow>v1.0.1</fg=yellow> to <fg=yellow>v1.0.0</fg=yellow> <bg=green>patch</>',
+            ' - <fg=green>acme/my-project2</fg=green> downgraded from <fg=yellow>v1.0.1</fg=yellow> to <fg=yellow>v1.0.0</fg=yellow> <fg=cyan>patch</>',
         ];
 
         $this->assertSame(
