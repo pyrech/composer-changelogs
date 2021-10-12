@@ -79,7 +79,7 @@ class UpdateHandlerTest extends TestCase
         $operation = new UpdateOperation($package1, $package2);
 
         $expectedOutput = [
-            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.1.1</fg=yellow> <fg=blue>minor</>',
+            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.1.1</fg=yellow> <fg=magenta>minor</>',
         ];
 
         $this->assertSame(

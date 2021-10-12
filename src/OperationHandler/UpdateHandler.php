@@ -126,11 +126,11 @@ class UpdateHandler implements OperationHandler
         $versionsTo = \explode('.', $versionTo);
 
         if (version_compare($versionsFrom[0], $versionsTo[0], '!=')) {
-            return ' <fg=magenta>major</>';
+            return ' <fg=red>major</>';
         }
 
         if (version_compare($versionsFrom[0], $versionsTo[0], '==') && version_compare($versionsFrom[1], $versionsTo[1], '!=')) {
-            return ' <fg=blue>minor</>';
+            return ' <fg=magenta>minor</>';
         }
 
         return ' <fg=cyan>patch</>';
