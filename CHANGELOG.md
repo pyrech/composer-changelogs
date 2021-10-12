@@ -1,5 +1,9 @@
 # Changes between versions
 
+## 1.8.1 (2021-10-13)
+
+* Fix semver output colors ([#74](https://github.com/pyrech/composer-changelogs/pull/74))
+
 ## 1.8.0 (2021-09-06)
 
 * Add semver color output representation ([#73](https://github.com/pyrech/composer-changelogs/pull/73))
