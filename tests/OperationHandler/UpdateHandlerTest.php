@@ -79,7 +79,7 @@ class UpdateHandlerTest extends TestCase
         $operation = new UpdateOperation($package1, $package2);
 
         $expectedOutput = [
-            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.1.1</fg=yellow> <bg=yellow>minor</>',
+            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.1.1</fg=yellow> <fg=magenta>minor</>',
         ];
 
         $this->assertSame(
@@ -102,7 +102,7 @@ class UpdateHandlerTest extends TestCase
         );
 
         $expectedOutput = [
-            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow> <bg=green>patch</>',
+            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow> <fg=cyan>patch</>',
             '   Release notes: https://example.com/acme/my-project/release/v1.0.1',
         ];
 
@@ -126,7 +126,7 @@ class UpdateHandlerTest extends TestCase
         );
 
         $expectedOutput = [
-            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow> <bg=green>patch</>',
+            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow> <fg=cyan>patch</>',
             '   See changes: https://example.com/acme/my-project/compare/v1.0.0/v1.0.1',
         ];
 
@@ -150,7 +150,7 @@ class UpdateHandlerTest extends TestCase
         );
 
         $expectedOutput = [
-            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow> <bg=green>patch</>',
+            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow> <fg=cyan>patch</>',
             '   See changes: https://example.com/acme/my-project/compare/v1.0.0/v1.0.1',
             '   Release notes: https://example.com/acme/my-project/release/v1.0.1',
         ];
@@ -177,7 +177,7 @@ class UpdateHandlerTest extends TestCase
         $operationUpdate = new UpdateOperation($package1, $package2);
 
         $expectedOutput = [
-            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow> <bg=green>patch</>',
+            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow> <fg=cyan>patch</>',
         ];
 
         $this->assertSame(
@@ -188,12 +188,53 @@ class UpdateHandlerTest extends TestCase
         $operationDowngrade = new UpdateOperation($package2, $package1);
 
         $expectedOutput = [
-            ' - <fg=green>acme/my-project2</fg=green> downgraded from <fg=yellow>v1.0.1</fg=yellow> to <fg=yellow>v1.0.0</fg=yellow> <bg=green>patch</>',
+            ' - <fg=green>acme/my-project2</fg=green> downgraded from <fg=yellow>v1.0.1</fg=yellow> to <fg=yellow>v1.0.0</fg=yellow> <fg=cyan>patch</>',
         ];
 
         $this->assertSame(
             $expectedOutput,
             $this->SUT->getOutput($operationDowngrade, null)
+        );
+    }
+
+    public function testItOutputsTheCorrectSemverColors()
+    {
+        $base = new Package('acme/my-project1', 'v1.0.0.0', 'v1.0.0');
+        $patch = new Package('acme/my-project1', 'v1.0.1.0', 'v1.0.1');
+        $minor = new Package('acme/my-project2', 'v1.1.0.0', 'v1.1.0');
+        $major = new Package('acme/my-project2', 'v2.0.0.0', 'v2.0.0');
+
+        $patchUpdate = new UpdateOperation($base, $patch);
+
+        $expectedOutput = [
+            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.0.1</fg=yellow> <fg=cyan>patch</>',
+        ];
+
+        $this->assertSame(
+            $expectedOutput,
+            $this->SUT->getOutput($patchUpdate, null)
+        );
+
+        $minorUpdate = new UpdateOperation($base, $minor);
+
+        $expectedOutput = [
+            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v1.1.0</fg=yellow> <fg=magenta>minor</>',
+        ];
+
+        $this->assertSame(
+            $expectedOutput,
+            $this->SUT->getOutput($minorUpdate, null)
+        );
+
+        $majorUpdate = new UpdateOperation($base, $major);
+
+        $expectedOutput = [
+            ' - <fg=green>acme/my-project1</fg=green> updated from <fg=yellow>v1.0.0</fg=yellow> to <fg=yellow>v2.0.0</fg=yellow> <fg=red>major</>',
+        ];
+
+        $this->assertSame(
+            $expectedOutput,
+            $this->SUT->getOutput($majorUpdate, null)
         );
     }
 
