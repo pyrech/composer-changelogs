@@ -61,7 +61,7 @@ Use [PHP CS fixer](https://cs.symfony.com/) to make your code compliant with
 composer-changelogs's coding standards:
 
 ```shell
-vendor/bin/php-cs-fixer fix --config-file=.php_cs --diff
+vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff
 ```
 or the alias:
 ```shell

@@ -17,14 +17,13 @@ use Composer\DependencyResolver\DefaultPolicy;
 use Composer\DependencyResolver\Operation\UpdateOperation;
 use Composer\DependencyResolver\Pool;
 use Composer\DependencyResolver\Request;
-use Composer\EventDispatcher\EventDispatcher;
+use Composer\Factory;
 use Composer\Installer\PackageEvent;
 use Composer\Installer\PackageEvents;
 use Composer\IO\BufferIO;
 use Composer\Package\Package;
 use Composer\Package\RootPackage;
 use Composer\Plugin\PluginInterface;
-use Composer\Plugin\PluginManager;
 use Composer\Repository\CompositeRepository;
 use Composer\Repository\RepositoryInterface;
 use Composer\Script\ScriptEvents;
@@ -60,11 +59,9 @@ class ChangelogsPluginTest extends TestCase
 
         $this->io = new BufferIO();
 
-        $this->composer = new Composer();
+        $this->composer = Factory::create($this->io, null, false);
         $this->composer->setConfig($this->config);
         $this->composer->setPackage(new RootPackage('my/project', '1.0.0', '1.0.0'));
-        $this->composer->setPluginManager(new PluginManager($this->io, $this->composer));
-        $this->composer->setEventDispatcher(new EventDispatcher($this->composer, $this->io));
 
         self::cleanTempDir();
         mkdir($this->tempDir);
@@ -242,10 +239,10 @@ OUTPUT;
 
     private function addComposerPlugin(PluginInterface $plugin)
     {
-        $pluginManagerReflection = new \ReflectionClass($this->composer->getPluginManager());
-        $addPluginReflection = $pluginManagerReflection->getMethod('addPlugin');
-        $addPluginReflection->setAccessible(true);
-        $addPluginReflection->invoke($this->composer->getPluginManager(), $plugin);
+        $sourcePackage = new Package('pyrech/composer-changelogs', '1', 'v1');
+
+        $pluginManager = $this->composer->getPluginManager();
+        $pluginManager->addPlugin($plugin, false, $sourcePackage);
     }
 
     /**
