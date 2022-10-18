@@ -26,7 +26,10 @@
         "symfony/phpunit-bridge": "^5.2"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pyrech/composer-changelogs": true
+        }
     },
     "extra": {
         "class": "Pyrech\\ComposerChangelogs\\ChangelogsPlugin"
@@ -42,8 +45,8 @@
         }
     },
     "scripts": {
-        "cs": "vendor/bin/php-cs-fixer fix --config-file=.php_cs --diff --dry-run --verbose",
-        "fix-cs": "vendor/bin/php-cs-fixer fix --config-file=.php_cs --diff --verbose",
+        "cs": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff --dry-run --verbose",
+        "fix-cs": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff --verbose",
         "test": "vendor/bin/phpunit"
     }
 }
