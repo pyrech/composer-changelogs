@@ -13,7 +13,6 @@ namespace Pyrech\ComposerChangelogs\tests\OperationHandler;
 
 use Composer\DependencyResolver\Operation\InstallOperation;
 use Composer\Package\Package;
-use LogicException;
 use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\OperationHandler\InstallHandler;
 use Pyrech\ComposerChangelogs\tests\resources\FakeOperation;
@@ -58,7 +57,7 @@ class InstallHandlerTest extends TestCase
 
     public function testItThrowsExceptionWhenExtractingSourceUrlFromNonInstallOperation()
     {
-        $this->expectException(LogicException::class);
+        $this->expectException(\LogicException::class);
         $this->expectExceptionMessage('Operation should be an instance of InstallOperation');
 
         $this->SUT->extractSourceUrl(new FakeOperation(''));
@@ -151,7 +150,7 @@ class InstallHandlerTest extends TestCase
 
     public function testItThrowsExceptionWhenGettingOutputFromNonInstallOperation()
     {
-        $this->expectException(LogicException::class);
+        $this->expectException(\LogicException::class);
         $this->expectExceptionMessage('Operation should be an instance of InstallOperation');
 
         $this->SUT->getOutput(new FakeOperation(''));

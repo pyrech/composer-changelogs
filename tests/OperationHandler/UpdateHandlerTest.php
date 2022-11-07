@@ -13,7 +13,6 @@ namespace Pyrech\ComposerChangelogs\tests\OperationHandler;
 
 use Composer\DependencyResolver\Operation\UpdateOperation;
 use Composer\Package\Package;
-use LogicException;
 use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\OperationHandler\UpdateHandler;
 use Pyrech\ComposerChangelogs\tests\resources\FakeOperation;
@@ -62,7 +61,7 @@ class UpdateHandlerTest extends TestCase
 
     public function testItThrowsExceptionWhenExtractingSourceUrlFromNonUpdateOperation()
     {
-        $this->expectException(LogicException::class);
+        $this->expectException(\LogicException::class);
         $this->expectExceptionMessage('Operation should be an instance of UpdateOperation');
 
         $this->SUT->extractSourceUrl(new FakeOperation(''));
@@ -163,7 +162,7 @@ class UpdateHandlerTest extends TestCase
 
     public function testItThrowsExceptionWhenGettingOutputFromNonUpdateOperation()
     {
-        $this->expectException(LogicException::class);
+        $this->expectException(\LogicException::class);
         $this->expectExceptionMessage('Operation should be an instance of UpdateOperation');
 
         $this->SUT->getOutput(new FakeOperation(''));
