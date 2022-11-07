@@ -11,7 +11,6 @@
 
 namespace Pyrech\ComposerChangelogs\tests\UrlGenerator;
 
-use LogicException;
 use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\UrlGenerator\GithubUrlGenerator;
 use Pyrech\ComposerChangelogs\Version;
@@ -149,7 +148,7 @@ class GithubUrlGeneratorTest extends TestCase
 
     public function testItThrowsExceptionWhenGeneratingCompareUrlsAcrossForksIfASourceUrlIsInvalid()
     {
-        $this->expectException(LogicException::class);
+        $this->expectException(\LogicException::class);
         $this->expectExceptionMessage('Unrecognized url format for github.com ("https://github.com/acme2")');
 
         $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');

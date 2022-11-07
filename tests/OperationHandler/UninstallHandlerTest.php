@@ -13,7 +13,6 @@ namespace Pyrech\ComposerChangelogs\tests\OperationHandler;
 
 use Composer\DependencyResolver\Operation\UninstallOperation;
 use Composer\Package\Package;
-use LogicException;
 use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\OperationHandler\UninstallHandler;
 use Pyrech\ComposerChangelogs\tests\resources\FakeOperation;
@@ -58,7 +57,7 @@ class UninstallHandlerTest extends TestCase
 
     public function testItThrowsExceptionWhenExtractingSourceUrlFromNonUninstallOperation()
     {
-        $this->expectException(LogicException::class);
+        $this->expectException(\LogicException::class);
         $this->expectExceptionMessage('Operation should be an instance of UninstallOperation');
 
         $this->SUT->extractSourceUrl(new FakeOperation(''));
@@ -149,7 +148,7 @@ class UninstallHandlerTest extends TestCase
 
     public function testItThrowsExceptionWhenGettingOutputFromNonUninstallOperation()
     {
-        $this->expectException(LogicException::class);
+        $this->expectException(\LogicException::class);
         $this->expectExceptionMessage('Operation should be an instance of UninstallOperation');
 
         $this->SUT->getOutput(new FakeOperation(''));
