@@ -36,6 +36,7 @@ class BitbucketUrlGeneratorTest extends TestCase
     {
         $this->assertFalse($this->SUT->supports('https://github.com/phpunit/phpunit-mock-objects.git'));
         $this->assertFalse($this->SUT->supports('https://github.com/symfony/console'));
+        $this->assertFalse($this->SUT->supports(null));
     }
 
     public function testItGeneratesCompareUrlsWithOrWithoutGitExtensionInSourceUrl()
@@ -178,6 +179,21 @@ class BitbucketUrlGeneratorTest extends TestCase
         );
     }
 
+    public function testItDoesNotGenerateCompareUrlsWithoutSourceUrl()
+    {
+        $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
+        $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
+
+        $this->assertFalse(
+            $this->SUT->generateCompareUrl(
+                null,
+                $versionFrom,
+                null,
+                $versionTo
+            )
+        );
+    }
+
     public function testItDoesNotGenerateReleaseUrls()
     {
         $this->assertFalse(
@@ -190,6 +206,16 @@ class BitbucketUrlGeneratorTest extends TestCase
         $this->assertFalse(
             $this->SUT->generateReleaseUrl(
                 'https://bitbucket.org/acme/repo.git',
+                new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1')
+            )
+        );
+    }
+
+    public function testItDoesNotGenerateReleaseUrlWithoutSourceUrl()
+    {
+        $this->assertFalse(
+            $this->SUT->generateReleaseUrl(
+                null,
                 new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1')
             )
         );

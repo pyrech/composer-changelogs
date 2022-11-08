@@ -69,9 +69,15 @@ class GithubUrlGenerator extends AbstractUrlGenerator
             return false;
         }
 
+        $baseUrl = $this->generateBaseUrl($sourceUrl);
+
+        if (!$baseUrl) {
+            return false;
+        }
+
         return sprintf(
             '%s/releases/tag/%s',
-            $this->generateBaseUrl($sourceUrl),
+            $baseUrl,
             $version->getPretty()
         );
     }

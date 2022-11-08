@@ -16,7 +16,7 @@ use Pyrech\ComposerChangelogs\Version;
 interface UrlGenerator
 {
     /**
-     * @param string $sourceUrl
+     * @param ?string $sourceUrl
      *
      * @return bool
      */
@@ -29,9 +29,9 @@ interface UrlGenerator
      * In case the from and to source urls are different, this probably means
      * that an across fork compare url should be generated instead.
      *
-     * @param string  $sourceUrlFrom
+     * @param ?string $sourceUrlFrom
      * @param Version $versionFrom
-     * @param string  $sourceUrlTo
+     * @param ?string $sourceUrlTo
      * @param Version $versionTo
      *
      * @return string|false
@@ -42,7 +42,7 @@ interface UrlGenerator
      * Return the release url for the given version or false if compare url is
      * not supported.
      *
-     * @param string  $sourceUrl
+     * @param ?string $sourceUrl
      * @param Version $version
      *
      * @return string|false

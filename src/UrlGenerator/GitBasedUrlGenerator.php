@@ -30,7 +30,7 @@ abstract class GitBasedUrlGenerator implements UrlGenerator
      */
     public function supports($sourceUrl)
     {
-        return false !== strpos($sourceUrl, $this->getDomain());
+        return $sourceUrl && false !== strpos($sourceUrl, $this->getDomain());
     }
 
     /**
@@ -39,12 +39,16 @@ abstract class GitBasedUrlGenerator implements UrlGenerator
      * It ensures there is no .git part in http url. It also supports ssh urls
      * by converting them in their http equivalent format.
      *
-     * @param string $sourceUrl
+     * @param ?string $sourceUrl
      *
      * @return string
      */
     protected function generateBaseUrl($sourceUrl)
     {
+        if (!$sourceUrl) {
+            return '';
+        }
+
         if ($this->isSshUrl($sourceUrl)) {
             return $this->transformSshUrlIntoHttp($sourceUrl);
         }
