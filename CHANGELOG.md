@@ -1,6 +1,6 @@
 # Changes between versions
 
-## Not yet released
+## 1.8.2 (2021-11-08)
 
 * Fix PHP 8 warning about passing null to strpos() ([#78](https://github.com/pyrech/composer-changelogs/pull/78))
 
