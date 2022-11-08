@@ -178,6 +178,21 @@ class GithubUrlGeneratorTest extends TestCase
         );
     }
 
+    public function testItDoesNotGenerateCompareUrlsWithoutSourceUrl()
+    {
+        $versionFrom = new Version('v1.0.0.0', 'v1.0.0', 'v1.0.0');
+        $versionTo = new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1');
+
+        $this->assertFalse(
+            $this->SUT->generateCompareUrl(
+                null,
+                $versionFrom,
+                null,
+                $versionTo
+            )
+        );
+    }
+
     public function testItDoesNotGenerateReleaseUrlsForDevVersion()
     {
         $this->assertFalse(
@@ -220,6 +235,16 @@ class GithubUrlGeneratorTest extends TestCase
             'https://github.com/acme/repo/releases/tag/v1.0.1',
             $this->SUT->generateReleaseUrl(
                 'git@github.com:acme/repo.git',
+                new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1')
+            )
+        );
+    }
+
+    public function testItDoesNotGenerateReleaseUrlWithoutSourceUrl()
+    {
+        $this->assertFalse(
+            $this->SUT->generateReleaseUrl(
+                null,
                 new Version('v1.0.1.0', 'v1.0.1', 'v1.0.1')
             )
         );

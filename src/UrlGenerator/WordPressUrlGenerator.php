@@ -25,7 +25,7 @@ class WordPressUrlGenerator implements UrlGenerator
      */
     public function supports($sourceUrl)
     {
-        return false !== strpos($sourceUrl, self::DOMAIN);
+        return $sourceUrl && false !== strpos($sourceUrl, self::DOMAIN);
     }
 
     /**
@@ -33,6 +33,10 @@ class WordPressUrlGenerator implements UrlGenerator
      */
     public function generateCompareUrl($sourceUrlFrom, Version $versionFrom, $sourceUrlTo, Version $versionTo)
     {
+        if (!$sourceUrlTo) {
+            return false;
+        }
+
         if (preg_match('#plugins.svn.wordpress.org/(.*)/#', $sourceUrlTo, $matches)) {
             $plugin = $matches[1];
 

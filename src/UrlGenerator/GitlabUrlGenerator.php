@@ -70,6 +70,12 @@ class GitlabUrlGenerator extends AbstractUrlGenerator
             return false;
         }
 
+        $baseUrl = $this->generateBaseUrl($sourceUrl);
+
+        if (!$baseUrl) {
+            return false;
+        }
+
         return sprintf(
             '%s/tags/%s',
             $this->generateBaseUrl($sourceUrl),

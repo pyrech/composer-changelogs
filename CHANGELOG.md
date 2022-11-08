@@ -1,5 +1,9 @@
 # Changes between versions
 
+## Not yet released
+
+* Fix PHP 8 warning about passing null to strpos() ([#78](https://github.com/pyrech/composer-changelogs/pull/78))
+
 ## 1.8.1 (2021-10-13)
 
 * Fix semver output colors ([#74](https://github.com/pyrech/composer-changelogs/pull/74))
