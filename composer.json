@@ -20,10 +20,9 @@
         "composer-plugin-api": "^1.0 || ^2.0"
     },
     "require-dev": {
-        "composer/composer": "^1.0.0-alpha10@dev || ^2.0@dev",
-        "composer/semver": "^1.2 || ^2.0 || ^3.2",
+        "composer/composer": "^1.1 || ^2.0",
         "friendsofphp/php-cs-fixer": "^3.0",
-        "symfony/phpunit-bridge": "^5.2"
+        "symfony/phpunit-bridge": "^6.2"
     },
     "config": {
         "sort-packages": true,
@@ -47,6 +46,6 @@
     "scripts": {
         "cs": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff --dry-run --verbose",
         "fix-cs": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff --verbose",
-        "test": "vendor/bin/phpunit"
+        "test": "vendor/bin/simple-phpunit"
     }
 }

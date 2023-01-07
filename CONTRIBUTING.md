@@ -48,7 +48,7 @@ changes, improvements or alternatives may be given).
 Run the tests using the following script:
 
 ```shell
-vendor/bin/phpunit
+vendor/bin/simple-phpunit
 ```
 or the alias:
 ```shell
