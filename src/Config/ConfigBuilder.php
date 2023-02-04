@@ -11,51 +11,53 @@
 
 namespace Pyrech\ComposerChangelogs\Config;
 
+use Pyrech\ComposerChangelogs\Model\Config;
 use Pyrech\ComposerChangelogs\Util\FileSystemHelper;
 
 class ConfigBuilder
 {
-    private static $validCommitAutoValues = [
-        'never',
-        'ask',
-        'always',
+    private const COMMIT_AUTO_NEVER = 'never';
+    private const COMMIT_AUTO_ASK = 'ask';
+    private const COMMIT_AUTO_ALWAYS = 'always';
+
+    private const VALID_COMMIT_AUTO_VALUES = [
+        self::COMMIT_AUTO_NEVER,
+        self::COMMIT_AUTO_ASK,
+        self::COMMIT_AUTO_ALWAYS,
     ];
 
     /** @var string[] */
-    private $warnings = [];
+    private array $warnings = [];
 
     /**
-     * @param array  $extra
-     * @param string $baseDir
-     *
-     * @return Config
+     * @param array<string, mixed> $extra
      */
-    public function build(array $extra, $baseDir)
+    public function build(array $extra, ?string $baseDir): Config
     {
         $this->reset();
 
-        $commitAuto = 'never';
+        $commitAuto = self::COMMIT_AUTO_NEVER;
         $commitBinFile = null;
         $commitMessage = 'Update dependencies';
         $gitlabHosts = [];
         $postUpdatePriority = -1;
 
         if (array_key_exists('commit-auto', $extra)) {
-            if (in_array($extra['commit-auto'], self::$validCommitAutoValues, true)) {
+            if (in_array($extra['commit-auto'], self::VALID_COMMIT_AUTO_VALUES, true)) {
                 $commitAuto = $extra['commit-auto'];
             } else {
                 $this->warnings[] = self::createWarningFromInvalidValue(
                     $extra,
                     'commit-auto',
                     $commitAuto,
-                    sprintf('Valid options are "%s".', implode('", "', self::$validCommitAutoValues))
+                    sprintf('Valid options are "%s".', implode('", "', self::VALID_COMMIT_AUTO_VALUES))
                 );
             }
         }
 
         if (array_key_exists('commit-bin-file', $extra)) {
-            if ('never' === $commitAuto) {
-                $this->warnings[] = '"commit-bin-file" is specified but "commit-auto" option is set to "never". Ignoring.';
+            if (self::COMMIT_AUTO_NEVER === $commitAuto) {
+                $this->warnings[] = '"commit-bin-file" is specified but "commit-auto" option is set to "' . self::COMMIT_AUTO_NEVER . '". Ignoring.';
             } else {
                 $file = realpath(
                     FileSystemHelper::isAbsolute($extra['commit-bin-file'])
@@ -63,19 +65,17 @@ class ConfigBuilder
                     : $baseDir . '/' . $extra['commit-bin-file']
                 );
 
-                if (!file_exists($file)) {
+                if (!$file || !file_exists($file)) {
                     $this->warnings[] = 'The file pointed by the option "commit-bin-file" was not found. Ignoring.';
                 } else {
                     $commitBinFile = $file;
                 }
             }
-        } else {
-            if ('never' !== $commitAuto) {
-                $this->warnings[] = sprintf(
-                    '"commit-auto" is set to "%s" but "commit-bin-file" was not specified.',
-                    $commitAuto
-                );
-            }
+        } elseif (self::COMMIT_AUTO_NEVER !== $commitAuto) {
+            $this->warnings[] = sprintf(
+                '"commit-auto" is set to "%s" but "commit-bin-file" was not specified.',
+                $commitAuto
+            );
         }
 
         if (array_key_exists('commit-message', $extra)) {
@@ -108,26 +108,26 @@ class ConfigBuilder
     /**
      * @return string[]
      */
-    public function getWarnings()
+    public function getWarnings(): array
     {
         return $this->warnings;
     }
 
-    private function reset()
+    private function reset(): void
     {
         $this->warnings = [];
     }
 
     /**
-     * @param array  $extra
-     * @param string $key
-     * @param mixed  $default
-     * @param string $additionalMessage
-     *
-     * @return string
+     * @param array<string, mixed> $extra
+     * @param mixed                $default
      */
-    private static function createWarningFromInvalidValue(array $extra, $key, $default, $additionalMessage = '')
-    {
+    private static function createWarningFromInvalidValue(
+        array $extra,
+        string $key,
+        $default,
+        string $additionalMessage = ''
+    ): string {
         $warning = sprintf(
             'Invalid value "%s" for option "%s", defaulting to "%s".',
             $extra[$key],

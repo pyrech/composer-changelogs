@@ -1,5 +1,15 @@
 # Changes between versions
 
+## Not yet released
+
+* Drop support for PHP < 7.4 ([#79](https://github.com/pyrech/composer-changelogs/pull/79))
+* Modernize the whole codebase ([#79](https://github.com/pyrech/composer-changelogs/pull/79))
+* Add static analysis with PHPStan ([#79](https://github.com/pyrech/composer-changelogs/pull/79))
+* Replace PHPDoc types by native PHP typing ([#79](https://github.com/pyrech/composer-changelogs/pull/79))
+* Remove deprecated Pyrech\ComposerChangelogs\UrlGenerator\AbstractUrlGenerator ([#79](https://github.com/pyrech/composer-changelogs/pull/79))
+* Rename Pyrech\ComposerChangelogs\Version to Pyrech\ComposerChangelogs\Model\Version ([#79](https://github.com/pyrech/composer-changelogs/pull/79))
+* Rename Pyrech\ComposerChangelogs\Config\Config to Pyrech\ComposerChangelogs\Model\Config ([#79](https://github.com/pyrech/composer-changelogs/pull/79))
+
 ## 1.8.2 (2021-11-08)
 
 * Fix PHP 8 warning about passing null to strpos() ([#78](https://github.com/pyrech/composer-changelogs/pull/78))

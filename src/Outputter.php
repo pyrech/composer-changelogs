@@ -18,13 +18,13 @@ use Pyrech\ComposerChangelogs\UrlGenerator\UrlGenerator;
 class Outputter
 {
     /** @var OperationHandler[] */
-    private $operationHandlers;
+    private array $operationHandlers;
 
     /** @var UrlGenerator[] */
-    private $urlGenerators;
+    private array $urlGenerators;
 
     /** @var OperationInterface[] */
-    private $operations;
+    private array $operations;
 
     /**
      * @param OperationHandler[] $operationHandlers
@@ -37,26 +37,17 @@ class Outputter
         $this->operations = [];
     }
 
-    /**
-     * @param OperationInterface $operation
-     */
-    public function addOperation(OperationInterface $operation)
+    public function addOperation(OperationInterface $operation): void
     {
         $this->operations[] = $operation;
     }
 
-    /**
-     * @return bool
-     */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return empty($this->operations);
     }
 
-    /**
-     * @return string
-     */
-    public function getOutput()
+    public function getOutput(): string
     {
         $output = [];
 
@@ -76,12 +67,9 @@ class Outputter
     }
 
     /**
-     * @param array              $output
-     * @param OperationInterface $operation
-     *
-     * @return array|void
+     * @param string[] $output
      */
-    private function createOperationOutput(array &$output, OperationInterface $operation)
+    private function createOperationOutput(array &$output, OperationInterface $operation): void
     {
         $operationHandler = $this->getOperationHandler($operation);
 
@@ -101,12 +89,7 @@ class Outputter
         );
     }
 
-    /**
-     * @param OperationInterface $operation
-     *
-     * @return OperationHandler|null
-     */
-    private function getOperationHandler(OperationInterface $operation)
+    private function getOperationHandler(OperationInterface $operation): ?OperationHandler
     {
         foreach ($this->operationHandlers as $operationHandler) {
             if ($operationHandler->supports($operation)) {
@@ -117,12 +100,7 @@ class Outputter
         return null;
     }
 
-    /**
-     * @param string $sourceUrl
-     *
-     * @return UrlGenerator|null
-     */
-    private function getUrlGenerator($sourceUrl)
+    private function getUrlGenerator(?string $sourceUrl): ?UrlGenerator
     {
         foreach ($this->urlGenerators as $urlGenerator) {
             if ($urlGenerator->supports($sourceUrl)) {

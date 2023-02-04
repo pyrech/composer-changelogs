@@ -12,8 +12,8 @@
 namespace Pyrech\ComposerChangelogs\tests\UrlGenerator;
 
 use PHPUnit\Framework\TestCase;
+use Pyrech\ComposerChangelogs\Model\Version;
 use Pyrech\ComposerChangelogs\UrlGenerator\BitbucketUrlGenerator;
-use Pyrech\ComposerChangelogs\Version;
 
 class BitbucketUrlGeneratorTest extends TestCase
 {

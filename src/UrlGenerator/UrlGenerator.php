@@ -11,16 +11,11 @@
 
 namespace Pyrech\ComposerChangelogs\UrlGenerator;
 
-use Pyrech\ComposerChangelogs\Version;
+use Pyrech\ComposerChangelogs\Model\Version;
 
 interface UrlGenerator
 {
-    /**
-     * @param ?string $sourceUrl
-     *
-     * @return bool
-     */
-    public function supports($sourceUrl);
+    public function supports(?string $sourceUrl): bool;
 
     /**
      * Return the compare url for these versions or false if compare url is not
@@ -29,23 +24,15 @@ interface UrlGenerator
      * In case the from and to source urls are different, this probably means
      * that an across fork compare url should be generated instead.
      *
-     * @param ?string $sourceUrlFrom
-     * @param Version $versionFrom
-     * @param ?string $sourceUrlTo
-     * @param Version $versionTo
-     *
      * @return string|false
      */
-    public function generateCompareUrl($sourceUrlFrom, Version $versionFrom, $sourceUrlTo, Version $versionTo);
+    public function generateCompareUrl(?string $sourceUrlFrom, Version $versionFrom, ?string $sourceUrlTo, Version $versionTo);
 
     /**
      * Return the release url for the given version or false if compare url is
      * not supported.
      *
-     * @param ?string $sourceUrl
-     * @param Version $version
-     *
      * @return string|false
      */
-    public function generateReleaseUrl($sourceUrl, Version $version);
+    public function generateReleaseUrl(?string $sourceUrl, Version $version);
 }

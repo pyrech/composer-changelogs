@@ -11,22 +11,16 @@
 
 namespace Pyrech\ComposerChangelogs\UrlGenerator;
 
-use Pyrech\ComposerChangelogs\Version;
+use Pyrech\ComposerChangelogs\Model\Version;
 
-class BitbucketUrlGenerator extends AbstractUrlGenerator
+class BitbucketUrlGenerator extends GitBasedUrlGenerator
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function getDomain()
+    protected function getDomain(): string
     {
         return 'bitbucket.org';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function generateCompareUrl($sourceUrlFrom, Version $versionFrom, $sourceUrlTo, Version $versionTo)
+    public function generateCompareUrl(?string $sourceUrlFrom, Version $versionFrom, ?string $sourceUrlTo, Version $versionTo)
     {
         // Check if both urls come from the supported domain
         // It avoids problems when one url is from another domain or is local
@@ -45,11 +39,11 @@ class BitbucketUrlGenerator extends AbstractUrlGenerator
             return sprintf(
                 '%s/branches/compare/%s/%s:%s%%0D%s/%s:%s',
                 $sourceUrlTo,
-                $repositoryTo['user'],
-                $repositoryTo['repository'],
+                $repositoryTo->getUser(),
+                $repositoryTo->getName(),
                 $this->getCompareVersion($versionTo),
-                $repositoryFrom['user'],
-                $repositoryFrom['repository'],
+                $repositoryFrom->getUser(),
+                $repositoryFrom->getName(),
                 $this->getCompareVersion($versionFrom)
             );
         }
@@ -62,10 +56,7 @@ class BitbucketUrlGenerator extends AbstractUrlGenerator
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function generateReleaseUrl($sourceUrl, Version $version)
+    public function generateReleaseUrl(?string $sourceUrl, Version $version): bool
     {
         // Releases are not supported on Bitbucket :'(
         return false;

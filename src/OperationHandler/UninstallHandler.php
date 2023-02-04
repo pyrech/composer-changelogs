@@ -13,24 +13,17 @@ namespace Pyrech\ComposerChangelogs\OperationHandler;
 
 use Composer\DependencyResolver\Operation\OperationInterface;
 use Composer\DependencyResolver\Operation\UninstallOperation;
-use Composer\Package\Version\VersionParser;
+use Pyrech\ComposerChangelogs\Model\Version;
 use Pyrech\ComposerChangelogs\UrlGenerator\UrlGenerator;
-use Pyrech\ComposerChangelogs\Version;
 
 class UninstallHandler implements OperationHandler
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function supports(OperationInterface $operation)
+    public function supports(OperationInterface $operation): bool
     {
         return $operation instanceof UninstallOperation;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function extractSourceUrl(OperationInterface $operation)
+    public function extractSourceUrl(OperationInterface $operation): ?string
     {
         if (!($operation instanceof UninstallOperation)) {
             throw new \LogicException('Operation should be an instance of UninstallOperation');
@@ -39,10 +32,7 @@ class UninstallHandler implements OperationHandler
         return $operation->getPackage()->getSourceUrl();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null)
+    public function getOutput(OperationInterface $operation, ?UrlGenerator $urlGenerator = null): array
     {
         if (!($operation instanceof UninstallOperation)) {
             throw new \LogicException('Operation should be an instance of UninstallOperation');
@@ -54,9 +44,7 @@ class UninstallHandler implements OperationHandler
         $version = new Version(
             $package->getVersion(),
             $package->getPrettyVersion(),
-            method_exists($package, 'getFullPrettyVersion') // This method was added after composer v1.0.0-alpha10
-                ? $package->getFullPrettyVersion()
-                : VersionParser::formatVersion($package)
+            $package->getFullPrettyVersion()
         );
 
         $output[] = sprintf(

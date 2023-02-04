@@ -11,13 +11,12 @@
 
 namespace Pyrech\ComposerChangelogs\tests\resources;
 
+use Pyrech\ComposerChangelogs\Model\Version;
 use Pyrech\ComposerChangelogs\UrlGenerator\UrlGenerator;
-use Pyrech\ComposerChangelogs\Version;
 
 class FakeUrlGenerator implements UrlGenerator
 {
-    /** @var bool */
-    private $supports;
+    private bool $supports;
 
     /** @var string|false */
     private $compareUrl;
@@ -26,36 +25,26 @@ class FakeUrlGenerator implements UrlGenerator
     private $releaseUrl;
 
     /**
-     * @param bool         $supports
      * @param string|false $compareUrl
-     * @param string[false $releaseUrl
+     * @param string|false $releaseUrl
      */
-    public function __construct($supports, $compareUrl, $releaseUrl)
+    public function __construct(bool $supports, $compareUrl, $releaseUrl)
     {
         $this->supports = $supports;
         $this->compareUrl = $compareUrl;
         $this->releaseUrl = $releaseUrl;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function supports($sourceUrl)
+    public function supports($sourceUrl): bool
     {
         return $this->supports;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function generateCompareUrl($sourceUrlFrom, Version $versionFrom, $sourceUrlTo, Version $versionTo)
     {
         return $this->compareUrl;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function generateReleaseUrl($sourceUrl, Version $version)
     {
         return $this->releaseUrl;
