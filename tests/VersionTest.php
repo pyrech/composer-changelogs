@@ -12,7 +12,7 @@
 namespace Pyrech\ComposerChangelogs\tests;
 
 use PHPUnit\Framework\TestCase;
-use Pyrech\ComposerChangelogs\Version;
+use Pyrech\ComposerChangelogs\Model\Version;
 
 class VersionTest extends TestCase
 {

@@ -15,13 +15,9 @@ use Composer\DependencyResolver\Operation\OperationInterface;
 
 class FakeOperation implements OperationInterface
 {
-    /** @var string */
-    private $text;
+    private string $text;
 
-    /**
-     * @param string $text
-     */
-    public function __construct($text)
+    public function __construct(string $text)
     {
         $this->text = $text;
     }
@@ -31,28 +27,9 @@ class FakeOperation implements OperationInterface
         return '';
     }
 
-    /**
-     * @return string
-     */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getJobType()
-    {
-        return '';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getReason()
-    {
-        return '';
     }
 
     public function show($lock)
@@ -60,9 +37,6 @@ class FakeOperation implements OperationInterface
         return '';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __toString()
     {
         return '';

@@ -13,25 +13,18 @@ namespace Pyrech\ComposerChangelogs\OperationHandler;
 
 use Composer\DependencyResolver\Operation\OperationInterface;
 use Composer\DependencyResolver\Operation\UpdateOperation;
-use Composer\Package\Version\VersionParser;
 use Composer\Semver\Comparator;
+use Pyrech\ComposerChangelogs\Model\Version;
 use Pyrech\ComposerChangelogs\UrlGenerator\UrlGenerator;
-use Pyrech\ComposerChangelogs\Version;
 
 class UpdateHandler implements OperationHandler
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function supports(OperationInterface $operation)
+    public function supports(OperationInterface $operation): bool
     {
         return $operation instanceof UpdateOperation;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function extractSourceUrl(OperationInterface $operation)
+    public function extractSourceUrl(OperationInterface $operation): ?string
     {
         if (!($operation instanceof UpdateOperation)) {
             throw new \LogicException('Operation should be an instance of UpdateOperation');
@@ -40,10 +33,7 @@ class UpdateHandler implements OperationHandler
         return $operation->getTargetPackage()->getSourceUrl();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null)
+    public function getOutput(OperationInterface $operation, ?UrlGenerator $urlGenerator = null): array
     {
         if (!($operation instanceof UpdateOperation)) {
             throw new \LogicException('Operation should be an instance of UpdateOperation');
@@ -57,16 +47,12 @@ class UpdateHandler implements OperationHandler
         $versionFrom = new Version(
             $initialPackage->getVersion(),
             $initialPackage->getPrettyVersion(),
-            method_exists($initialPackage, 'getFullPrettyVersion') // This method was added after composer v1.0.0-alpha10
-                ? $initialPackage->getFullPrettyVersion()
-                : VersionParser::formatVersion($initialPackage)
+            $initialPackage->getFullPrettyVersion()
         );
         $versionTo = new Version(
             $targetPackage->getVersion(),
             $targetPackage->getPrettyVersion(),
-            method_exists($targetPackage, 'getFullPrettyVersion') // This method was added after composer v1.0.0-alpha10
-                ? $targetPackage->getFullPrettyVersion()
-                : VersionParser::formatVersion($targetPackage)
+            $targetPackage->getFullPrettyVersion()
         );
 
         $action = 'updated';
@@ -115,8 +101,7 @@ class UpdateHandler implements OperationHandler
         return $output;
     }
 
-    /** @return string */
-    private function getSemverOutput(string $versionFrom, string $versionTo)
+    private function getSemverOutput(string $versionFrom, string $versionTo): string
     {
         if (false === strpos($versionFrom, '.') && false === strpos($versionTo, '.')) {
             return '';

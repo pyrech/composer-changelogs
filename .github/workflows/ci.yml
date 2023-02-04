@@ -20,21 +20,34 @@ jobs:
               with:
                 args: --config=.php-cs-fixer.php --diff --dry-run
 
+    phpstan:
+        name: Run PHPStan analysis
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Install Composer dependencies
+              run: composer update --prefer-dist --no-interaction
+
+            - name: Run Tests
+              run: php vendor/bin/phpstan analyse
+
     ci:
         name: Test PHP ${{ matrix.php-version }} ${{ matrix.name }}
         runs-on: ubuntu-latest
         strategy:
             fail-fast: false
             matrix:
-                php-version: ['7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2']
+                php-version: ['7.4', '8.0', '8.1', '8.2']
                 minimum-stability: ['']
                 composer-flags: ['']
                 name: ['']
                 include:
-                    - php-version: 7.1
+                    - php-version: 7.4
                       composer-flags: '--prefer-lowest'
                       name: '(prefer lowest dependencies)'
-                    - php-version: 8.0
+                    - php-version: 8.1
                       minimum-stability: 'dev'
                       name: '(minimum dev stability)'
         steps:

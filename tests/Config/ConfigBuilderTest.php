@@ -36,7 +36,7 @@ class ConfigBuilderTest extends TestCase
 
         $config = $this->SUT->build($extra, __DIR__);
 
-        $this->assertInstanceOf('Pyrech\ComposerChangelogs\Config\Config', $config);
+        $this->assertInstanceOf('Pyrech\ComposerChangelogs\Model\Config', $config);
         $this->assertSame('never', $config->getCommitAuto());
         $this->assertNull($config->getCommitBinFile());
         $this->assertEmpty($config->getGitlabHosts());
@@ -53,7 +53,7 @@ class ConfigBuilderTest extends TestCase
 
         $config = $this->SUT->build($extra, __DIR__);
 
-        $this->assertInstanceOf('Pyrech\ComposerChangelogs\Config\Config', $config);
+        $this->assertInstanceOf('Pyrech\ComposerChangelogs\Model\Config', $config);
         $this->assertSame('never', $config->getCommitAuto());
         $this->assertNull($config->getCommitBinFile());
         $this->assertEmpty($config->getGitlabHosts());
@@ -72,7 +72,7 @@ class ConfigBuilderTest extends TestCase
 
         $config = $this->SUT->build($extra, __DIR__);
 
-        $this->assertInstanceOf('Pyrech\ComposerChangelogs\Config\Config', $config);
+        $this->assertInstanceOf('Pyrech\ComposerChangelogs\Model\Config', $config);
         $this->assertSame('never', $config->getCommitAuto());
         $this->assertNull($config->getCommitBinFile());
         $this->assertEmpty($config->getGitlabHosts());
@@ -91,7 +91,7 @@ class ConfigBuilderTest extends TestCase
 
         $config = $this->SUT->build($extra, __DIR__);
 
-        $this->assertInstanceOf('Pyrech\ComposerChangelogs\Config\Config', $config);
+        $this->assertInstanceOf('Pyrech\ComposerChangelogs\Model\Config', $config);
         $this->assertSame('always', $config->getCommitAuto());
         $this->assertNull($config->getCommitBinFile());
         $this->assertEmpty($config->getGitlabHosts());
@@ -109,7 +109,7 @@ class ConfigBuilderTest extends TestCase
 
         $config = $this->SUT->build($extra, __DIR__);
 
-        $this->assertInstanceOf('Pyrech\ComposerChangelogs\Config\Config', $config);
+        $this->assertInstanceOf('Pyrech\ComposerChangelogs\Model\Config', $config);
         $this->assertSame('ask', $config->getCommitAuto());
         $this->assertNull($config->getCommitBinFile());
         $this->assertEmpty($config->getGitlabHosts());
@@ -127,7 +127,7 @@ class ConfigBuilderTest extends TestCase
 
         $config = $this->SUT->build($extra, __DIR__);
 
-        $this->assertInstanceOf('Pyrech\ComposerChangelogs\Config\Config', $config);
+        $this->assertInstanceOf('Pyrech\ComposerChangelogs\Model\Config', $config);
         $this->assertSame('never', $config->getCommitAuto());
         $this->assertNull($config->getCommitBinFile());
         $this->assertEmpty($config->getGitlabHosts());
@@ -145,7 +145,7 @@ class ConfigBuilderTest extends TestCase
 
         $config = $this->SUT->build($extra, __DIR__);
 
-        $this->assertInstanceOf('Pyrech\ComposerChangelogs\Config\Config', $config);
+        $this->assertInstanceOf('Pyrech\ComposerChangelogs\Model\Config', $config);
         $this->assertSame('never', $config->getCommitAuto());
         $this->assertNull($config->getCommitBinFile());
         $this->assertEmpty($config->getGitlabHosts());
@@ -166,7 +166,7 @@ class ConfigBuilderTest extends TestCase
 
         $config = $this->SUT->build($extra, __DIR__);
 
-        $this->assertInstanceOf('Pyrech\ComposerChangelogs\Config\Config', $config);
+        $this->assertInstanceOf('Pyrech\ComposerChangelogs\Model\Config', $config);
         $this->assertSame('ask', $config->getCommitAuto());
         $this->assertSame($this->absoluteCommitBinFile, $config->getCommitBinFile());
         $this->assertCount(2, $config->getGitlabHosts());

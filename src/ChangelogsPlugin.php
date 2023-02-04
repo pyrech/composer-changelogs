@@ -18,38 +18,23 @@ use Composer\Installer\PackageEvents;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
 use Composer\Script\ScriptEvents;
-use Pyrech\ComposerChangelogs\Config\Config;
 use Pyrech\ComposerChangelogs\Config\ConfigBuilder;
 use Pyrech\ComposerChangelogs\Config\ConfigLocator;
+use Pyrech\ComposerChangelogs\Model\Config;
 
 class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
 {
     public const EXTRA_KEY = 'composer-changelogs';
 
-    /** @var Composer */
-    private $composer;
+    private ?IOInterface $io = null;
+    private ?Outputter $outputter = null;
+    private ?ConfigLocator $configLocator = null;
+    private ?Config $config = null;
 
-    /** @var IOInterface */
-    private $io;
+    private static int $postUpdatePriority = -1;
 
-    /** @var Outputter */
-    private $outputter;
-
-    /** @var ConfigLocator */
-    private $configLocator;
-
-    /** @var Config */
-    private $config;
-
-    /** @var int */
-    private static $postUpdatePriority = -1;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function activate(Composer $composer, IOInterface $io)
+    public function activate(Composer $composer, IOInterface $io): void
     {
-        $this->composer = $composer;
         $this->io = $io;
         $this->configLocator = new ConfigLocator($composer);
 
@@ -59,18 +44,15 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
         $this->outputter = Factory::createOutputter($this->config->getGitlabHosts());
     }
 
-    public function deactivate(Composer $composer, IOInterface $io)
+    public function deactivate(Composer $composer, IOInterface $io): void
     {
     }
 
-    public function uninstall(Composer $composer, IOInterface $io)
+    public function uninstall(Composer $composer, IOInterface $io): void
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             PackageEvents::POST_PACKAGE_UPDATE => [
@@ -83,22 +65,19 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
                 ['postPackageOperation'],
             ],
             ScriptEvents::POST_UPDATE_CMD => [
-                ['postUpdate', static::$postUpdatePriority],
+                ['postUpdate', self::$postUpdatePriority],
             ],
         ];
     }
 
-    /**
-     * @param PackageEvent $event
-     */
-    public function postPackageOperation(PackageEvent $event)
+    public function postPackageOperation(PackageEvent $event): void
     {
         $operation = $event->getOperation();
 
         $this->outputter->addOperation($operation);
     }
 
-    public function postUpdate()
+    public function postUpdate(): void
     {
         $this->io->write($this->outputter->getOutput());
 
@@ -116,7 +95,7 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
      * do not need this because they are already autoloaded at the activation
      * of the plugin.
      */
-    private function autoloadNeededClasses()
+    private function autoloadNeededClasses(): void
     {
         foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(__DIR__, \FilesystemIterator::SKIP_DOTS)) as $file) {
             if ('.php' === substr($file, 0, -4)) {
@@ -125,7 +104,7 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
         }
     }
 
-    private function setupConfig()
+    private function setupConfig(): void
     {
         $builder = new ConfigBuilder();
 
@@ -134,7 +113,7 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
             $this->configLocator->getPath(self::EXTRA_KEY)
         );
 
-        static::$postUpdatePriority = $this->config->getPostUpdatePriority();
+        self::$postUpdatePriority = $this->config->getPostUpdatePriority();
 
         if (count($builder->getWarnings()) > 0) {
             $this->io->writeError('<error>Invalid config for composer-changelogs plugin:</error>');
@@ -144,7 +123,7 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
         }
     }
 
-    private function handleCommit()
+    private function handleCommit(): void
     {
         if ($this->outputter->isEmpty()) {
             return;
@@ -163,7 +142,7 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
         }
     }
 
-    private function doCommit()
+    private function doCommit(): void
     {
         if (!$this->config->getCommitBinFile()) {
             $this->io->writeError('<error>No "commit-bin-file" for composer-changelogs plugin. Commit not done.</error>');
@@ -172,7 +151,19 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
         }
 
         $workingDirectory = getcwd();
+        if (!$workingDirectory) {
+            $this->io->writeError('<error>Could not find current working directory. Commit not done.</error>');
+
+            return;
+        }
+
         $filename = tempnam(sys_get_temp_dir(), 'composer-changelogs-');
+        if (!$filename) {
+            $this->io->writeError('<error>Could not generate temporary filename. Commit not done.</error>');
+
+            return;
+        }
+
         $message = $this->config->getCommitMessage() . PHP_EOL . PHP_EOL . strip_tags($this->outputter->getOutput());
 
         file_put_contents($filename, $message);

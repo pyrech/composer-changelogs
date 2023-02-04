@@ -11,7 +11,7 @@
 
 namespace Pyrech\ComposerChangelogs\UrlGenerator;
 
-use Pyrech\ComposerChangelogs\Version;
+use Pyrech\ComposerChangelogs\Model\Version;
 
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
@@ -20,18 +20,12 @@ class WordPressUrlGenerator implements UrlGenerator
 {
     public const DOMAIN = 'svn.wordpress.org';
 
-    /**
-     * {@inheritdoc}
-     */
-    public function supports($sourceUrl)
+    public function supports(?string $sourceUrl): bool
     {
         return $sourceUrl && false !== strpos($sourceUrl, self::DOMAIN);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function generateCompareUrl($sourceUrlFrom, Version $versionFrom, $sourceUrlTo, Version $versionTo)
+    public function generateCompareUrl(?string $sourceUrlFrom, Version $versionFrom, ?string $sourceUrlTo, Version $versionTo)
     {
         if (!$sourceUrlTo) {
             return false;
@@ -52,10 +46,7 @@ class WordPressUrlGenerator implements UrlGenerator
         return false;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function generateReleaseUrl($sourceUrl, Version $version)
+    public function generateReleaseUrl(?string $sourceUrl, Version $version): bool
     {
         return false;
     }

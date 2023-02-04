@@ -12,8 +12,8 @@
 namespace Pyrech\ComposerChangelogs\tests\UrlGenerator;
 
 use PHPUnit\Framework\TestCase;
+use Pyrech\ComposerChangelogs\Model\Version;
 use Pyrech\ComposerChangelogs\UrlGenerator\WordPressUrlGenerator;
-use Pyrech\ComposerChangelogs\Version;
 
 class WordPressUrlGeneratorTest extends TestCase
 {

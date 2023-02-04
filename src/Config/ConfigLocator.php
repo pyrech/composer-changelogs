@@ -15,38 +15,27 @@ use Composer\Composer;
 
 class ConfigLocator
 {
-    /** @var Composer */
-    private $composer;
+    private Composer $composer;
 
-    /** @var array */
-    public $cache = [];
+    /** @var array<string, mixed> */
+    private array $cache = [];
 
-    /**
-     * @param Composer $composer
-     */
     public function __construct(Composer $composer)
     {
         $this->composer = $composer;
     }
 
     /**
-     * @param string $key
-     *
-     * @return array
+     * @return array<string, mixed>
      */
-    public function getConfig($key)
+    public function getConfig(string $key): array
     {
         $this->locate($key);
 
         return $this->cache[$key]['config'];
     }
 
-    /**
-     * @param string $key
-     *
-     * @return string|null mixed
-     */
-    public function getPath($key)
+    public function getPath(string $key): ?string
     {
         $this->locate($key);
 
@@ -55,12 +44,8 @@ class ConfigLocator
 
     /**
      * Try to locate where is the config for the given key.
-     *
-     * @param string $key
-     *
-     * @return bool
      */
-    public function locate($key)
+    public function locate(string $key): bool
     {
         if (array_key_exists($key, $this->cache)) {
             return $this->cache[$key]['found'];
@@ -85,12 +70,8 @@ class ConfigLocator
 
     /**
      * Search config in the local root package.
-     *
-     * @param string $key
-     *
-     * @return bool
      */
-    private function locateLocal($key)
+    private function locateLocal(string $key): bool
     {
         $composerConfig = $this->composer->getConfig();
 
@@ -118,24 +99,26 @@ class ConfigLocator
 
     /**
      * Search config in the global root package.
-     *
-     * @param string $key
-     *
-     * @return bool
      */
-    private function locateGlobal($key)
+    private function locateGlobal(string $key): bool
     {
         $path = $this->composer->getConfig()->get('home');
 
         $globalComposerJsonFile = $path . '/composer.json';
 
         if (file_exists($globalComposerJsonFile)) {
-            $globalComposerJson = json_decode(file_get_contents($globalComposerJsonFile), true);
+            $globalComposerJson = file_get_contents($globalComposerJsonFile);
 
-            if (array_key_exists('extra', $globalComposerJson) && array_key_exists($key, $globalComposerJson['extra'])) {
+            if (!$globalComposerJson) {
+                throw new \RuntimeException('Could not read global composer.json file');
+            }
+
+            $globalComposerConfig = json_decode($globalComposerJson, true, 512, JSON_THROW_ON_ERROR);
+
+            if (array_key_exists('extra', $globalComposerConfig) && array_key_exists($key, $globalComposerConfig['extra'])) {
                 $this->cache[$key] = [
                     'found' => true,
-                    'config' => $globalComposerJson['extra'][$key],
+                    'config' => $globalComposerConfig['extra'][$key],
                     'path' => $path,
                 ];
 

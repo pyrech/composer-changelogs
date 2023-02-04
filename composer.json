@@ -16,12 +16,14 @@
         }
     ],
     "require": {
-        "php": ">=7.1.0",
+        "php": ">=7.4",
+        "ext-json": "*",
         "composer-plugin-api": "^1.0 || ^2.0"
     },
     "require-dev": {
         "composer/composer": "^1.1 || ^2.0",
         "friendsofphp/php-cs-fixer": "^3.0",
+        "phpstan/phpstan": "^1.9",
         "symfony/phpunit-bridge": "^6.2"
     },
     "config": {

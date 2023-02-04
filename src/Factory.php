@@ -11,17 +11,25 @@
 
 namespace Pyrech\ComposerChangelogs;
 
+use Pyrech\ComposerChangelogs\OperationHandler\InstallHandler;
+use Pyrech\ComposerChangelogs\OperationHandler\UninstallHandler;
+use Pyrech\ComposerChangelogs\OperationHandler\UpdateHandler;
+use Pyrech\ComposerChangelogs\UrlGenerator\BitbucketUrlGenerator;
+use Pyrech\ComposerChangelogs\UrlGenerator\GithubUrlGenerator;
+use Pyrech\ComposerChangelogs\UrlGenerator\GitlabUrlGenerator;
+use Pyrech\ComposerChangelogs\UrlGenerator\WordPressUrlGenerator;
+
 class Factory
 {
     /**
      * @return OperationHandler\OperationHandler[]
      */
-    public static function createOperationHandlers()
+    public static function createOperationHandlers(): array
     {
         return [
-            new OperationHandler\InstallHandler(),
-            new OperationHandler\UpdateHandler(),
-            new OperationHandler\UninstallHandler(),
+            new InstallHandler(),
+            new UpdateHandler(),
+            new UninstallHandler(),
         ];
     }
 
@@ -30,16 +38,16 @@ class Factory
      *
      * @return UrlGenerator\UrlGenerator[]
      */
-    public static function createUrlGenerators(array $gitlabHosts = [])
+    public static function createUrlGenerators(array $gitlabHosts = []): array
     {
         $hosts = [
-            new UrlGenerator\GithubUrlGenerator(),
-            new UrlGenerator\BitbucketUrlGenerator(),
-            new UrlGenerator\WordPressUrlGenerator(),
+            new GithubUrlGenerator(),
+            new BitbucketUrlGenerator(),
+            new WordPressUrlGenerator(),
         ];
 
         foreach ($gitlabHosts as $gitlabHost) {
-            $hosts[] = new UrlGenerator\GitlabUrlGenerator($gitlabHost);
+            $hosts[] = new GitlabUrlGenerator($gitlabHost);
         }
 
         return $hosts;
@@ -47,10 +55,8 @@ class Factory
 
     /**
      * @param string[] $gitlabHosts
-     *
-     * @return Outputter
      */
-    public static function createOutputter(array $gitlabHosts = [])
+    public static function createOutputter(array $gitlabHosts = []): Outputter
     {
         return new Outputter(
             self::createOperationHandlers(),
