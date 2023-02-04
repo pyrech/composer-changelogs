@@ -1,6 +1,6 @@
 # Changes between versions
 
-## Not yet released
+## 2.0.0 (2023-02-04)
 
 * Drop support for PHP < 7.4 ([#79](https://github.com/pyrech/composer-changelogs/pull/79))
 * Modernize the whole codebase ([#79](https://github.com/pyrech/composer-changelogs/pull/79))
