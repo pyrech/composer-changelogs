@@ -2,6 +2,23 @@
 
 ## 2.0.0 (2023-02-04)
 
+> **Note**:
+>
+>You might hit a TypeError when migrating to this major version:
+>
+>```
+>[TypeError]                                                                                                                                            
+>  Cannot assign Pyrech\ComposerChangelogs\Config\Config to property Pyrech\ComposerChangelogs\ChangelogsPlugin_composer_tmp0::$config of type >?Pyrech\ComposerChangelogs\Model\Config    
+>```
+>
+>The temporary fix is to clean Composer's cache before running the update:
+>
+>```bash
+>composer clear-cache && composer update
+>```
+> More info [here](https://github.com/pyrech/composer-changelogs/issues/81)
+
+Changelog:
 * Drop support for PHP < 7.4 ([#79](https://github.com/pyrech/composer-changelogs/pull/79))
 * Modernize the whole codebase ([#79](https://github.com/pyrech/composer-changelogs/pull/79))
 * Add static analysis with PHPStan ([#79](https://github.com/pyrech/composer-changelogs/pull/79))
