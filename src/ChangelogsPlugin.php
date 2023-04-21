@@ -133,7 +133,7 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
             case 'never':
                 return;
             case 'ask':
-                if ($this->io->askConfirmation('<info>Would you like to commit the update? </info>[<comment>no</comment>]: ', false)) {
+                if ($this->io->askConfirmation('<info>Would you like to commit the update? </info>[<comment>yes</comment>]: ', true)) {
                     $this->doCommit();
                 }
                 break;
