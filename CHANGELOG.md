@@ -1,5 +1,9 @@
 # Changes between versions
 
+## 2.1.0 (2023-04-21)
+
+* Default auto commit confirm to "true" ([#82](https://github.com/pyrech/composer-changelogs/pull/82))
+
 ## 2.0.0 (2023-02-04)
 
 > **Note**:
