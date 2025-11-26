@@ -1,5 +1,15 @@
 # Changes between versions
 
+## 2.2.0 (2025-11-27)
+
+* **BREAKING**: Drop support for PHP < 8.1 - minimum required version is now PHP 8.1
+* Add PHP 8.1, 8.3, 8.4, and 8.5 compatibility fixes
+* Remove deprecated `ReflectionProperty::setAccessible()` calls for PHP 8.5 compatibility
+* Add minimum Symfony Console version constraint (^5.4.11) to ensure PHP 8.1 compatibility with `--prefer-lowest`
+* Update GitHub Actions workflow versions
+* Update CI matrix to test against PHP 8.1, 8.2, 8.3, 8.4, and 8.5
+* Improve test robustness for globally installed Composer plugins
+
 ## 2.1.0 (2023-04-21)
 
 * Default auto commit confirm to "true" ([#82](https://github.com/pyrech/composer-changelogs/pull/82))
