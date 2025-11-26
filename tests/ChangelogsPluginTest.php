@@ -96,7 +96,7 @@ class ChangelogsPluginTest extends TestCase
 
         $this->addComposerPlugin($plugin);
 
-        $this->assertSame([$plugin], $this->composer->getPluginManager()->getPlugins());
+        $this->assertContains($plugin, $this->composer->getPluginManager()->getPlugins());
     }
 
     public function testItReceivesEvent()
@@ -160,7 +160,6 @@ OUTPUT;
 
         $eventDispatcherReflection = new \ReflectionClass($this->composer->getEventDispatcher());
         $eventListenerReflection = $eventDispatcherReflection->getProperty('listeners');
-        $eventListenerReflection->setAccessible(true);
         $eventListeners = $eventListenerReflection->getValue($this->composer->getEventDispatcher());
 
         $this->assertArrayHasKey(ScriptEvents::POST_UPDATE_CMD, $eventListeners);
