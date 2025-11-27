@@ -1,14 +1,10 @@
 # Changes between versions
 
-## 2.2.0 (2025-11-27)
+## Not released yet
 
-* **BREAKING**: Drop support for PHP < 8.1 - minimum required version is now PHP 8.1
-* Add PHP 8.1, 8.3, 8.4, and 8.5 compatibility fixes
-* Remove deprecated `ReflectionProperty::setAccessible()` calls for PHP 8.5 compatibility
-* Add minimum Symfony Console version constraint (^5.4.11) to ensure PHP 8.1 compatibility with `--prefer-lowest`
-* Update GitHub Actions workflow versions
-* Update CI matrix to test against PHP 8.1, 8.2, 8.3, 8.4, and 8.5
-* Improve test robustness for globally installed Composer plugins
+* Drop support for PHP < 8.1
+* Add support for PHP up to 8.5
+* Fix `ReflectionProperty::setAccessible()` deprecation from PHP 8.5
 
 ## 2.1.0 (2023-04-21)
 
