@@ -1,6 +1,6 @@
 # Changes between versions
 
-## Not released yet
+## 2.2.0 (2025-11-27)
 
 * Drop support for PHP < 8.1
 * Add support for PHP up to 8.5
