@@ -78,7 +78,6 @@ class ConfigLocator
         // Sorry for this, I couldn't find any way to get the path of the current root package
         $reflection = new \ReflectionClass($composerConfig);
         $property = $reflection->getProperty('baseDir');
-        $property->setAccessible(true);
 
         $path = $property->getValue($composerConfig);
 

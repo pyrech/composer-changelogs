@@ -41,7 +41,7 @@ class FakeHandler implements OperationHandler
         return $this->sourceUrl;
     }
 
-    public function getOutput(OperationInterface $operation, UrlGenerator $urlGenerator = null): array
+    public function getOutput(OperationInterface $operation, ?UrlGenerator $urlGenerator = null): array
     {
         if (!($operation instanceof FakeOperation)) {
             return [];

@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.1",
         "ext-json": "*",
         "composer-plugin-api": "^1.0 || ^2.0"
     },
@@ -24,6 +24,7 @@
         "composer/composer": "^1.1 || ^2.0",
         "friendsofphp/php-cs-fixer": "^3.0",
         "phpstan/phpstan": "^1.9",
+        "symfony/console": "^5.4.11 || ^6.0 || ^7.0",
         "symfony/phpunit-bridge": "^6.2"
     },
     "config": {

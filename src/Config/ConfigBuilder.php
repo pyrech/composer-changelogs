@@ -126,7 +126,7 @@ class ConfigBuilder
         array $extra,
         string $key,
         $default,
-        string $additionalMessage = ''
+        string $additionalMessage = '',
     ): string {
         $warning = sprintf(
             'Invalid value "%s" for option "%s", defaulting to "%s".',

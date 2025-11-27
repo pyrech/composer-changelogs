@@ -13,7 +13,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v6
 
             - name: PHP-CS-Fixer
               uses: docker://oskarstark/php-cs-fixer-ga
@@ -25,7 +25,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v6
 
             - name: Install Composer dependencies
               run: composer update --prefer-dist --no-interaction
@@ -39,20 +39,20 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php-version: ['7.4', '8.0', '8.1', '8.2']
+                php-version: ['8.1', '8.2', '8.3', '8.4', '8.5']
                 minimum-stability: ['']
                 composer-flags: ['']
                 name: ['']
                 include:
-                    - php-version: 7.4
+                    - php-version: 8.1
                       composer-flags: '--prefer-lowest'
                       name: '(prefer lowest dependencies)'
-                    - php-version: 8.1
+                    - php-version: 8.5
                       minimum-stability: 'dev'
                       name: '(minimum dev stability)'
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v6
 
             - name: Setup PHP, with composer and extensions
               uses: shivammathur/setup-php@v2
@@ -66,7 +66,7 @@ jobs:
               run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
             - name: Cache composer dependencies
-              uses: actions/cache@v2
+              uses: actions/cache@v4
               with:
                   path: ${{ steps.composer-cache.outputs.dir }}
                   key: ${{ runner.os }}-composer-${{ github.sha }}

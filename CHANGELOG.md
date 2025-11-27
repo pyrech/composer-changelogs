@@ -1,5 +1,11 @@
 # Changes between versions
 
+## Not released yet
+
+* Drop support for PHP < 8.1
+* Add support for PHP up to 8.5
+* Fix `ReflectionProperty::setAccessible()` deprecation from PHP 8.5
+
 ## 2.1.0 (2023-04-21)
 
 * Default auto commit confirm to "true" ([#82](https://github.com/pyrech/composer-changelogs/pull/82))
