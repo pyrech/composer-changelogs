@@ -45,14 +45,10 @@ changes, improvements or alternatives may be given).
 
 ## Green tests
 
-Run the tests using the following script:
+Run the tests using [Castor](https://castor.jolicode.com/):
 
 ```shell
-vendor/bin/simple-phpunit
-```
-or the alias:
-```shell
-composer test
+castor test
 ```
 
 ## Standard code
@@ -61,11 +57,7 @@ Use [PHP CS fixer](https://cs.symfony.com/) to make your code compliant with
 composer-changelogs's coding standards:
 
 ```shell
-vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff
-```
-or the alias:
-```shell
-composer fix-cs
+castor cs --fix
 ```
 
 ## Keeping your fork up-to-date

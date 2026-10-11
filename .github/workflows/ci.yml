@@ -7,76 +7,60 @@ on:
     schedule:
         -   cron: '0 0 * * MON'
 
+permissions:
+    contents: read
+
 jobs:
-    check-cs:
-        name: Check Coding Standards
+    lint:
+        name: Coding standards and static analysis
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout
-              uses: actions/checkout@v6
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-            - name: PHP-CS-Fixer
-              uses: docker://oskarstark/php-cs-fixer-ga
+            - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
               with:
-                args: --config=.php-cs-fixer.php --diff --dry-run
+                  php-version: '8.5'
+                  coverage: none
 
-    phpstan:
-        name: Run PHPStan analysis
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v6
+            - uses: castor-php/setup-castor@2a495b8c91f00be6768ad8a040ba8634c797d386 # v1.1.0
 
-            - name: Install Composer dependencies
-              run: composer update --prefer-dist --no-interaction
+            - uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # v4.0.0
 
-            - name: Run Tests
-              run: php vendor/bin/phpstan analyse
+            - run: castor cs
 
-    ci:
-        name: Test PHP ${{ matrix.php-version }} ${{ matrix.name }}
+            - run: castor phpstan
+
+    tests:
+        name: Tests PHP ${{ matrix.php-version }} (${{ matrix.dependency-versions }} deps, ${{ matrix.minimum-stability }} stability)
         runs-on: ubuntu-latest
         strategy:
             fail-fast: false
             matrix:
                 php-version: ['8.1', '8.2', '8.3', '8.4', '8.5']
-                minimum-stability: ['']
-                composer-flags: ['']
-                name: ['']
+                dependency-versions: ['highest']
+                minimum-stability: ['stable']
                 include:
-                    - php-version: 8.1
-                      composer-flags: '--prefer-lowest'
-                      name: '(prefer lowest dependencies)'
-                    - php-version: 8.5
+                    - php-version: '8.1'
+                      dependency-versions: 'lowest'
+                      minimum-stability: 'stable'
+                    - php-version: '8.5'
+                      dependency-versions: 'highest'
                       minimum-stability: 'dev'
-                      name: '(minimum dev stability)'
         steps:
-            - name: Checkout
-              uses: actions/checkout@v6
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-            - name: Setup PHP, with composer and extensions
-              uses: shivammathur/setup-php@v2
+            - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
               with:
                   php-version: ${{ matrix.php-version }}
-                  extensions: mbstring, xml
-                  ini-values: phar.readonly="Off"
+                  coverage: none
 
-            - name: Get composer cache directory
-              id: composer-cache
-              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+            - uses: castor-php/setup-castor@2a495b8c91f00be6768ad8a040ba8634c797d386 # v1.1.0
 
-            - name: Cache composer dependencies
-              uses: actions/cache@v4
+            - if: matrix.minimum-stability == 'dev'
+              run: composer config minimum-stability dev
+
+            - uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # v4.0.0
               with:
-                  path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ github.sha }}
-                  restore-keys: ${{ runner.os }}-composer-
+                  dependency-versions: ${{ matrix.dependency-versions }}
 
-            - name: Allow dev dependencies
-              run: if [ "${{ matrix.minimum-stability }}" = "dev" ]; then perl -pi -e 's/^}$/,"minimum-stability":"dev"}/' composer.json; fi;
-
-            - name: Install Composer dependencies
-              run: composer update --prefer-dist --no-interaction ${{ matrix.composer-flags }}
-
-            - name: Run Tests
-              run: php vendor/bin/simple-phpunit
+            - run: castor test

@@ -4,6 +4,7 @@
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          colors="true"
          bootstrap="vendor/autoload.php"
+         cacheDirectory=".phpunit.cache"
         >
     <php>
         <ini name="error_reporting" value="-1" />
@@ -15,13 +16,9 @@
         </testsuite>
     </testsuites>
 
-    <filter>
-        <whitelist>
-            <directory>./</directory>
-            <exclude>
-                <directory>./vendor</directory>
-                <directory>./tests</directory>
-            </exclude>
-        </whitelist>
-    </filter>
+    <source>
+        <include>
+            <directory>./src</directory>
+        </include>
+    </source>
 </phpunit>

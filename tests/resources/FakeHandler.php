@@ -43,7 +43,7 @@ class FakeHandler implements OperationHandler
 
     public function getOutput(OperationInterface $operation, ?UrlGenerator $urlGenerator = null): array
     {
-        if (!($operation instanceof FakeOperation)) {
+        if (!$operation instanceof FakeOperation) {
             return [];
         }
 

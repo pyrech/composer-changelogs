@@ -27,8 +27,10 @@ use Composer\Plugin\PluginInterface;
 use Composer\Repository\CompositeRepository;
 use Composer\Repository\RepositoryInterface;
 use Composer\Script\ScriptEvents;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\ChangelogsPlugin;
+use Pyrech\ComposerChangelogs\UrlGenerator\GitlabUrlGenerator;
 
 class ChangelogsPluginTest extends TestCase
 {
@@ -120,6 +122,16 @@ Changelogs summary:
 OUTPUT;
 
         $this->assertSame($expectedOutput, $this->io->getOutput());
+    }
+
+    #[RunInSeparateProcess]
+    public function testAllClassesAreLoadedOnActivation()
+    {
+        $plugin = new ChangelogsPlugin();
+        $plugin->activate($this->composer, $this->io);
+
+        // GitlabUrlGenerator is never instantiated without a configured gitlab host
+        $this->assertTrue(class_exists(GitlabUrlGenerator::class, false));
     }
 
     public function testEventsAreHandled()
@@ -266,7 +278,7 @@ OUTPUT;
                 $this->composer,
                 $this->io,
                 false,
-                $this->createMock(RepositoryInterface::class),
+                $this->createStub(RepositoryInterface::class),
                 [$operation],
                 $operation
             );
@@ -292,7 +304,7 @@ OUTPUT;
             $this->composer->getEventDispatcher()->dispatchPackageEvent(
                 PackageEvents::POST_PACKAGE_UPDATE,
                 false,
-                $this->createMock(RepositoryInterface::class),
+                $this->createStub(RepositoryInterface::class),
                 [$operation],
                 $operation
             );
