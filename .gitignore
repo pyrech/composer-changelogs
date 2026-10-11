@@ -11,3 +11,6 @@ composer.phar
 
 # PHPUnit
 .phpunit.result.cache
+
+# Castor
+.castor.stub.php
