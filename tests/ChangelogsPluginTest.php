@@ -197,7 +197,7 @@ OUTPUT;
 
         $plugin->postUpdate();
 
-        $this->assertStringMatchesFormat('%aExecuting following command: %s/tests/fixtures/bin/fake.sh \'%s\' \'%s/composer-changelogs-%s\'', $this->io->getOutput());
+        $this->assertStringMatchesFormat('%aExecuting following command: \'%s/tests/fixtures/bin/fake.sh\' \'%s\' \'%s/composer-changelogs-%s\'', $this->io->getOutput());
     }
 
     public function testItCommitsWithDefaultCommitMessage()
