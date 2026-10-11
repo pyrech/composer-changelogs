@@ -90,7 +90,7 @@ class ConfigBuilder
             if (!is_array($extra['gitlab-hosts'])) {
                 $this->warnings[] = '"gitlab-hosts" is specified but should be an array. Ignoring.';
             } else {
-                $gitlabHosts = (array) $extra['gitlab-hosts'];
+                $gitlabHosts = $extra['gitlab-hosts'];
             }
         }
 
