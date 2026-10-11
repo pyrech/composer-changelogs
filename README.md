@@ -27,8 +27,8 @@ composer require --dev "pyrech/composer-changelogs"
 
 ## Usage
 
-That's it! Composer will enable automatically the plugin as soon it's
-installed. Just run your Composer updates as usual :)
+That's it! Composer will ask you to allow the plugin during the installation
+and will then enable it automatically. Just run your Composer updates as usual :)
 
 If you no longer want to display summary, you can either:
 - run your Composer command with the option `--no-plugins`
