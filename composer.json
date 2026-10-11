@@ -24,8 +24,8 @@
         "composer/composer": "^1.1 || ^2.0",
         "friendsofphp/php-cs-fixer": "^3.0",
         "phpstan/phpstan": "^1.9",
-        "symfony/console": "^5.4.11 || ^6.0 || ^7.0",
-        "symfony/phpunit-bridge": "^6.2"
+        "phpunit/phpunit": "^10.5 || ^11.5 || ^12.0",
+        "symfony/console": "^5.4.11 || ^6.0 || ^7.0"
     },
     "config": {
         "sort-packages": true,

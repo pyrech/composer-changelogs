@@ -10,7 +10,7 @@ composer.phar
 .php-cs-fixer.cache
 
 # PHPUnit
-.phpunit.result.cache
+.phpunit.cache/
 
 # Castor
 .castor.stub.php

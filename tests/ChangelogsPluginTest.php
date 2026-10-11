@@ -27,6 +27,7 @@ use Composer\Plugin\PluginInterface;
 use Composer\Repository\CompositeRepository;
 use Composer\Repository\RepositoryInterface;
 use Composer\Script\ScriptEvents;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\ChangelogsPlugin;
 use Pyrech\ComposerChangelogs\UrlGenerator\GitlabUrlGenerator;
@@ -123,9 +124,7 @@ OUTPUT;
         $this->assertSame($expectedOutput, $this->io->getOutput());
     }
 
-    /**
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testAllClassesAreLoadedOnActivation()
     {
         $plugin = new ChangelogsPlugin();
@@ -279,7 +278,7 @@ OUTPUT;
                 $this->composer,
                 $this->io,
                 false,
-                $this->createMock(RepositoryInterface::class),
+                $this->createStub(RepositoryInterface::class),
                 [$operation],
                 $operation
             );
@@ -305,7 +304,7 @@ OUTPUT;
             $this->composer->getEventDispatcher()->dispatchPackageEvent(
                 PackageEvents::POST_PACKAGE_UPDATE,
                 false,
-                $this->createMock(RepositoryInterface::class),
+                $this->createStub(RepositoryInterface::class),
                 [$operation],
                 $operation
             );
