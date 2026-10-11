@@ -20,8 +20,8 @@ Configuration can be setup by adding parameters in the `extra` section of your
 
 This `composer-changelogs` extra config can be put either in your local
 `composer.json` (the one of the project you are working on) or the global
-one in your `.composer` home directory (like
-`/home/{user}/.composer/composer.json` on Linux).
+one in your Composer home directory (like
+`~/.config/composer/composer.json` on Linux, see `composer config --global home`).
 
 ## Configuration available
 

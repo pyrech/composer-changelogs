@@ -168,9 +168,13 @@ class ChangelogsPlugin implements PluginInterface, EventSubscriberInterface
 
         file_put_contents($filename, $message);
 
-        $command = $this->config->getCommitBinFile() . ' ' . escapeshellarg($workingDirectory) . ' ' . escapeshellarg($filename);
+        $command = escapeshellarg($this->config->getCommitBinFile()) . ' ' . escapeshellarg($workingDirectory) . ' ' . escapeshellarg($filename);
 
         $this->io->write(sprintf('Executing following command: %s', $command));
-        exec($command);
+        exec($command, $output, $exitCode);
+
+        if (0 !== $exitCode) {
+            $this->io->writeError(sprintf('<error>Commit command failed with exit code %d.</error>', $exitCode));
+        }
     }
 }

@@ -20,8 +20,8 @@ Here's some tips to make you the best contributor ever:
 Here are a few rules to follow in order to ease code reviews, and discussions
 before maintainers accept and merge your work.
 
-* You MUST follow the [PSR-1](http://www.php-fig.org/psr/1/) and
-[PSR-2](http://www.php-fig.org/psr/2/) (see [Rules](#rules)).
+* You MUST follow the [PSR-12](https://www.php-fig.org/psr/psr-12/) and
+Symfony coding standards (see [Standard code](#standard-code)).
 * You MUST run the test suite (see [Green tests](#green-tests)).
 * You MUST write (or update) unit tests.
 * You SHOULD write documentation.
