@@ -29,6 +29,7 @@ use Composer\Repository\RepositoryInterface;
 use Composer\Script\ScriptEvents;
 use PHPUnit\Framework\TestCase;
 use Pyrech\ComposerChangelogs\ChangelogsPlugin;
+use Pyrech\ComposerChangelogs\UrlGenerator\GitlabUrlGenerator;
 
 class ChangelogsPluginTest extends TestCase
 {
@@ -120,6 +121,18 @@ Changelogs summary:
 OUTPUT;
 
         $this->assertSame($expectedOutput, $this->io->getOutput());
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function testAllClassesAreLoadedOnActivation()
+    {
+        $plugin = new ChangelogsPlugin();
+        $plugin->activate($this->composer, $this->io);
+
+        // GitlabUrlGenerator is never instantiated without a configured gitlab host
+        $this->assertTrue(class_exists(GitlabUrlGenerator::class, false));
     }
 
     public function testEventsAreHandled()
